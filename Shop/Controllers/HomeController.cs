@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Infrastructura;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,18 @@ namespace Shop.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Auth()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Auth(string userName, string password)
+        {
+            WebUser.Login(userName, password);
+            return RedirectToAction("about");
+        }
+        [FilterUser(Roles = "Admin")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
