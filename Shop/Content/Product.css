@@ -1,0 +1,50 @@
+﻿select#selectedCategory, input#Price, input#DateAdd, input#Image {
+    max-width: 400px;
+    display:inline;
+}
+
+div#productTabs p {
+    margin-top: 10px;
+}
+
+div.sortButton {
+    float: right;    
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p.sortButton {
+    float: right; 
+    margin-top: 26px;
+    padding-right: 5px;
+    display: inline;
+}
+
+a#Tags {
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+table tr#productRow td a.btn {
+    padding: 0;
+}
+
+div.row div.item {
+    padding:10px;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+div.row div.item:hover {
+    border-radius:5px;
+    box-shadow: 0 1px 12px 0 rgba(0,0,0,0.25);
+}
+
+div#pagination {
+    clear:both;
+    text-align:center;
+}
+
+div#pagination ul.pagination {
+    margin:0;
+}

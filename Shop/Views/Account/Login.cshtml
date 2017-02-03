@@ -1,30 +1,23 @@
 ﻿
 @{
-    ViewBag.Title = "Auth";
+    ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<hr />
+<h2>Авторизация</h2>
 <hr />
 <div>
     <form class="form-horizontal" role="form" method="post">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Логин</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputEmail3" name="userName" placeholder="Email">
+                <input type="text" class="form-control" id="inputEmail3" name="userName" placeholder="Login" style="max-width:300px;">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Password">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Запомнить меня
-                    </label>
-                </div>
+                <input type="password" class="form-control" id="inputPassword3" name="password" placeholder="Password" style="max-width:300px;">
             </div>
         </div>
         <div class="form-group">

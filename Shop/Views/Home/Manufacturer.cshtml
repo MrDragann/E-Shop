@@ -1,0 +1,41 @@
+﻿@using Shop.Models;
+@model IEnumerable<Product>
+
+@{
+    ViewBag.Title = "FindProductByTag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Товары из категории: </h2>
+<hr />
+@if (Model.Count() < 1)
+{
+    <h4>По вашему запросу ничего не найдено.</h4>
+}
+else
+{
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-6 col-sm-3">
+                <div class="item">
+                    <p>
+                        <img src="@ProductData.pathToImage@item.Image" alt="хех" class="img-thumbnail" style="width: 200px; height: 200px;">
+                    </p>
+                    <h5>
+                        @item.Name
+                    </h5>
+                    <p>
+                        @item.Price руб.
+                    </p>
+                    <p>
+                        <a class="btn btn-default" href="@Url.Action("Details","Home",new { id = item.Id })">Подробнее »</a>
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+

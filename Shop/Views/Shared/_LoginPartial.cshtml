@@ -1,19 +1,17 @@
 ﻿@if (Session["user"]!=null)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
+    
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a>Авторизован</a>
             </li>
             <li><a href="@Url.Action("LogOut", "Account")">Выйти</a></li>
         </ul>
-    }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Регистрация", "Register", "Account", htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Выполнить вход", "Auth", "Home", htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>
+        <li>@Html.ActionLink("Выполнить вход", "Login", "Account")</li>
     </ul>
 }

@@ -171,14 +171,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Paging.cs" />
     <Compile Include="Infrastructura\CustomWebViewPage.cs" />
     <Compile Include="Infrastructura\FilterUser.cs" />
     <Compile Include="Infrastructura\WebUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\a4Keyb.jpg" />
+    <Content Include="Content\Images\flashK.jpg" />
+    <Content Include="Content\Images\intel_I7.jpg" />
+    <Content Include="Content\Images\logG105Keyb.jpg" />
+    <Content Include="Content\Images\motherB.jpg" />
+    <Content Include="Content\Images\unknownProduct.jpg" />
+    <Content Include="Content\Product.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -188,6 +198,10 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -211,16 +225,21 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Auth.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\AddProduct.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\Management.cshtml" />
+    <Content Include="Views\Home\Manufacturer.cshtml" />
+    <Content Include="Views\Home\Tag.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +251,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataModel\DataModel.csproj">
+      <Project>{AA9A0A8E-23D0-45D3-9223-51675D14C2BE}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IServices\IServices.csproj">
       <Project>{623b36fc-8ebc-4044-bc14-6dfe3714ed0e}</Project>
       <Name>IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductModel\ProductModel.csproj">
+      <Project>{ed001eaa-0e02-41a2-a5d1-7e457b813199}</Project>
+      <Name>ProductModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{7f81d02f-2790-4b84-a2aa-446b84234908}</Project>
