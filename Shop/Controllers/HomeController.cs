@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Shop.Controllers
 {
+    [FilterUser(Roles ="Admin,User",Users ="test1, test2")]
     public class HomeController : Controller
     {
         ProductContext db = new ProductContext();

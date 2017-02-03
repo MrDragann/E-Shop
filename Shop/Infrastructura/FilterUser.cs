@@ -10,14 +10,18 @@ namespace Shop.Infrastructura
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-
+            
             base.OnAuthorization(filterContext);
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            var r = Roles;
+            var u = Users;
             return WebUser.CurrentUser.IsAuth;
-            return base.AuthorizeCore(httpContext);
+        
         }
+
+        
     }
 }
