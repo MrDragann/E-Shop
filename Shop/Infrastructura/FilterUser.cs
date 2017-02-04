@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,9 +17,17 @@ namespace Shop.Infrastructura
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            //var r = Roles;
+            var role = Roles;
             var user = Users;
-            if (user == WebUser.CurrentUser.UserName)
+            var userName = WebUser.CurrentUser.UserName;
+            bool u;
+            using (var db = new DataContext())
+            {
+                var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
+                u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
+            }
+                
+            if (user == userName || u)
             {
                 return WebUser.CurrentUser.IsAuth;
             }
