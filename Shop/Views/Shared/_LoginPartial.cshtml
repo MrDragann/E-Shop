@@ -1,9 +1,9 @@
-﻿@if (Session["user"]!=null)
+﻿@if (User.IsAuth)
 {
     
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a>Авторизован</a>
+                <a>@User.UserName </a>
             </li>
             <li><a href="@Url.Action("LogOut", "Account")">Выйти</a></li>
         </ul>

@@ -16,9 +16,13 @@ namespace Shop.Infrastructura
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            var r = Roles;
-            var u = Users;
-            return WebUser.CurrentUser.IsAuth;
+            //var r = Roles;
+            var user = Users;
+            if (user == WebUser.CurrentUser.UserName)
+            {
+                return WebUser.CurrentUser.IsAuth;
+            }
+            return false;
         
         }
 
