@@ -36,6 +36,7 @@ namespace Shop.Controllers
         /// <summary>
         /// Страница добавления товара
         /// </summary>
+        [FilterUser(Roles = "Admin", Users = "Frank")]
         [HttpGet]
         public ActionResult AddProduct()
         {
@@ -95,6 +96,7 @@ namespace Shop.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [FilterUser(Roles = "Admin", Users = "Frank")]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -115,6 +117,7 @@ namespace Shop.Controllers
         /// <param name="model"></param>
         /// <param name="Image"></param>
         /// <returns></returns>
+        [FilterUser(Roles = "Admin", Users = "Frank")]
         [HttpPost]
         public ActionResult Edit(Product model, HttpPostedFileBase Image)
         {
@@ -138,6 +141,7 @@ namespace Shop.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [FilterUser(Roles = "Admin", Users = "Frank")]
         public ActionResult DeleteProduct(int id)
         {
             Product model = db.Products.Find(id);

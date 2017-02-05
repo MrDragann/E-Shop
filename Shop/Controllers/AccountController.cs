@@ -22,7 +22,7 @@ namespace Shop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string userName, string password)
+        public ActionResult Login(string userName, string password, string RememberMe)
         {
             string HashPass = Security.Instance.GetHashString(password);
             WebUser.Login(userName, HashPass);
@@ -31,12 +31,12 @@ namespace Shop.Controllers
             if (user.IsAuth == true)
             {
                 //Session["user"] = user;
-
-                if (Request.Cookies["User"] == null)
+                 
+                if (RememberMe=="on") //Request.Cookies["User"] == null)
                 {
                     HttpCookie cookie = new HttpCookie("User");
                     cookie["UserName"] = user.UserName;
-                    cookie["Password"] = HashPass;
+                    cookie["IsAuth"] = WebUser.CurrentUser.IsAuth.ToString();
                     cookie.Expires = DateTime.Now.AddDays(1);
                     Response.Cookies.Add(cookie);
                 }
@@ -62,7 +62,7 @@ namespace Shop.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(string userName, string password1, string password2)
+        public ActionResult Register(string userName, string password1)
         {
             string HashPass = Security.Instance.GetHashString(password1);
             string salt = Security.Instance.GetSalt();
@@ -77,7 +77,7 @@ namespace Shop.Controllers
                 db.Users.Add(user);
                 db.SaveChanges();
             }
-                return RedirectToAction("index", "home");
+                return RedirectToAction("login");
         }
     }
 }

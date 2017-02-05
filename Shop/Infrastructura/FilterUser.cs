@@ -30,7 +30,18 @@ namespace Shop.Infrastructura
             /// для получения доступа
             var role = Roles;
             var user = Users;
-            var userName = WebUser.CurrentUser.UserName;
+            var cookie = httpContext.Request.Cookies["User"];
+            string UserName; bool IsAuth = false;
+            if (WebUser.CurrentUser.UserName == null && cookie != null) 
+            {
+                UserName = cookie.Values["UserName"];
+                if (cookie.Values["IsAuth"] == "True") IsAuth = true;
+            }
+            else
+            {
+                UserName = WebUser.CurrentUser.UserName;
+            }
+
             bool u = false;
             if (role != "")
             {
@@ -38,12 +49,13 @@ namespace Shop.Infrastructura
                 using (var db = new DataContext())
                 {
                     var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
-                    u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
+                    u = t.Any(x => x.UserName == UserName);
                 }
             }
-            if (user == userName || u)
+            if (user == UserName || u)
             {
-                return WebUser.CurrentUser.IsAuth;
+                if (IsAuth) return true;
+                else return WebUser.CurrentUser.IsAuth;
             }
             return false;
         
