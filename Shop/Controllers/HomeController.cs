@@ -36,7 +36,7 @@ namespace Shop.Controllers
         /// <summary>
         /// Страница добавления товара
         /// </summary>
-        [FilterUser(Roles = "Admin", Users = "Frank")]
+        //[FilterUser(Roles = "Admin", Users = "Frank")]
         [HttpGet]
         public ActionResult AddProduct()
         {
