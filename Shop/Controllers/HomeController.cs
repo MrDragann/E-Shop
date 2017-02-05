@@ -164,8 +164,7 @@ namespace Shop.Controllers
         /// Управление товарами
         /// </summary>
         /// <returns></returns>
-        //[FilterUser(Roles = "Admin,User", Users = "test1, test2")]
-        [FilterUser(Roles = "Moderator", Users = "Frank")]
+        [FilterUser(Roles = "Admin", Users = "Frank")]
         public ActionResult Management()
         {
             return View(db.Products);

@@ -10,6 +10,8 @@ namespace DataModel
 
         public string Password { get; set; }
 
+        public string Salt { get; set; }
+
         public List<Role> Roles { get; set; }
     }
 }

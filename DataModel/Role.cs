@@ -14,6 +14,7 @@ namespace DataModel
     public enum TypeRoles
     {
         Admin,
+        Moderator,
         User
     }
 }

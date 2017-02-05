@@ -14,7 +14,7 @@ namespace Services
         {
             using (var db = new DataContext())
             {
-                return db.Users.Any(_ => _.UserName == userName && _.Password == password);
+                return db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password);
             }
         }
     }

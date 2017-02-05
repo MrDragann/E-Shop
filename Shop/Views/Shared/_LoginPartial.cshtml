@@ -1,12 +1,20 @@
 ﻿@if (User.IsAuth)
 {
-    
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a>@User.UserName </a>
-            </li>
-            <li><a href="@Url.Action("LogOut", "Account")">Выйти</a></li>
-        </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a>@User.UserName </a>
+        </li>
+        <li><a href="@Url.Action("LogOut", "Account")">Выйти</a></li>
+    </ul>
+}
+else if (Request.Cookies["User"] != null)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a>@Request.Cookies["User"].Values["UserName"] </a>
+        </li>
+        <li><a href="@Url.Action("LogOut", "Account")">Выйти</a></li>
+    </ul>
 }
 else
 {

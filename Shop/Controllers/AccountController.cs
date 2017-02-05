@@ -1,4 +1,5 @@
 ﻿using DataModel;
+using IServices.Models;
 using Shop.Infrastructura;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,36 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(string userName, string password)
         {
-            WebUser.Login(userName, password);
+            string HashPass = Security.Instance.GetHashString(password);
+            WebUser.Login(userName, HashPass);
+
+            var user = WebUser.CurrentUser;
+            if (user.IsAuth == true)
+            {
+                //Session["user"] = user;
+
+                if (Request.Cookies["User"] == null)
+                {
+                    HttpCookie cookie = new HttpCookie("User");
+                    cookie["UserName"] = user.UserName;
+                    cookie["Password"] = HashPass;
+                    cookie.Expires = DateTime.Now.AddDays(1);
+                    Response.Cookies.Add(cookie);
+                }
+            }
+
             return RedirectToAction("index", "home");
         }
         public ActionResult LogOut()
         {
             WebUser.LogOff();
+
+            if (Request.Cookies["User"] != null)
+            {
+                HttpCookie myCookie = new HttpCookie("User");
+                myCookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(myCookie);
+            }
             return RedirectToAction("index","home");
         }
         [HttpGet]
@@ -39,12 +64,15 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Register(string userName, string password1, string password2)
         {
+            string HashPass = Security.Instance.GetHashString(password1);
+            string salt = Security.Instance.GetSalt();
             using (var db = new DataContext())
             {
                 User user = new User()
                 {
                     UserName = userName,
-                    Password = password1
+                    Password = salt + HashPass,
+                    Salt = salt
                 };
                 db.Users.Add(user);
                 db.SaveChanges();

@@ -11,22 +11,36 @@ namespace Shop.Infrastructura
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            
-            base.OnAuthorization(filterContext);
+
+            //base.OnAuthorization(filterContext);
+            // Переадресация
+            if (!AuthorizeCore(filterContext.HttpContext))
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                new System.Web.Routing.RouteValueDictionary {
+                { "controller", "Account" }, { "action", "Login" }
+            });
+            }
+
         }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            /// Извлечение имен и ролей пользователей, авторизованных
+            /// для получения доступа
             var role = Roles;
             var user = Users;
             var userName = WebUser.CurrentUser.UserName;
-            bool u;
-            using (var db = new DataContext())
+            bool u = false;
+            if (role != "")
             {
-                var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
-                u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
+                /// Проверка соответствия роли пользователя
+                using (var db = new DataContext())
+                {
+                    var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
+                    u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
+                }
             }
-                
             if (user == userName || u)
             {
                 return WebUser.CurrentUser.IsAuth;
