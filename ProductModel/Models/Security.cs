@@ -39,13 +39,13 @@ namespace ProductModel.Models
             // Максимальная длина соли
             int max_length = 32;
 
-            // Empty salt array
+            // Объявление массива
             byte[] salt = new byte[max_length];
 
-            // Build the random bytes
+            // Генерация рандомными байтами
             random.GetNonZeroBytes(salt);
 
-            // Return the string encoded salt
+            // Возвращает строку
             return Convert.ToBase64String(salt);
         }
     }

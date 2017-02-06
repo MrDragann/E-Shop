@@ -1,12 +1,16 @@
 ﻿using DataModel;
 using System;
 using System.Collections.Generic;
+using ProductModel.Models;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace Shop.Infrastructura
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class FilterUser : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
@@ -30,6 +34,7 @@ namespace Shop.Infrastructura
             /// для получения доступа
             var role = Roles;
             var user = Users;
+            string[] _rolesSplit = Security.Instance.Split(role); 
             var cookie = httpContext.Request.Cookies["User"];
             string UserName; bool IsAuth = false;
             if (WebUser.CurrentUser.UserName == null && cookie != null) 

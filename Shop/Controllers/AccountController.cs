@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Shop.Controllers
 {
@@ -64,19 +65,28 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Register(string userName, string password1)
         {
-            string HashPass = Security.Instance.GetHashString(password1);
-            string salt = Security.Instance.GetSalt();
             using (var db = new DataContext())
             {
-                User user = new User()
-                {
-                    UserName = userName,
-                    Password = salt + HashPass,
-                    Salt = salt
-                };
-                db.Users.Add(user);
+                var user = db.Users.Include(_ => _.Roles).FirstOrDefault(_ => _.Id == 20);
+                user.Roles = db.Roles.Where(_ => new[] { TypeRoles.User, TypeRoles.Moderator }.Contains(_.Id)).ToList();
                 db.SaveChanges();
+
             }
+                //string HashPass = Security.Instance.GetHashString(password1);
+                //string salt = Security.Instance.GetSalt();
+                //using (var db = new DataContext())
+                //{
+                //    User user = new User()
+                //    {
+                //        UserName = userName,
+                //        Password = salt + HashPass,
+                //        Salt = salt,
+                //        Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
+                //    };
+
+                //    db.Users.Add(user);
+                //    db.SaveChanges();
+                //}
                 return RedirectToAction("login");
         }
     }

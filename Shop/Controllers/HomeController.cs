@@ -123,6 +123,7 @@ namespace Shop.Controllers
         {
             if (Image != null)
             {
+
                 ///Извлечение имени файла
                 string fileName = System.IO.Path.GetFileName(Image.FileName);
                 model.Image = fileName;

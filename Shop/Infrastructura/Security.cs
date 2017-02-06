@@ -48,5 +48,10 @@ namespace Shop.Infrastructura
             // Return the string encoded salt
             return Convert.ToBase64String(salt);
         }
+
+        public string[] Split(string str)
+        {
+            return str.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+        }
     }
 }
