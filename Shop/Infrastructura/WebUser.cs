@@ -28,7 +28,8 @@ namespace Shop.Infrastructura
                     if (data == null || string.IsNullOrWhiteSpace(data.Value))
                     {
                         return new ModelUser();
-                    }else
+                    }
+                    else
                     {
                         var model = Decrypt(data.Value);
                         if (model != null)
@@ -44,18 +45,19 @@ namespace Shop.Infrastructura
             }
         }
 
-        public static void Login(string userName, string password)
+        public static void Login(string userName, string password, bool remember = false)
         {
             if (Services.Users.Login(userName, password))
             {
                 CurrentUser = new ModelUser { UserName = userName, IsAuth = true, Password = password  };
-                HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Value = Encrypt(CurrentUser), Expires = DateTime.Now.AddDays(1)});
             }
+            if (remember) HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Value = Encrypt(CurrentUser), Expires = DateTime.Now.AddDays(1) });
         }
 
         public static void LogOff()
         {
             HttpContext.Current.Session.Remove("user");
+            HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Expires = DateTime.Now.AddDays(-1) });
         }
 
         #region Криптография
@@ -86,7 +88,7 @@ namespace Shop.Infrastructura
                     myAes.IV = IV;
                     var number = BigInteger.Parse(encrypted, NumberStyles.HexNumber);
                     string roundtrip = DecryptStringFromBytes_Aes(number.ToByteArray(), myAes.Key, myAes.IV);
-                    var mas = roundtrip.Split(new char[',']);
+                    var mas = roundtrip.Split(',');
                     var model = new ModelUser() { UserName = mas[0], Password = mas[1] };
                     return model;
                 }catch(Exception ex)
