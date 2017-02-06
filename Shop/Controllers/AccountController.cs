@@ -44,29 +44,15 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Register(string userName, string password1)
         {
-            //Может пригодиться
+            ////Может пригодиться
             //using (var db = new DataContext())
             //{
-            //    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(_ => _.Id == 20);
-            //    user.Roles = db.Roles.Where(_ => new[] { TypeRoles.User, TypeRoles.Moderator }.Contains(_.Id)).ToList();
+            //    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(_ => _.Id == 19);
+            //    user.Roles = db.Roles.Where(_ => new[] { TypeRoles.Admin }.Contains(_.Id)).ToList();
             //    db.SaveChanges();
 
             //}
-            string HashPass = Security.Instance.GetHashString(password1);
-            string salt = Security.Instance.GetSalt();
-            using (var db = new DataContext())
-            {
-                User user = new User()
-                {
-                    UserName = userName,
-                    Password = salt + HashPass,
-                    Salt = salt,
-                    Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
-                };
-
-                db.Users.Add(user);
-                db.SaveChanges();
-            }
+            WebUser.Register(userName, password1);
             return RedirectToAction("login");
         }
     }

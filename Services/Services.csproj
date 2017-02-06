@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainServices.cs" />
+    <Compile Include="RegisterServices.cs" />
     <Compile Include="UserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +66,10 @@
     <ProjectReference Include="..\IServices\IServices.csproj">
       <Project>{623b36fc-8ebc-4044-bc14-6dfe3714ed0e}</Project>
       <Name>IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProductModel\ProductModel.csproj">
+      <Project>{ed001eaa-0e02-41a2-a5d1-7e457b813199}</Project>
+      <Name>ProductModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

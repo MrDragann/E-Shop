@@ -54,6 +54,11 @@ namespace Shop.Infrastructura
             if (remember) HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Value = Encrypt(CurrentUser), Expires = DateTime.Now.AddDays(1) });
         }
 
+        public static void Register(string userName, string password)
+        {
+            Services.Register.Register(userName, password);
+        }
+
         public static void LogOff()
         {
             HttpContext.Current.Session.Remove("user");

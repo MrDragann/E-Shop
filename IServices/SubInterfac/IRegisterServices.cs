@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace IServices
 {
-    public interface IMainServices
+    public interface IRegisterServices
     {
-        IUserServices Users { get; set; }
-
-        IRegisterServices Register { get; set; }
+        bool Register(string userName, string password);
     }
 }

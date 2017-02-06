@@ -12,7 +12,10 @@ namespace Services
         public MainServices()
         {
             Users = new UserServices();
+            Register = new RegisterServices();
         }
         public IUserServices Users { get; set; }
+
+        public IRegisterServices Register { get; set; }
     }
 }
