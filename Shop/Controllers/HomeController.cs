@@ -24,19 +24,21 @@ namespace Shop.Controllers
             ProductData.Instance.PageNum = pageNum;
             ProductData.Instance.ItemsCount = db.Products.Count();
             int pageSize = ProductData.Instance.PageSize;
+
+            var products = db.Products.OrderBy(x => x.Name);
             switch (sort)
             {
-                case TypeSort.NameAsc: return View(db.Products.OrderBy(x => x.Name).Skip(pageSize * pageNum).Take(pageSize));
-                case TypeSort.NameDesc: return View(db.Products.OrderByDescending(x => x.Name).Skip(pageSize * pageNum).Take(pageSize));
-                case TypeSort.PriceAsc: return View(db.Products.OrderBy(x => x.Price).Skip(pageSize * pageNum).Take(pageSize));
-                case TypeSort.PriceDesc: return View(db.Products.OrderByDescending(x => x.Price).Skip(pageSize * pageNum).Take(pageSize));
+                case TypeSort.NameAsc: products = products.OrderBy(x => x.Name); break;
+                case TypeSort.NameDesc: products = products.OrderByDescending(x => x.Name); break;
+                case TypeSort.PriceAsc: products = products.OrderBy(x => x.Price); break;
+                case TypeSort.PriceDesc: products = products.OrderByDescending(x => x.Price); break;
             }
-            return View(db.Products.OrderBy(x => x.Name));
+            return View(products.Skip(pageSize * pageNum).Take(pageSize));
         }
         /// <summary>
         /// Страница добавления товара
         /// </summary>
-        //[FilterUser(Roles = "Admin", Users = "Frank")]
+        [FilterUser(Roles = "Admin", Users = "Frank")]
         [HttpGet]
         public ActionResult AddProduct()
         {
