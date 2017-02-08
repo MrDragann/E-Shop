@@ -132,7 +132,6 @@ namespace Shop.Controllers
                 ///Сохранение файла в проекте
                 Image.SaveAs(Server.MapPath(ProductData.pathToImage + fileName));
             }
-            //model.Image = db.Products.Find(model.Id).Image;
             db.Entry(model).State = EntityState.Modified;
             db.SaveChanges();
             ProductData.collectionsTags = ProductData.Instance.TagsSplit(model);
