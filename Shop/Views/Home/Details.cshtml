@@ -1,48 +1,71 @@
-﻿@using Shop.Models;
-@model Product
-
+﻿
 @{
-    ViewBag.Title = "Информация о товаре";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h2>@Model.selectedCategory</h2>
-
-<hr />
-
-<h3>@Model.Name</h3>
-
-<hr />
-
-<div class="row">
-    <div class="col-xs-6 col-md-3">
-        <img class="img-thumbnail" alt="250x250" src="@ProductData.pathToImage@Model.Image" style="width: 250px; height: 250px;">
-        <h3 >@Model.Price руб.</h3>
-        <div>
-            @Html.ActionLink("В корзину", "", new { id = Model.Id }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Заказать сейчас", "", new { id = Model.Id }, new { @class = "btn btn-danger" })
-        </div>
-        <hr />
-        @foreach (string tag in ProductData.collectionsTags)
-        {
-            <a class="btn btn-default btn-sm" id="Tags" href="@Url.Action("Tag","Home",new { Tag = tag })">@tag</a>
-        }
-        
-    </div>
-    <div class="col-xs-12 col-md-9">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#home" data-toggle="tab">Описание товара</a></li>
-            <li><a href="#profile" data-toggle="tab">Характеристики</a></li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content" id="productTabs">
-            <div class="tab-pane active" id="home">
-                <p>@Model.Description</p>
+<div class="col-sm-9 padding-right">
+    <div class="product-details">
+        <!--product-details-->
+        <div class="col-sm-5">
+            <div class="view-product">
+                <img src="images/product-details/1.jpg" alt="">
             </div>
-            <div class="tab-pane" id="profile">
-                <p>@Model.Characteristics</p>
+            <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                        <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                        <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                    </div>
+                    <div class="item">
+                        <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                        <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                        <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                    </div>
+                    <div class="item">
+                        <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                        <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                        <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                    </div>
+
+                </div>
+
+                <!-- Controls -->
+                <a class="left item-control" href="#similar-product" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right item-control" href="#similar-product" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="product-information">
+                <!--/product-information-->
+                <img src="images/product-details/new.jpg" class="newarrival" alt="">
+                <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+                <p>Web ID: 1089772</p>
+                <img src="images/product-details/rating.png" alt="">
+                <span>
+                    <span>US $59</span>
+                    <label>Quantity:</label>
+                    <input type="text" value="3">
+                    <button type="button" class="btn btn-fefault cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                </span>
+                <p><b>Availability:</b> In Stock</p>
+                <p><b>Condition:</b> New</p>
+                <p><b>Brand:</b> E-SHOPPER</p>
+                <a href=""><img src="images/product-details/share.png" class="share img-responsive" alt=""></a>
+            </div><!--/product-information-->
         </div>
     </div>
+
 </div>
+

@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>E-Shop | Error</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/site")
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="/Content/Images/ico/favicon.ico">
+</head>
+<!--/head-->
+
+<body>
+    <div class="container text-center">
+        <div class="logo-404">
+            <a href="@Url.Action("Index","Home")">
+                <img src="/Content/Images/home/logo.png" alt="">
+            </a>
+        </div>
+        <div class="content-404">
+            <img src="~/Content/Images/404/404.png" class="img-responsive" alt="">
+            <h1><b>OPPS!</b> We Couldn’t Find this Page</h1>
+            <p>Uh... So it looks like you brock something. The page you are looking for has up and Vanished.</p>
+            <h2><a href="@Url.Action("Index","Home")">Bring me back Home</a></h2>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <a id="scrollUp" href="#top" style="display: none; position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up"></i></a>
+</body>
+</html>

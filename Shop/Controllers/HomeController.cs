@@ -17,9 +17,59 @@ namespace Shop.Controllers
         /// <summary>
         /// Главная страница
         /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
+        {
+            var products = db.Products.Where(x => x.DateAdd == "2017-02-08");
+            return View(products);
+        }
+
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return View("Error");
+            }
+            Product product = db.Products.Find(id);
+            if (product != null)
+            {
+                ProductData.collectionsTags = ProductData.Instance.TagsSplit(product);
+                return View(product);
+            }
+            return View("Error");
+        }
+        /// <summary>
+        /// Корзина
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Cart()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Страница с контактами
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Страница с ошибкой
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Error()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Главная страница
+        /// </summary>
         /// <returns>Список имеющихся товаров
         /// с сортировкой по цене</returns>
-        public ActionResult Index(int pageNum = 0, TypeSort sort = TypeSort.NameAsc)
+        public ActionResult Indexc(int pageNum = 0, TypeSort sort = TypeSort.NameAsc)
         {
             ProductData.Instance.PageNum = pageNum;
             ProductData.Instance.ItemsCount = db.Products.Count();
@@ -35,6 +85,8 @@ namespace Shop.Controllers
             }
             return View(products.Skip(pageSize * pageNum).Take(pageSize));
         }
+        
+        
         /// <summary>
         /// Страница добавления товара
         /// </summary>
@@ -78,21 +130,21 @@ namespace Shop.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            Product product = db.Products.Find(id);
-            if (product != null)
-            {
-                ProductData.collectionsTags = ProductData.Instance.TagsSplit(product);
-                return View(product);
-            }
-            return HttpNotFound();
-        }
+        //[HttpGet]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    Product product = db.Products.Find(id);
+        //    if (product != null)
+        //    {
+        //        ProductData.collectionsTags = ProductData.Instance.TagsSplit(product);
+        //        return View(product);
+        //    }
+        //    return HttpNotFound();
+        //}
         /// <summary>
         /// Редактирование товара основываясь на выбранном ID
         /// </summary>
