@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace Shop.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         // GET: Account
         public ActionResult Index()
@@ -54,6 +54,14 @@ namespace Shop.Controllers
             //}
             WebUser.Register(userName, password1);
             return RedirectToAction("login");
+        }
+        /// <summary>
+        /// Корзина
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Cart()
+        {
+            return View();
         }
     }
 }

@@ -2,7 +2,7 @@
 using Autofac.Core;
 using Autofac.Integration.Mvc;
 using IServices;
-using Services;
+using IServices;
 using System.Web.Mvc;
 
 namespace Shop.App_Start

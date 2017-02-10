@@ -1,18 +1,16 @@
 ﻿@if (User.IsAuth)
 {
     <div class="col-sm-8">
-        <div class="shop-menu pull-right mainmenu" id="account-menu">
+        <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#">@User.UserName<i class="fa fa-user" id="fa-user"></i></a>
-                    <ul role="menu" class="sub-menu" id="sub-account">
-                        <li><a href="#">My profile</a></li>
-                        <li><a href="#">Settings</a></li>
-                    </ul>
+                <li>
+                    <a href="">
+                        <i class="fa fa-user"></i> @User.UserName
+                    </a>
                 </li>
-                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                <li><a href="@Url.Action("Cart","Account")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                <li><a href="@Url.Action("LogOut","Account")"><i class="fa fa-lock"></i> Log out</a></li>
+                <li><a href="#"><i class="fa fa-star"></i> Список желаемого</a></li>
+                <li><a href="@Url.Action("Cart","Account")"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
+                <li><a href="@Url.Action("LogOut","Account")"><i class="fa fa-unlock"></i> Выйти</a></li>
             </ul>
         </div>
     </div>
@@ -23,11 +21,11 @@ else
         <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href=""><i class="fa fa-user"></i> Account</a>
+                    <a href=""><i class="fa fa-user"></i> Аккаунт</a>
                 </li>
-                <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                <li><a href="@Url.Action("Cart","Account")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                <li><a href="@Url.Action("Login","Account")"><i class="fa fa-lock"></i> Login</a></li>
+                <li><a href="#"><i class="fa fa-star"></i> Список желаемого</a></li>
+                <li><a href="@Url.Action("Cart","Account")"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
+                <li><a href="@Url.Action("Login","Account")"><i class="fa fa-lock"></i> Войти</a></li>
             </ul>
         </div>
     </div>

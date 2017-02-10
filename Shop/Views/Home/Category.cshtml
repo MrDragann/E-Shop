@@ -2,40 +2,65 @@
 @model IEnumerable<Product>
 
 @{
-    ViewBag.Title = "FindProductByTag";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = @ViewBag.Message;
+    Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<h2>Товары из категории: @ViewBag.Message</h2>
-<hr />
-@if (Model.Count() < 1)
-{
-    <h4>По вашему запросу ничего не найдено.</h4>
-}
-else
-{
-    <div class="row">
 
-        @foreach (var item in Model)
-        {
-            <div class="col-xs-6 col-sm-3">
-                <div class="item">
-                    <p>
-                        <img src="@ProductData.pathToImage@item.Image" alt="хех" class="img-thumbnail" style="width: 200px; height: 200px;">
-                    </p>
-                    <h5>
-                        @item.Name
-                    </h5>
-                    <p>
-                        @item.Price руб.
-                    </p>
-                    <p>
-                        <a class="btn btn-default" href="@Url.Action("Details","Home",new { id = item.Id })">Подробнее »</a>
-                    </p>
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            @Html.Partial("leftSidebar")
+
+            @if (Model.Count() < 1)
+            {
+                <h4>По вашему запросу ничего не найдено.</h4>
+            }
+            else
+            {
+                <div class="col-sm-9 padding-right">
+                    <div class="features_items">
+                        <!--features_items-->
+                        <h2 class="title text-center">@ViewBag.Message</h2>
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="/Content/Images/home/@item.Image" alt="">
+                                            <h2>@item.Price р.</h2>
+                                            <p>@item.Name</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>@item.Price р.</h2>
+                                                <p>@item.Name</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="choose">
+                                        <ul class="nav nav-pills nav-justified">
+                                            <li><a href="#"><i class="fa fa-plus-square"></i>В список желаемого</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <ul class="pagination">
+                            <li class="active"><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">»</a></li>
+                        </ul>
+                    </div><!--features_items-->
                 </div>
-            </div>
-        }
+            }
+            <!--features_items-->
+        </div>
     </div>
-}
-
-
+</section>

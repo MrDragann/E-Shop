@@ -46,36 +46,46 @@ namespace Shop.Models
             new Category
             {
                 Id = 1,
-                Name = "Компьютеры",
+                Name = "Телефоны",
                 Childrens = new List<Category>()
                 {
                     new Category
                     {
-                        Name = "Процессоры"
+                        Name = "Смартфоны"
                     },
                     new Category
                     {
-                        Name = "Материнские платы"
-                    },
-                    new Category
-                    {
-                        Name = "Накопители"
+                        Name = "Радио телефоны"
                     }
                 }
             },
             new Category
             {
                 Id = 2,
-                Name = "Периферия",
+                Name = "Ноутбуки"
+            },
+            new Category
+            {
+                Id = 3,
+                Name = "Планшеты"
+            },
+            new Category
+            {
+                Id = 4,
+                Name = "Аксессуары",
                 Childrens = new List<Category>()
                 {
-                        new Category
+                    new Category
                     {
-                        Name = "Мыши"
+                        Name = "Аккумуляторы"
                     },
-                        new Category
+                    new Category
                     {
-                        Name = "Клавиатуры"
+                        Name = "Память"
+                    },
+                    new Category
+                    {
+                        Name = "Аудио"
                     }
                 }
             }

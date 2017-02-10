@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace Shop.Controllers
 {
     
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         ProductContext db = new ProductContext();
 
@@ -20,8 +20,19 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var products = db.Products.Where(x => x.DateAdd == "2017-02-08");
+            var products = db.Products.Take(6);
             return View(products);
+        }
+
+        /// <summary>
+        /// Поиск товаров по категории
+        /// </summary>
+        /// <param name = "Category" > Название категории</param>
+        /// <returns>Список товаров</returns>
+        public ActionResult Category(string Category)
+        {
+            ViewBag.Message = Category;
+            return View(db.Products.Where(x => x.selectedCategory == Category));
         }
 
         [HttpGet]
@@ -39,14 +50,7 @@ namespace Shop.Controllers
             }
             return View("Error");
         }
-        /// <summary>
-        /// Корзина
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Cart()
-        {
-            return View();
-        }
+        
         /// <summary>
         /// Страница с контактами
         /// </summary>
@@ -228,16 +232,7 @@ namespace Shop.Controllers
             return View(db.Products);
         }
 
-        /// <summary>
-        /// Поиск товаров по категории
-        /// </summary>
-        /// <param name = "Category" > Название категории</param>
-        /// <returns>Список товаров</returns>
-        public ActionResult Category(string Category)
-        {
-            ViewBag.Message = Category;
-            return View(db.Products.Where(x => x.selectedCategory == Category));
-        }
+        
         public ActionResult Manufacturer(int? Id)
         {
             if (Id == null)

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace IServices
 {
     public class RegisterServices : IRegisterServices
     {

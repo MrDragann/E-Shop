@@ -1,14 +1,10 @@
-﻿
-@{
-    Layout = null;
-}
-
+﻿@using Shop.Models
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Layout</title>
+    <title>@ViewBag.Title – E-Shop</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/prettyPhoto.css" rel="stylesheet" />
@@ -35,8 +31,9 @@
                     <div class="col-sm-6">
                         <div class="contactinfo">
                             <ul class="nav nav-pills">
-                                <li><a href="#"><i class="fa fa-phone"></i> +373 79 44 77 33</a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                                <li><a><i class="fa fa-phone"></i> +373 79 44 77 33</a></li>
+                                <li><a><i class="fa fa-envelope"></i> info@e-shop.com</a></li>
+                                <li><a><i class="fa fa-clock-o"></i> 9:00 - 22:00</a></li>
                             </ul>
                         </div>
                     </div>
@@ -83,33 +80,60 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
+                        @*<div class="mainmenu pull-left">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>
+                                <li class="dropdown">
+                                    <a href="#">Телефоны<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="#">Смартфоны</a></li>
+                                        <li><a href="#">Радио телефоны</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Ноутбуки</a></li>
+                                <li><a href="#">Планшеты</a></li>
+                                <li class="dropdown">
+                                    <a href="#">Аксессуары<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="#">Аккумуляторы</a></li>
+                                        <li><a href="#">Память</a></li>
+                                        <li><a href="#">Аудио</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
+                            </ul>
+                        </div>*@
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="@Url.Action("Cart","Home")" class="active">Home</a></li>
-                                <li class="dropdown">
-                                    <a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="#">Products</a></li>
-                                        <li><a href="#">Product Details</a></li>
-                                        <li><a href="@Url.Action("Cart","Home")">Cart</a></li>
-                                        <li><a href="@Url.Action("Login","Account")">Login</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="#">Blog List</a></li>
-                                        <li><a href="#">Blog Single</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="@Url.Action("Error","Home")">404</a></li>
-                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                <li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>
+                                @foreach (var item in ProductData.Category)
+                                {
+                                    if (item.Childrens == null)
+                                    {
+                                        <li><a href="@Url.Action("Category","Home",new { Category = item.Name })">@item.Name</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="dropdown">
+                                            <a href="#">@item.Name<i class="fa fa-angle-down"></i></a>
+                                            <ul role="menu" class="sub-menu">
+                                                @foreach (var i in item.Childrens)
+                                                {
+                                                    <li><a href="@Url.Action("Category","Home",new { Category = i.Name })">@i.Name</a></li>
+                                                }
+                                            </ul>
+                                        </li>
+
+                                    }
+                                }
+
+                                <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="search_box pull-right">
-                            <input type="text" placeholder="Search">
+                            <input type="text" placeholder="Найти">
                         </div>
                     </div>
                 </div>

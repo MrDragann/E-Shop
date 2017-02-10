@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace IServices
 {
     public class MainServices : IMainServices
     {
@@ -17,5 +17,7 @@ namespace Services
         public IUserServices Users { get; set; }
 
         public IRegisterServices Register { get; set; }
+
+        public IProductServices Product { get; set; }
     }
 }

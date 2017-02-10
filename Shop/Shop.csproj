@@ -245,11 +245,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Indexc.cshtml" />
+    <Content Include="Views\Home\old\Indexc.cshtml" />
     <Content Include="Views\Account\Loginx.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\AddProduct.cshtml" />
-    <Content Include="Views\Home\Category.cshtml" />
+    <Content Include="Views\Home\old\Categoryс.cshtml" />
     <Content Include="Views\Home\Detailsc.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Management.cshtml" />
@@ -262,6 +262,9 @@
     <Content Include="Views\Shared\leftSidebar.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\old\Detailsc.cshtml" />
+    <Content Include="Views\Home\telephones\Smartphones.cshtml" />
+    <Content Include="Views\Home\Category.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>

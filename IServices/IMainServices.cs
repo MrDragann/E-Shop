@@ -11,5 +11,7 @@ namespace IServices
         IUserServices Users { get; set; }
 
         IRegisterServices Register { get; set; }
+
+        IProductServices Product { get; set; }
     }
 }

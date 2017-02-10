@@ -43,8 +43,15 @@
     <Compile Include="IMainServices.cs" />
     <Compile Include="Models\ModelUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubInterfac\IProductServices.cs" />
     <Compile Include="SubInterfac\IRegisterServices.cs" />
     <Compile Include="SubInterfac\IUserServices.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProductModel\ProductModel.csproj">
+      <Project>{ED001EAA-0E02-41A2-A5D1-7E457B813199}</Project>
+      <Name>ProductModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
