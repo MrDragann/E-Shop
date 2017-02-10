@@ -50,10 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="Migrations\201702051315588_alo2.cs" />
-    <Compile Include="Migrations\201702051315588_alo2.Designer.cs">
-      <DependentUpon>201702051315588_alo2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
@@ -68,11 +64,6 @@
       <Project>{ed001eaa-0e02-41a2-a5d1-7e457b813199}</Project>
       <Name>ProductModel</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702051315588_alo2.resx">
-      <DependentUpon>201702051315588_alo2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

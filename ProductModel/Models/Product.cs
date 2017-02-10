@@ -46,8 +46,8 @@ namespace Shop.Models
         /// <summary>
         /// Id производителя
         /// </summary>
-        public int? ManufacturerId { get; set; }
         public Manufacturer Manufacturer { get; set; }
+        public Category Category { get; set; }
     }
     
 }

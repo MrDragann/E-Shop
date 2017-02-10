@@ -233,14 +233,14 @@ namespace Shop.Controllers
         }
 
         
-        public ActionResult Manufacturer(int? Id)
-        {
-            if (Id == null)
-            {
-                return HttpNotFound();
-            }
-            return View(db.Products.Include(x => x.Manufacturer).Where(x => x.ManufacturerId == Id));
-        }
+        //public ActionResult Manufacturer(int? Id)
+        //{
+        //    if (Id == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(db.Products.Include(x => x.Manufacturer).Where(x => x.ManufacturerId == Id));
+        //}
         /// <summary>
         /// Закрытие подключения
         /// </summary>
