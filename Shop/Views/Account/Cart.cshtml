@@ -1,6 +1,6 @@
-﻿
+﻿@model IEnumerable<Shop.Models.Product>
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Корзина";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
@@ -8,50 +8,54 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li><a href="@Url.Action("Index","Home")">Home</a></li>
-                <li class="active">Shopping Cart</li>
+                <li><a href="@Url.Action("Index","Home")">Главная</a></li>
+                <li class="active">Корзина</li>
             </ol>
         </div>
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
-                        <td class="image">Item</td>
+                        <td class="image">Продукт</td>
                         <td class="description"></td>
-                        <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
-                        <td class="total">Total</td>
+                        <td class="price">Цена</td>
+                        <td class="quantity">Количество</td>
+                        <td class="total">Итого</td>
                         <td></td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="/Content/Images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td class="cart_product">
+                                <a href="@Url.Action("Details","Home",new { id = item.Id })"><img src="~/Content/Images/home/@item.Image" alt="" width="110" height="110"></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="@Url.Action("Details","Home",new { id = item.Id })">@item.Name</a></h4>
+                                <p>Product ID: @item.Id</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@item.Price р.</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <a class="cart_quantity_up" href=""> + </a>
+                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down" href=""> - </a>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price">@item.Price р.</p>
+                            </td>
+                            <td class="cart_delete">
+                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
 
-                </tbody>
+                    </tbody>
+                }
+                
             </table>
         </div>
     </div>
@@ -61,8 +65,8 @@
 <section id="do_action">
     <div class="container">
         <div class="heading">
-            <h3>What would you like to do next?</h3>
-            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+            <h3>Что дальше?</h3>
+            <p>Укажите имеется ли у вас купон на скидку или баллы, чтобы оценить стоимость доставки.</p>
         </div>
         <div class="row">
             <div class="col-sm-6">
@@ -70,20 +74,20 @@
                     <ul class="user_option">
                         <li>
                             <input type="checkbox">
-                            <label>Use Coupon Code</label>
+                            <label>Использовать купон</label>
                         </li>
                         <li>
                             <input type="checkbox">
-                            <label>Use Gift Voucher</label>
+                            <label>Использовать подарочный сертификат</label>
                         </li>
                         <li>
                             <input type="checkbox">
-                            <label>Estimate Shipping &amp; Taxes</label>
+                            <label>Ускоренная доставка</label>
                         </li>
                     </ul>
                     <ul class="user_info">
                         <li class="single_field">
-                            <label>Country:</label>
+                            <label>Страна:</label>
                             <select>
                                 <option>United States</option>
                                 <option>Bangladesh</option>
@@ -97,7 +101,7 @@
 
                         </li>
                         <li class="single_field">
-                            <label>Region / State:</label>
+                            <label>Регион / Область:</label>
                             <select>
                                 <option>Select</option>
                                 <option>Dhaka</option>
@@ -111,24 +115,24 @@
 
                         </li>
                         <li class="single_field zip-field">
-                            <label>Zip Code:</label>
+                            <label>Почтовый индекс:</label>
                             <input type="text">
                         </li>
                     </ul>
-                    <a class="btn btn-default update" href="">Get Quotes</a>
-                    <a class="btn btn-default check_out" href="">Continue</a>
+                    <a class="btn btn-default update" href="">Проверить</a>
+                    <a class="btn btn-default check_out" href="">Продолжить</a>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Cart Sub Total <span>$59</span></li>
-                        <li>Eco Tax <span>$2</span></li>
-                        <li>Shipping Cost <span>Free</span></li>
-                        <li>Total <span>$61</span></li>
+                        <li>Общая стоимость <span>$59</span></li>
+                        <li>Налог <span>$2</span></li>
+                        <li>Стоимость доставки <span>Бесплатно</span></li>
+                        <li>Итого к оплате<span>$61</span></li>
                     </ul>
-                    <a class="btn btn-default update" href="">Update</a>
-                    <a class="btn btn-default check_out" href="">Check Out</a>
+                    <a class="btn btn-default update" href="">Обновить</a>
+                    <a class="btn btn-default check_out" href="">Перейти к оплате</a>
                 </div>
             </div>
         </div>

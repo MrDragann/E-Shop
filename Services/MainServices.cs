@@ -1,4 +1,5 @@
 ﻿using IServices;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace IServices
         {
             Users = new UserServices();
             Register = new RegisterServices();
+            Product = new ProductServices();
         }
         public IUserServices Users { get; set; }
 

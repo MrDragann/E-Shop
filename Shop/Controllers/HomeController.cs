@@ -20,8 +20,8 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var products = db.Products.Take(6);
-            return View(products);
+            var products = Services.Product.GetProducts();
+            return View(products.Take(6));
         }
 
         /// <summary>

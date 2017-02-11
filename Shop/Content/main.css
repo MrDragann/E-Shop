@@ -667,6 +667,11 @@ ul.sub-menu {
   padding-bottom: 20px;
   padding-top: 15px;
 }
+
+.left-sidebar {
+    margin-bottom: 25px;
+}
+
 .left-sidebar h2, .brands_products h2 {
   color: #3A5C83;
   font-family: 'Roboto', sans-serif;
@@ -1559,7 +1564,7 @@ h2.title {
   border-color:transparent transparent transparent #3A5C83;
   position: absolute;
   top: 11px;
-  left:48px;
+  left:65px;
 
 }
 
@@ -1663,7 +1668,7 @@ h2.title {
 
 .cart_delete  {
   display: block;
-  margin-right: -12px;
+  //margin-right: -12px;
   overflow: hidden;
 }
 
