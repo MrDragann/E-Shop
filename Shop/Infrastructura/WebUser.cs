@@ -50,8 +50,9 @@ namespace Shop.Infrastructura
             if (Services.Users.Login(userName, password))
             {
                 CurrentUser = new ModelUser { UserName = userName, IsAuth = true, Password = password  };
+                if (remember) HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Value = Encrypt(CurrentUser), Expires = DateTime.Now.AddDays(1) });
             }
-            if (remember) HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Value = Encrypt(CurrentUser), Expires = DateTime.Now.AddDays(1) });
+            
         }
 
         public static void Register(string userName, string password)
