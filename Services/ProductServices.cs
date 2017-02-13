@@ -1,5 +1,5 @@
 ﻿using IServices;
-using Shop.Models;
+using DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Services
     {
         public List<Product> GetProducts()
         {
-            using(var db = new ProductContext())
+            using(var db = new DataContext())
             {
                 var products = db.Products.ToList();
                 return products;

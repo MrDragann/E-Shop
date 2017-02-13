@@ -1,6 +1,6 @@
 ﻿using DataModel;
 using IServices;
-using ProductModel.Models;
+using Shop.Infrastructura.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +15,13 @@ namespace IServices
         {
             try
             {
-                string HashPass = Security.Instance.GetHashString(password);
                 string salt = Security.Instance.GetSalt();
                 using (var db = new DataContext())
                 {
                     User user = new User()
                     {
                         UserName = userName,
-                        Password = salt + HashPass,
+                        Password = salt + password.GetHashString(),
                         Salt = salt,
                         Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
                     };

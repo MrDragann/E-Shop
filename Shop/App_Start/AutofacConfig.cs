@@ -1,7 +1,5 @@
 ﻿using Autofac;
-using Autofac.Core;
 using Autofac.Integration.Mvc;
-using IServices;
 using IServices;
 using System.Web.Mvc;
 
@@ -9,6 +7,9 @@ namespace Shop.App_Start
 {
     public class AutofacConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static void ConfigureContainer()
         {
             // получаем экземпляр контейнера

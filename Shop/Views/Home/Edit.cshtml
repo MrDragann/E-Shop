@@ -1,4 +1,4 @@
-﻿@using Shop.Models;
+﻿@*@using Shop.Models;
 @model Product
 
 
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
         <label for="Tags" class="col-sm-2 control-label">Теги</label>
-        <textarea class="form-control" rows="2" name="Tags" id="Tags" placeholder="Ключевые слова" required >@Model.Tags</textarea>
+        <textarea class="form-control" rows="2" name="Tags" id="Tags" placeholder="Ключевые слова" required>@Model.Tags</textarea>
     </div>
     <div class="form-group">
         <label for="selectedCategory" class="col-sm-2 control-label">Категория</label>
@@ -48,14 +48,71 @@
     </div>
     <div class="form-group">
         <label for="DateAdd" class="col-sm-2 control-label">Дата добавления</label>
-        <input type="date" class="form-control" name="DateAdd" id="DateAdd" value="@Model.DateAdd" required/>
+        <input type="date" class="form-control" name="DateAdd" id="DateAdd" value="@Model.DateAdd" required />
     </div>
     <div class="form-group">
         <label for="Image" class="col-sm-2 control-label">Загрузить фото</label>
-        <input type="file" class="form-control" name="Image" id="Image" accept="image/jpeg,image/png" required/>
+        <input type="file" class="form-control" name="Image" id="Image" accept="image/jpeg,image/png" required />
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label"></label>
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </div>
 </form>
+/// <summary>
+    /// Список категорий
+    ///
+</summary>
+        //public static List<Category>
+    Category = new List<Category>
+        ()
+        //{
+        //    new Category
+        //    {
+        //        Id = 1,
+        //        Name = "Телефоны",
+        //        Childrens = new List<Category>
+            ()
+            //        {
+            //            new Category
+            //            {
+            //                Name = "Смартфоны"
+            //            },
+            //            new Category
+            //            {
+            //                Name = "Радио телефоны"
+            //            }
+            //        }
+            //    },
+            //    new Category
+            //    {
+            //        Id = 2,
+            //        Name = "Ноутбуки"
+            //    },
+            //    new Category
+            //    {
+            //        Id = 3,
+            //        Name = "Планшеты"
+            //    },
+            //    new Category
+            //    {
+            //        Id = 4,
+            //        Name = "Аксессуары",
+            //        Childrens = new List<Category>
+                ()
+                //        {
+                //            new Category
+                //            {
+                //                Name = "Аккумуляторы"
+                //            },
+                //            new Category
+                //            {
+                //                Name = "Память"
+                //            },
+                //            new Category
+                //            {
+                //                Name = "Аудио"
+                //            }
+                //        }
+                //    }
+                //};*@

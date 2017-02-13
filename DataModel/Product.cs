@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Shop.Models
+namespace DataModel
 {
     public class Product
     {
@@ -18,7 +18,7 @@ namespace Shop.Models
         /// <summary>
         /// Выбранная категория
         /// </summary>
-        public string selectedCategory { get; set; }
+        public string SelectedCategory { get; set; }
         /// <summary>
         /// Описание товара
         /// </summary>
@@ -47,7 +47,18 @@ namespace Shop.Models
         /// Id производителя
         /// </summary>
         public Manufacturer Manufacturer { get; set; }
+
+        public int ManufacturerId { get; set; }
+
         public Category Category { get; set; }
     }
-    
+
+    public enum TypeSort
+    {
+        NameAsc,
+        NameDesc,
+        PriceAsc,
+        PriceDesc
+    }
+
 }

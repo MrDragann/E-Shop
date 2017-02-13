@@ -8,16 +8,20 @@ div#productTabs p {
 }
 
 div.sortButton {
-    float: right;    
+    float: left;    
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
 p.sortButton {
-    float: right; 
+    float: left; 
     margin-top: 26px;
     padding-right: 5px;
     display: inline;
+}
+
+div#sortProducts {
+    padding: 0 0 15px 20px;
 }
 
 a#Tags {

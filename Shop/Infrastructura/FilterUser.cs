@@ -1,9 +1,4 @@
-﻿using DataModel;
-using System;
-using System.Collections.Generic;
-using ProductModel.Models;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace Shop.Infrastructura
@@ -34,25 +29,17 @@ namespace Shop.Infrastructura
             /// для получения доступа
             var role = Roles;
             var user = Users;
-            //if (WebUser.CurrentUser.UserName == null && cookie != null) 
-            //{
-            //    UserName = cookie.Values["UserName"];
-            //    if (cookie.Values["IsAuth"] == "True") IsAuth = true;
-            //}
-            //else
-            //{
-            //    UserName = WebUser.CurrentUser.UserName;
-            //}
+            
 
             bool u = false;
             if (role != "")
             {
                 /// Проверка соответствия роли пользователя
-                using (var db = new DataContext())
-                {
-                    var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
-                    u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
-                }
+                //using (var db = new DataContext())
+                //{
+                //    var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
+                //    u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
+                //}
             }
             if (user == WebUser.CurrentUser.UserName || u)
             {

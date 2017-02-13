@@ -48,9 +48,9 @@
     <Compile Include="SubInterfac\IUserServices.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProductModel\ProductModel.csproj">
-      <Project>{ED001EAA-0E02-41A2-A5D1-7E457B813199}</Project>
-      <Name>ProductModel</Name>
+    <ProjectReference Include="..\DataModel\DataModel.csproj">
+      <Project>{aa9a0a8e-23d0-45d3-9223-51675d14c2be}</Project>
+      <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

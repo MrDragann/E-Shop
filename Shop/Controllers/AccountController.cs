@@ -1,5 +1,4 @@
-﻿using DataModel;
-using IServices.Models;
+﻿using IServices.Models;
 using Shop.Infrastructura;
 using System;
 using System.Collections.Generic;
@@ -7,16 +6,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using Shop.Infrastructura.Extensions;
 
 namespace Shop.Controllers
 {
     public class AccountController : BaseController
     {
-        // GET: Account
-        public ActionResult Index()
-        {
-            return View();
-        }
+        /// <summary>
+        /// Страница входа/регистрации
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Login()
         {
@@ -25,22 +24,27 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(string userName, string password, string RememberMe)
         {
-            string HashPass = Security.Instance.GetHashString(password);
-            WebUser.Login(userName, HashPass, RememberMe == "on");
+            //string HashPass = Security.Instance.GetHashString(password);
+            WebUser.Login(userName, password.GetHashString(), RememberMe == "on");
 
             return RedirectToAction("index", "home");
         }
+        /// <summary>
+        /// Выход из аккаунта
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LogOut()
         {
             WebUser.LogOff();
 
             return RedirectToAction("index","home");
         }
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password1"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Register(string userName, string password1)
         {

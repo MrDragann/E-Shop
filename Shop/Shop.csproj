@@ -174,6 +174,7 @@
     </Compile>
     <Compile Include="Helpers\Paging.cs" />
     <Compile Include="Infrastructura\CustomWebViewPage.cs" />
+    <Compile Include="Infrastructura\Extensions\MyExtensions.cs" />
     <Compile Include="Infrastructura\FilterUser.cs" />
     <Compile Include="Infrastructura\Security.cs" />
     <Compile Include="Infrastructura\WebUser.cs" />
@@ -247,7 +248,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -279,17 +279,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataModel\DataModel.csproj">
-      <Project>{AA9A0A8E-23D0-45D3-9223-51675D14C2BE}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IServices\IServices.csproj">
       <Project>{623b36fc-8ebc-4044-bc14-6dfe3714ed0e}</Project>
       <Name>IServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ProductModel\ProductModel.csproj">
-      <Project>{ed001eaa-0e02-41a2-a5d1-7e457b813199}</Project>
-      <Name>ProductModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{7f81d02f-2790-4b84-a2aa-446b84234908}</Project>

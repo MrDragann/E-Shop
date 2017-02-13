@@ -7,51 +7,51 @@ using System.Web;
 
 namespace Shop.Infrastructura
 {
-    public class Security
-    {
-        public static Security Instance = new Security();
+    //public class Security
+    //{
+    //    public static Security Instance = new Security();
 
-        public string GetHashString(string s)
-        {
-            //переводим строку в байт-массим  
-            byte[] bytes = Encoding.Unicode.GetBytes(s);
+    //    public string GetHashString(string s)
+    //    {
+    //        //переводим строку в байт-массим  
+    //        byte[] bytes = Encoding.Unicode.GetBytes(s);
 
-            //создаем объект для получения средст шифрования  
-            MD5CryptoServiceProvider CSP =
-                new MD5CryptoServiceProvider();
+    //        //создаем объект для получения средст шифрования  
+    //        MD5CryptoServiceProvider CSP =
+    //            new MD5CryptoServiceProvider();
 
-            //вычисляем хеш-представление в байтах  
-            byte[] byteHash = CSP.ComputeHash(bytes);
+    //        //вычисляем хеш-представление в байтах  
+    //        byte[] byteHash = CSP.ComputeHash(bytes);
 
-            string hash = string.Empty;
+    //        string hash = string.Empty;
 
-            //формируем одну цельную строку из массива  
-            foreach (byte b in byteHash)
-                hash += string.Format("{0:x2}", b);
+    //        //формируем одну цельную строку из массива  
+    //        foreach (byte b in byteHash)
+    //            hash += string.Format("{0:x2}", b);
 
-            return hash;
-        }
+    //        return hash;
+    //    }
 
-        public string GetSalt()
-        {
-            var random = new RNGCryptoServiceProvider();
+    //    public string GetSalt()
+    //    {
+    //        var random = new RNGCryptoServiceProvider();
 
-            // Максимальная длина соли
-            int max_length = 32;
+    //        // Максимальная длина соли
+    //        int max_length = 32;
 
-            // Empty salt array
-            byte[] salt = new byte[max_length];
+    //        // Empty salt array
+    //        byte[] salt = new byte[max_length];
 
-            // Build the random bytes
-            random.GetNonZeroBytes(salt);
+    //        // Build the random bytes
+    //        random.GetNonZeroBytes(salt);
 
-            // Return the string encoded salt
-            return Convert.ToBase64String(salt);
-        }
+    //        // Return the string encoded salt
+    //        return Convert.ToBase64String(salt);
+    //    }
 
-        public string[] Split(string str)
-        {
-            return str.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
-        }
-    }
+    //    public string[] Split(string str)
+    //    {
+    //        return str.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+    //    }
+    //}
 }

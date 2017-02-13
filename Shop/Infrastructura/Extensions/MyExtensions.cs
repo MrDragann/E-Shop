@@ -5,13 +5,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace ProductModel.Models
+namespace Shop.Infrastructura.Extensions
 {
-    public class Security
+    public static class MyExtensions
     {
-        public static Security Instance = new Security();
 
-        public string GetHashString(string s)
+        public static string GetHashString(this string s)
         {
             //переводим строку в байт-массим  
             byte[] bytes = Encoding.Unicode.GetBytes(s);
@@ -32,21 +31,26 @@ namespace ProductModel.Models
             return hash;
         }
 
-        public string GetSalt()
+        public static string GetSalt()
         {
             var random = new RNGCryptoServiceProvider();
 
             // Максимальная длина соли
             int max_length = 32;
 
-            // Объявление массива
+            // Empty salt array
             byte[] salt = new byte[max_length];
 
-            // Генерация рандомными байтами
+            // Build the random bytes
             random.GetNonZeroBytes(salt);
 
-            // Возвращает строку
+            // Return the string encoded salt
             return Convert.ToBase64String(salt);
+        }
+
+        public static string[] Split(this string str)
+        {
+            return str.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

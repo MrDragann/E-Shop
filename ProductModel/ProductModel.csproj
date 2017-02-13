@@ -54,11 +54,7 @@
       <DependentUpon>201702101146039_schema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductData.cs" />
-    <Compile Include="Models\Security.cs" />
-    <Compile Include="ProductContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
