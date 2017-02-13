@@ -176,7 +176,6 @@
     <Compile Include="Infrastructura\CustomWebViewPage.cs" />
     <Compile Include="Infrastructura\Extensions\MyExtensions.cs" />
     <Compile Include="Infrastructura\FilterUser.cs" />
-    <Compile Include="Infrastructura\Security.cs" />
     <Compile Include="Infrastructura\WebUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -279,13 +278,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IServices\IServices.csproj">
+    <ProjectReference Include="..\IServices\Shop.IServices.csproj">
       <Project>{623b36fc-8ebc-4044-bc14-6dfe3714ed0e}</Project>
-      <Name>IServices</Name>
+      <Name>Shop.IServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\Services.csproj">
+    <ProjectReference Include="..\Services\Shop.Services.csproj">
       <Project>{7f81d02f-2790-4b84-a2aa-446b84234908}</Project>
-      <Name>Services</Name>
+      <Name>Shop.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

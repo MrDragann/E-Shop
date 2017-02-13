@@ -6,13 +6,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Shop.Infrastructura.Extensions;
 
 namespace Shop.Controllers
 {
     
     public class HomeController : BaseController
     {
-
+        
         /// <summary>
         /// Главная страница
         /// </summary>
@@ -21,7 +22,6 @@ namespace Shop.Controllers
         {
             var products = Services.Product.GetProducts();
             return View(products.Take(6));
-            Services.Product.GetProducts();
         }
         
         /// <summary>
@@ -32,7 +32,7 @@ namespace Shop.Controllers
         public ActionResult Category(string Category, TypeSort sort = TypeSort.NameAsc)
         {
             ViewBag.Message = Category;
-            var products = Services.Product.GetProducts().Where(x => x.SelectedCategory == Category);
+            var products = Services.Product.GetProducts().Where(x => x.CategoryName == Category);
             switch (sort)
             {
                 case TypeSort.NameAsc: products = products.OrderBy(x => x.Name); break;
@@ -54,7 +54,8 @@ namespace Shop.Controllers
             {
                 return View("Error");
             }
-            Product product = db.Products.Find(id);
+            var products = Services.Product.GetProducts();
+            var product = products.Where(x=>x.Id == id);
             if (product != null)
             {
                 return View(product);
@@ -78,11 +79,6 @@ namespace Shop.Controllers
         {
             return View();
         }
-
         
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
     }
 }

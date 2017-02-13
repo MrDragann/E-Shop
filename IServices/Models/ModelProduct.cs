@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataModel
+namespace IServices.Models
 {
-    public class Product
+    public class ModelProductPreview
     {
         /// <summary>
         /// Идентификатор товара
@@ -44,13 +45,7 @@ namespace DataModel
         /// </summary>
         public string Image { get; set; }
         /// <summary>
-        /// Id производителя
-        /// </summary>
-        public Manufacturer Manufacturer { get; set; }
+       
 
-        public int ManufacturerId { get; set; }
-
-        public Category Category { get; set; }
     }
-
 }

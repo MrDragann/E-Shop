@@ -56,7 +56,7 @@ namespace Shop.Controllers
             //    db.SaveChanges();
 
             //}
-            WebUser.Register(userName, password1);
+            WebUser.Register(userName, password1.GetHashString());
             return RedirectToAction("login");
         }
         /// <summary>

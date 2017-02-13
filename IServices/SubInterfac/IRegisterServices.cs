@@ -8,6 +8,6 @@ namespace IServices
 {
     public interface IRegisterServices
     {
-        bool Register(string userName, string password);
+        bool Register(string userName, string password, string salt);
     }
 }
