@@ -1,4 +1,5 @@
 ﻿using DataModel;
+using IServices.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,6 +11,7 @@ namespace IServices
 {
     public interface IProductServices
     {
-        List<Product> GetProducts();
+        List<ModelProductPreview> ProductsPreview();
+        List<ModelProduct> ProductsDetails();
     }
 }

@@ -20,7 +20,7 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var products = Services.Product.GetProducts();
+            var products = Services.Product.ProductsPreview();
             return View(products.Take(6));
         }
         
@@ -32,7 +32,7 @@ namespace Shop.Controllers
         public ActionResult Category(string Category, TypeSort sort = TypeSort.NameAsc)
         {
             ViewBag.Message = Category;
-            var products = Services.Product.GetProducts().Where(x => x.CategoryName == Category);
+            var products = Services.Product.ProductsPreview().Where(x => x.CategoryName == Category);
             switch (sort)
             {
                 case TypeSort.NameAsc: products = products.OrderBy(x => x.Name); break;
@@ -54,8 +54,8 @@ namespace Shop.Controllers
             {
                 return View("Error");
             }
-            var products = Services.Product.GetProducts();
-            var product = products.Where(x=>x.Id == id);
+            var products = Services.Product.ProductsDetails();
+            var product = products.FirstOrDefault(x=>x.Id == id);
             if (product != null)
             {
                 return View(product);

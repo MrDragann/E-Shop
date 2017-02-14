@@ -65,7 +65,7 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ActionResult Cart()
         {
-            var products = Services.Product.GetProducts();
+            var products = Services.Product.ProductsPreview();
             return View(products.Take(2));
         }
     }

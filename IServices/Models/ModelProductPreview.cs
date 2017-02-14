@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IServices.Models
 {
-    public class ModelProduct
+    public class ModelProductPreview
     {
         /// <summary>
         /// Идентификатор товара
@@ -21,21 +21,9 @@ namespace IServices.Models
         /// </summary>
         public string CategoryName { get; set; }
         /// <summary>
-        /// Описание товара
-        /// </summary>
-        public string Description { get; set; }
-        /// <summary>
-        /// Характеристики товара
-        /// </summary>
-        public string Characteristics { get; set; }
-        /// <summary>
         /// Цена товара
         /// </summary>
         public int Price { get; set; }
-        /// <summary>
-        /// Теги товара
-        /// </summary>
-        public string Tags { get; set; }
         /// <summary>
         /// Дата добавления товара
         /// </summary>
@@ -44,5 +32,8 @@ namespace IServices.Models
         /// Название изображения товара
         /// </summary>
         public string Image { get; set; }
+        /// <summary>
+       
+
     }
 }
