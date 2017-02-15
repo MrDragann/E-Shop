@@ -66,6 +66,11 @@ namespace Shop.Infrastructura
             HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Expires = DateTime.Now.AddDays(-1) });
         }
 
+        public static bool CheckRole(int id, string role)
+        {
+            return (Services.Users.CheckRole(id, role));
+        }
+
         #region Криптография
 
         static byte[] key = Encoding.UTF8.GetBytes("Some salt value0Some salt value0");

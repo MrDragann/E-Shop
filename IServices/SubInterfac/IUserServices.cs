@@ -9,5 +9,7 @@ namespace IServices
     public interface IUserServices
     {
         bool Login(string userName, string password);
+
+        bool CheckRole(int id, string role);
     }
 }

@@ -30,18 +30,12 @@ namespace Shop.Infrastructura
             var role = Roles;
             var user = Users;
             
-
-            bool u = false;
+            bool included = false;
             if (role != "")
             {
-                /// Проверка соответствия роли пользователя
-                //using (var db = new DataContext())
-                //{
-                //    var t = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
-                //    u = t.Any(x => x.UserName == WebUser.CurrentUser.UserName);
-                //}
+                included = WebUser.CheckRole(WebUser.CurrentUser.Id, role);
             }
-            if (user == WebUser.CurrentUser.UserName || u)
+            if (user == WebUser.CurrentUser.UserName || included)
             {
                 return WebUser.CurrentUser.IsAuth;
             }

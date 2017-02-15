@@ -1,7 +1,6 @@
 namespace DataModel.Migrations
 {
     using System;
-    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -15,22 +14,18 @@ namespace DataModel.Migrations
 
         protected override void Seed(DataModel.DataContext context)
         {
-            //var admin = new User { UserName = "Andrew", Password = Security.Instance.GetHashString("123456"), Salt = Security.Instance.GetSalt() };
-            //var moderator = new User { UserName = "Stive", Password = Security.Instance.GetHashString("123456"), Salt = Security.Instance.GetSalt() };
-            //var user = new User { UserName = "Frank", Password = Security.Instance.GetHashString("123456"), Salt = Security.Instance.GetSalt() };
-            //context.Users.AddOrUpdate(
-            //  p => p.Id,
-            //  admin,
-            //  moderator,
-            //  user,
-            //  new User { UserName = "Harry", Password = Security.Instance.GetHashString("123456"), Salt = Security.Instance.GetSalt() }
-            //);
+            //  This method will be called after migrating to the latest version.
 
-            //context.Roles.AddOrUpdate(p => p.Id,
-            //    new Role { Id = TypeRoles.Admin, Name = "Admin", Users = new List<User> { admin } },
-            //    new Role { Id = TypeRoles.Moderator, Name = "Moderator", Users = new List<User> { moderator } },
-            //    new Role { Id = TypeRoles.User, Name = "User", Users = new List<User> { user } }
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
             //    );
+            //
         }
     }
 }
