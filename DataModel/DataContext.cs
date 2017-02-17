@@ -18,7 +18,7 @@ namespace DataModel
 
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<AccountConfirmation> AccountConfirmations { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
@@ -28,12 +28,12 @@ namespace DataModel
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserProfile>().
+            modelBuilder.Entity<User>().
                 Property(p => p.RegistrationDate)
                 .HasColumnType("datetime2")
                 .HasPrecision(0)
                 .IsRequired();
-            modelBuilder.Entity<UserProfile>().
+            modelBuilder.Entity<User>().
                 Property(p => p.LastLoginDate)
                 .HasColumnType("datetime2")
                 .HasPrecision(0)

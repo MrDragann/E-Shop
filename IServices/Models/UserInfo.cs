@@ -16,8 +16,9 @@ namespace IServices.Models
 
         public DateTime RegistrationDate { get; set; }
 
-        public string RoleName { get; set; }
+        public DateTime LastLoginDate { get; set; }
 
+        public string Status { get; set; }
 
     }
 }

@@ -28,9 +28,22 @@ namespace Services
                 foreach (int item in id)
                 {
                     var user = db.Users.FirstOrDefault(_ => _.Id == item);
-                    var profile = db.UserProfiles.FirstOrDefault(_ => _.UserId == item);
+                    var profile = db.AccountConfirmations.FirstOrDefault(_ => _.UserId == item);
                     db.Users.Remove(user);
-                    db.UserProfiles.Remove(profile);
+                    db.AccountConfirmations.Remove(profile);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void BLockUsers(List<int> id)
+        {
+            using (var db = new DataContext())
+            {
+                foreach (int item in id)
+                {
+                    var user = db.Users.FirstOrDefault(_ => _.Id == item);
+                    user.Status = "Заблокирован";
                 }
                 db.SaveChanges();
             }
@@ -42,7 +55,10 @@ namespace Services
             {
                 Id = users.Id,
                 UserName = users.UserName,
-                Email = users.Email
+                Email = users.Email,
+                RegistrationDate = users.RegistrationDate,
+                LastLoginDate = users.LastLoginDate,
+                Status = users.Status
                 
             };
         }

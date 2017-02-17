@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Shop.Infrastructura.Extensions;
+using System.Net.Mail;
 
 namespace Shop.Controllers
 {
@@ -55,9 +56,32 @@ namespace Shop.Controllers
             //    db.SaveChanges();
 
             //}
-            WebUser.Register(userName, email, password1);
+
+            var salt = WebUser.Register(userName, email, password1);
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("testshop2018@gmail.com");
+            msg.To.Add(email);
+            msg.Subject = "Подтвердите регистрацию";
+            msg.Body = string.Format("Для завершения регистрации перейдите по " +
+                        "<a href=\"{0}\" title=\"Подтвердить регистрацию\">ссылке</a>",
+            Url.Action("Confrimed", "Account", new { salt = salt, userName = userName }, Request.Url.Scheme));
+            msg.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Send(msg);
+
             return RedirectToAction("login");
         }
+
+        public ActionResult Confrimed(string salt, string userName)
+        {
+            if (salt != null)
+            {
+                WebUser.Confrimed(salt, userName);
+                return RedirectToAction("index", "home");
+            }
+            return View("Error");
+        }
+
         /// <summary>
         /// Корзина
         /// </summary>

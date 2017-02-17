@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataModel
 {
@@ -14,8 +15,14 @@ namespace DataModel
 
         public string Salt { get; set; }
 
+        public DateTime RegistrationDate { get; set; }
+
+        public DateTime LastLoginDate { get; set; }
+
+        public string Status { get; set; }
+
         // Ссылка на профиль
-        public UserProfile UserProfile { get; set; }
+        public AccountConfirmation AccountConfirmation { get; set; }
 
         public List<Role> Roles { get; set; }
     }

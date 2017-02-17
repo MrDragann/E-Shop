@@ -7,21 +7,35 @@ using Shop.Infrastructura.Extensions;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    public class AdminController : Shop.Controllers.BaseController
+    public class AdminController : BaseController
     {
         // GET: Admin/Home
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Users()
         {
             var users = Services.Admin.Users();
             return View(users);
         }
 
+
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult DeleteUsers()
         {
             var list = Request.Form["list"].Split(',').Select(Int32.Parse).ToList();
             Services.Admin.DeleteUsers(list);
-            return Json("Загрузка завершена");
+            return Json("Запрос успешно выполнен");
+        }
+
+        [HttpPost]
+        public ActionResult BlockUsers()
+        {
+            var list = Request.Form["list"].Split(',').Select(Int32.Parse).ToList();
+            Services.Admin.BLockUsers(list);
+            return Json("Запрос успешно выполнен");
         }
     }
 }

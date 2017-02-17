@@ -22,12 +22,13 @@ namespace IServices
                         Email = email,
                         Password = salt + password,
                         Salt = salt,
-                        UserProfile = new UserProfile
+                        RegistrationDate = DateTime.Now,
+                        LastLoginDate = DateTime.MinValue,
+                        Status = "Не подтвержден",
+                        AccountConfirmation = new AccountConfirmation
                         {
-                            RegistrationDate = DateTime.Now,
-                            LastLoginDate = DateTime.Now,
                             ConfirmedEmail = false,
-                            ConfirmationCode = "privetos " + userName
+                            ConfirmationCode = salt
                         },
                         Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
                     };
@@ -42,6 +43,23 @@ namespace IServices
                 return false;
             }
             
+        }
+
+        public bool ConfrimedEmail(string salt, string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(_ => _.UserName == userName);
+                var confirm = db.AccountConfirmations.FirstOrDefault(x => x.UserId == user.Id);
+                if (db.AccountConfirmations.Any(x => x.ConfirmationCode == salt))
+                {
+                    user.Status = "Подтвержден";
+                    confirm.ConfirmedEmail = true;
+                    db.SaveChanges();
+                    return true;
+                }
+                else return false;
+            }
         }
     }
 }

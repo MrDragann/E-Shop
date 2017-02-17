@@ -11,5 +11,6 @@ namespace IServices
     {
         List<UserInfo> Users();
         void DeleteUsers(List<int> id);
+        void BLockUsers(List<int> id);
     }
 }

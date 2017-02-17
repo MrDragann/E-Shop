@@ -1,0 +1,190 @@
+﻿@model IEnumerable<IServices.Models.UserInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN EXAMPLE TABLE PORTLET-->
+        <div class="portlet box grey-cascade">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-globe"></i>Managed Table
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                    </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" class="reload" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" class="remove" data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-toolbar">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <button id="sample_editable_1_new" class="btn green">
+                                    Add New <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
+                    <div class="row"><div class="col-md-6 col-sm-6"><div class="dataTables_length" id="sample_1_length"><label>Show <select name="sample_1_length" aria-controls="sample_1" class="form-control input-xsmall input-inline"><option value="5">5</option><option value="15">15</option><option value="20">20</option><option value="-1">All</option></select> records</label></div></div><div class="col-md-6 col-sm-6"><div id="sample_1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_1"></label></div></div></div><div class="table-scrollable">
+                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="sample_1" role="grid" aria-describedby="sample_1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="table-checkbox sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                        " style="width: 24px;">
+                                        <div class="checker"><span><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></span></div>
+                                    </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
+                                        Username
+                                        activate to sort column ascending" style="width: 174px;">
+                                        User name
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                        Email
+                                        " style="width: 297px;">
+                                        Email
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                        Points
+                                        " style="width: 108px;">
+                                        Registration date
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1" aria-label="
+                                        Joined
+                                        activate to sort column ascending" style="width: 156px;">
+                                        Role
+                                    </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                                        Status
+                                        " style="width: 170px;">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr class="gradeX odd" role="row">
+                                        <td>
+                                            <input type="checkbox" class="checkboxes" value="@user.Id" name="list">
+                                        </td>
+                                        <td class="sorting_1">
+                                            @user.UserName
+                                        </td>
+                                        <td>
+                                            <a href="mailto:userwow@gmail.com">
+                                                @user.Email
+                                            </a>
+                                        </td>
+                                        <td>
+                                            @user.RegistrationDate
+                                        </td>
+                                        <td class="center">
+                                            
+                                        </td>
+                                        <td>
+                                        @if (user.Status == "Подтвержден")
+                                        {
+                                            <span class="label label-sm label-success">
+                                                @user.Status
+                                            </span>
+                                        }
+                                        else if (user.Status == "Не подтвержден")
+                                        {
+                                            <span class="label label-sm label-warning">
+                                                @user.Status
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-sm label-default">
+                                                @user.Status
+                                            </span>
+                                        }
+
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10 col-sm-10">
+                            <button id="deleteUsers" class="btn btn-danger">Удалить</button>
+                            <button id="blockUsers" class="btn btn-danger">Заблокировать</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row"><div class="col-md-5 col-sm-5"><div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing 1 to 5 of 25 records</div></div><div class="col-md-7 col-sm-7"><div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate"><ul class="pagination" style="visibility: visible;"><li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li><li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li><li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li></ul></div></div></div>
+                </div>
+            </div>
+        </div>
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#deleteUsers').click(function () {
+                var formaData = new FormData();
+
+                var list = $('#delete').attr("name");
+                var listVal = $('#delete').attr("value");
+                values = $("input[name=list]").map(function () {
+                    if ($(this)[0].checked) {
+                        return $(this).val();
+                    }
+
+                }).get();
+                formaData.append("list", values);
+                $.ajax({
+                    url: 'DeleteUsers',
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    data: formaData,
+                    beforeSend: function () { console.log(values); },
+                    success: function (data) { console.log(data); }
+                });
+            });
+
+            $('#blockUsers').click(function () {
+                var formaData = new FormData();
+
+                var list = $('#delete').attr("name");
+                var listVal = $('#delete').attr("value");
+                values = $("input[name=list]").map(function () {
+                    if ($(this)[0].checked) {
+                        return $(this).val();
+                    }
+
+                }).get();
+                formaData.append("list", values);
+                $.ajax({
+                    url: 'BlockUsers',
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    data: formaData,
+                    beforeSend: function () { console.log(values); },
+                    success: function (data) { console.log(data); }
+                });
+            });
+
+        });
+    </script>
+}

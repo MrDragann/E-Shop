@@ -9,5 +9,6 @@ namespace IServices
     public interface IRegisterServices
     {
         bool Register(string userName, string email, string password, string salt);
+        bool ConfrimedEmail(string salt, string userName);
     }
 }

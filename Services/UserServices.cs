@@ -24,12 +24,11 @@ namespace IServices
         {
             using (var db = new DataContext())
             {
-                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password);
+                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password && _.Status != "Заблокирован");
                 if (authorized)
                 {
                     var user = db.Users.FirstOrDefault(x => x.UserName == userName);
-                    var profile = db.UserProfiles.FirstOrDefault(x => x.UserId == user.Id);
-                    profile.LastLoginDate = DateTime.Now;
+                    user.LastLoginDate = DateTime.Now;
                     db.SaveChanges();
                 }
                 return authorized;

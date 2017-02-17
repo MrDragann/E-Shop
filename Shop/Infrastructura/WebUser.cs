@@ -56,9 +56,18 @@ namespace Shop.Infrastructura
             
         }
 
-        public static void Register(string userName, string email, string password)
+        public static string Register(string userName, string email, string password)
         {
-            Services.Register.Register(userName, email, password.GetHashString(), GetSalt());
+            var salt = GetSalt();
+            Services.Register.Register(userName, email, password.GetHashString(), salt);
+            salt = EncryptSalt(salt);
+            return salt;
+        }
+
+        public static void Confrimed(string salt, string userName)
+        {
+            var decrSalt = DecryptSalt(salt);
+            Services.Register.ConfrimedEmail(decrSalt, userName);
         }
 
         public static void LogOff()
@@ -104,6 +113,36 @@ namespace Shop.Infrastructura
                     var model = new ModelUser() { UserName = mas[0], Password = mas[1] };
                     return model;
                 }catch(Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
+        private static string EncryptSalt(string salt)
+        {
+            using (Aes myAes = Aes.Create())
+            {
+                myAes.Key = key;
+                myAes.IV = IV;
+                byte[] encrypted = EncryptStringToBytes_Aes($"{salt}", myAes.Key, myAes.IV);
+                return new BigInteger(encrypted).ToString("x2");
+            }
+        }
+
+        private static string DecryptSalt(string encrypted)
+        {
+            using (Aes myAes = Aes.Create())
+            {
+                try
+                {
+                    myAes.Key = key;
+                    myAes.IV = IV;
+                    var number = BigInteger.Parse(encrypted, NumberStyles.HexNumber);
+                    string salt = DecryptStringFromBytes_Aes(number.ToByteArray(), myAes.Key, myAes.IV);
+                    return salt;
+                }
+                catch (Exception ex)
                 {
                     return null;
                 }
