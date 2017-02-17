@@ -37,5 +37,10 @@ namespace Shop.Areas.Admin.Controllers
             Services.Admin.BLockUsers(list);
             return Json("Запрос успешно выполнен");
         }
+        public ActionResult upUsers()
+        {
+            var users = Services.Admin.Users();
+            return View(users);
+        }
     }
 }

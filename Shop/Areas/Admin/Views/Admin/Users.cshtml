@@ -17,7 +17,7 @@
                     </a>
                     <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
                     </a>
-                    <a href="javascript:;" class="reload" data-original-title="" title="">
+                    <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
                     </a>
                     <a href="javascript:;" class="remove" data-original-title="" title="">
                     </a>
@@ -184,7 +184,13 @@
                     success: function (data) { console.log(data); }
                 });
             });
+            $('#reloadUsers').click(function () {
+                $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+            });
+            function updateUsers(e) {
 
+                $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+            };
         });
     </script>
 }
