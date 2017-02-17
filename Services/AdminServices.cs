@@ -23,29 +23,43 @@ namespace Services
 
         public void DeleteUsers(List<int> id)
         {
-            using (var db = new DataContext())
+            try
             {
-                foreach (int item in id)
+                using (var db = new DataContext())
                 {
-                    var user = db.Users.FirstOrDefault(_ => _.Id == item);
-                    var profile = db.AccountConfirmations.FirstOrDefault(_ => _.UserId == item);
-                    db.Users.Remove(user);
-                    db.AccountConfirmations.Remove(profile);
+                    foreach (int item in id)
+                    {
+                        var user = db.Users.FirstOrDefault(_ => _.Id == item);
+                        var profile = db.AccountConfirmations.FirstOrDefault(_ => _.UserId == item);
+                        db.Users.Remove(user);
+                        db.AccountConfirmations.Remove(profile);
+                    }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+            }
+            catch 
+            {
+
             }
         }
 
         public void BLockUsers(List<int> id)
         {
-            using (var db = new DataContext())
+            try
             {
-                foreach (int item in id)
+                using (var db = new DataContext())
                 {
-                    var user = db.Users.FirstOrDefault(_ => _.Id == item);
-                    user.Status = "Заблокирован";
+                    foreach (int item in id)
+                    {
+                        var user = db.Users.FirstOrDefault(_ => _.Id == item);
+                        user.Status = "Заблокирован";
+                    }
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+            }
+            catch
+            {
+
             }
         }
 
