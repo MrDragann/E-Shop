@@ -10,7 +10,7 @@ namespace IServices
 {
     public class RegisterServices : IRegisterServices
     {
-        public bool Register(string userName, string password, string salt)
+        public bool Register(string userName, string email, string password, string salt)
         {
             try
             {
@@ -19,8 +19,16 @@ namespace IServices
                     User user = new User()
                     {
                         UserName = userName,
+                        Email = email,
                         Password = salt + password,
                         Salt = salt,
+                        UserProfile = new UserProfile
+                        {
+                            RegistrationDate = DateTime.Now,
+                            LastLoginDate = DateTime.Now,
+                            ConfirmedEmail = false,
+                            ConfirmationCode = "privetos " + userName
+                        },
                         Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
                     };
 

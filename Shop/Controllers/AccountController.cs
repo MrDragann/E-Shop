@@ -24,7 +24,6 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(string userName, string password, string RememberMe)
         {
-            //string HashPass = Security.Instance.GetHashString(password);
             WebUser.Login(userName, password.GetHashString(), RememberMe == "on");
 
             return RedirectToAction("index", "home");
@@ -46,7 +45,7 @@ namespace Shop.Controllers
         /// <param name="password1"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Register(string userName, string password1)
+        public ActionResult Register(string userName, string email, string password1)
         {
             ////Может пригодиться
             //using (var db = new DataContext())
@@ -56,7 +55,7 @@ namespace Shop.Controllers
             //    db.SaveChanges();
 
             //}
-            WebUser.Register(userName, password1.GetHashString());
+            WebUser.Register(userName, email, password1);
             return RedirectToAction("login");
         }
         /// <summary>
@@ -68,5 +67,6 @@ namespace Shop.Controllers
             var products = Services.Product.ProductsPreview();
             return View(products.Take(2));
         }
+
     }
 }

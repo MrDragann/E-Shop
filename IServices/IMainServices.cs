@@ -13,5 +13,7 @@ namespace IServices
         IRegisterServices Register { get; set; }
 
         IProductServices Product { get; set; }
+
+        IAdminServices Admin { get; set; }
     }
 }

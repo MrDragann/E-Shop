@@ -24,7 +24,15 @@ namespace IServices
         {
             using (var db = new DataContext())
             {
-                return db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password);
+                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password);
+                if (authorized)
+                {
+                    var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                    var profile = db.UserProfiles.FirstOrDefault(x => x.UserId == user.Id);
+                    profile.LastLoginDate = DateTime.Now;
+                    db.SaveChanges();
+                }
+                return authorized;
             }
         }
 

@@ -15,11 +15,14 @@ namespace IServices
             Users = new UserServices();
             Register = new RegisterServices();
             Product = new ProductServices();
-        }
+            Admin = new AdminServices();
+    }
         public IUserServices Users { get; set; }
 
         public IRegisterServices Register { get; set; }
 
         public IProductServices Product { get; set; }
+
+        public IAdminServices Admin { get; set; }
     }
 }

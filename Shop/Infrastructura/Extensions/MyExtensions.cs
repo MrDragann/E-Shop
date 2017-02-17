@@ -23,9 +23,20 @@ namespace Shop.Infrastructura.Extensions
         }
 
 
-        public static string[] Split(this string str)
+        public static string[] SplitString(this string str)
         {
             return str.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public static List<int> StrToInt32(this string str)
+        {
+            List<int> list = null;
+            var item = str.SplitString();
+            for(int i = 0; i < str.Count(); i++)
+            {
+                list[i] = Convert.ToInt32(item[i]);
+            }
+            return list;
         }
     }
 

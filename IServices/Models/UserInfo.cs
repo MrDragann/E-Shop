@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IServices.Models
 {
-    public class ModelUser
+    public class UserInfo
     {
         public int Id { get; set; }
 
@@ -14,10 +14,10 @@ namespace IServices.Models
 
         public string Email { get; set; }
 
-        public string Password { get; set; }
-        /// <summary>
-        /// Авторизован пользователь или нет
-        /// </summary>
-        public bool IsAuth { get; set; }
+        public DateTime RegistrationDate { get; set; }
+
+        public string RoleName { get; set; }
+
+
     }
 }

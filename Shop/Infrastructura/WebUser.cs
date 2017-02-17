@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Numerics;
 using System.Globalization;
+using Shop.Infrastructura.Extensions;
 
 namespace Shop.Infrastructura
 {
@@ -55,9 +56,9 @@ namespace Shop.Infrastructura
             
         }
 
-        public static void Register(string userName, string password)
+        public static void Register(string userName, string email, string password)
         {
-            Services.Register.Register(userName, password, GetSalt());
+            Services.Register.Register(userName, email, password.GetHashString(), GetSalt());
         }
 
         public static void LogOff()
