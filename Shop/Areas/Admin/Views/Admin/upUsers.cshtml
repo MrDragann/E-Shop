@@ -109,9 +109,12 @@
                     processData: false,
                     data: formaData,
                     beforeSend: function () { console.log(values); },
-                    success: function (data) { console.log(data); }
+                    success: function (data) {
+                        $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+                        //console.log(data);
+                    }
                 });
-                //$('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+                
             });
 
             $('#blockUsers').click(function () {

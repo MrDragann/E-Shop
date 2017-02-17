@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Numerics;
 using System.Globalization;
 using Shop.Infrastructura.Extensions;
+using System.Net.Mail;
 
 namespace Shop.Infrastructura
 {
@@ -79,6 +80,17 @@ namespace Shop.Infrastructura
         public static bool CheckRole(int id, string role)
         {
             return (Services.Users.CheckRole(id, role));
+        }
+
+        public static void SendMail(string subject, string email, string body)
+        {
+            MailMessage msg = new MailMessage();
+            msg.To.Add(email);
+            msg.Subject = subject;
+            msg.Body = body;
+            msg.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Send(msg);
         }
 
         #region Криптография

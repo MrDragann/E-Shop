@@ -8,8 +8,10 @@ namespace IServices
 {
     public interface IUserServices
     {
+        #region Registration
         bool Login(string userName, string password);
 
         bool CheckRole(int id, string role);
+        #endregion
     }
 }

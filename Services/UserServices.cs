@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using IServices.Models;
+using System.Linq.Expressions;
+using IServices.Models.User;
 
 namespace IServices
 {
@@ -24,10 +28,10 @@ namespace IServices
         {
             using (var db = new DataContext())
             {
-                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password && _.Status != "Заблокирован");
+                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password && _.Status != EnumStatusUser.Error != "Заблокирован");
                 if (authorized)
                 {
-                    var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(x => x.UserName == userName);
                     user.LastLoginDate = DateTime.Now;
                     db.SaveChanges();
                 }
@@ -35,6 +39,30 @@ namespace IServices
             }
         }
 
+        public ModelUser Login(int userId)
+        {
+            using (var db = new DataContext())
+            {
+              
+                return db.Users.Select(SelectDetailUser()).FirstOrDefault(x => x.Id == userId);
+                
+            }
+        }
 
+        public static Expression<Func<User, ModelUser>> SelectDetailUser()
+        {
+            return user => new ModelUser()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Roles = user.Roles.Select(role => new ModelRole { Id = (ModelEnumTypeRoles)role.Id, Name = role.Name }).ToList()
+            };
+        }
+
+        public static Expression<Func<Role, ModelRole>> SelectDetailRole()
+        {
+            return role => new ModelRole { Id = (ModelEnumTypeRoles)role.Id, Name = role.Name };
+        }
     }
 }
