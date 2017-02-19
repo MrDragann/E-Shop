@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DataModel;
 using System.Linq.Expressions;
 using IServices;
+using IServices.Models.User;
 
 namespace Services
 {
@@ -52,7 +53,7 @@ namespace Services
                     foreach (int item in id)
                     {
                         var user = db.Users.FirstOrDefault(_ => _.Id == item);
-                        user.Status = "Заблокирован";
+                        user.StatusUserId = EnumStatusUser.Locked;
                     }
                     db.SaveChanges();
                 }
@@ -72,8 +73,9 @@ namespace Services
                 Email = users.Email,
                 RegistrationDate = users.RegistrationDate,
                 LastLoginDate = users.LastLoginDate,
-                Status = users.Status
-                
+                Status = users.StatusUserId,
+                Roles = users.Roles.Select(role => new ModelRole { Id = (ModelEnumTypeRoles)role.Id, Name = role.Name }).ToList()
+
             };
         }
     }

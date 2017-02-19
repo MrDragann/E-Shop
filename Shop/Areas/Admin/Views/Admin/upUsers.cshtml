@@ -1,4 +1,5 @@
-﻿@model IEnumerable<IServices.Models.UserInfo>
+﻿@using DataModel
+@model IEnumerable<IServices.Models.UserInfo>
 @{
     Layout = null;
 }
@@ -14,19 +15,19 @@
                         <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
                     </th>
                     <th>
-                        User name
+                        Имя пользователя
                     </th>
                     <th>
-                        Email
+                        Эл. адрес
                     </th>
                     <th>
-                        Registration date
+                        Дата регистрации
                     </th>
                     <th>
-                        Role
+                        Роль
                     </th>
                     <th>
-                        Status
+                        Статус
                     </th>
                 </tr>
             </thead>
@@ -48,15 +49,20 @@
                         <td>
                             @user.RegistrationDate
                         </td>
-                        <td class="center"></td>
+                        <td class="center">
+                            @foreach(var role in user.Roles)
+                            {
+                                @role.Name<br />
+                            }
+                        </td>
                         <td>
-                            @if (user.Status == "Подтвержден")
+                            @if (user.Status == EnumStatusUser.Confirmed)
                             {
                                 <span class="label label-sm label-success">
                                     @user.Status
                                 </span>
                             }
-                            else if (user.Status == "Не подтвержден")
+                            else if (user.Status == EnumStatusUser.NConfirmed)
                             {
                                 <span class="label label-sm label-warning">
                                     @user.Status
@@ -110,8 +116,8 @@
                     data: formaData,
                     beforeSend: function () { console.log(values); },
                     success: function (data) {
-                        $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
-                        //console.log(data);
+                        updateUsers();
+                        console.log(data);
                     }
                 });
                 
@@ -136,9 +142,12 @@
                     processData: false,
                     data: formaData,
                     beforeSend: function () { console.log(values); },
-                    success: function (data) { console.log(data); }
+                    success: function (data) {
+                        updateUsers();
+                        console.log(data);
+                    }
                 });
-                //$('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+                
             });
             $('#reloadUsers').click(function () {
                 updateUsers();

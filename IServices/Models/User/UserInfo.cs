@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataModel;
+using IServices.Models.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +20,8 @@ namespace IServices.Models
 
         public DateTime LastLoginDate { get; set; }
 
-        public string Status { get; set; }
+        public EnumStatusUser Status { get; set; }
 
+        public List<ModelRole> Roles { get; set; }
     }
 }

@@ -19,9 +19,9 @@ namespace DataModel
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<AccountConfirmation> AccountConfirmations { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
+        
+        public DbSet<StatusUser> StatusUsers { get; set; }
+
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Category> Categories { get; set; }

@@ -19,7 +19,7 @@ namespace DataModel
 
         public DateTime LastLoginDate { get; set; }
 
-        public EnumStatusUser Status { get; set; }
+        public EnumStatusUser StatusUserId { get; set; }
 
         // Ссылка на профиль
         public AccountConfirmation AccountConfirmation { get; set; }
@@ -29,9 +29,9 @@ namespace DataModel
 
     public enum EnumStatusUser
     {
-        Error,
-        Status2,
-        Status3
+        Locked,
+        Confirmed,
+        NConfirmed
     }
 
     public class StatusUser
@@ -39,5 +39,7 @@ namespace DataModel
         public EnumStatusUser Id { get; set; }
 
         public string Name { get; set; }
+
+        public List<User> Users { get; set; }
     }
 }

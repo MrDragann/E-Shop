@@ -28,7 +28,7 @@ namespace IServices
         {
             using (var db = new DataContext())
             {
-                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password && _.Status != EnumStatusUser.Error != "Заблокирован");
+                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password && _.StatusUserId != EnumStatusUser.Locked );
                 if (authorized)
                 {
                     var user = db.Users.Include(_ => _.Roles).FirstOrDefault(x => x.UserName == userName);

@@ -24,7 +24,7 @@ namespace IServices
                         Salt = salt,
                         RegistrationDate = DateTime.Now,
                         LastLoginDate = DateTime.MinValue,
-                        Status = "Не подтвержден",
+                        StatusUserId = EnumStatusUser.NConfirmed,
                         AccountConfirmation = new AccountConfirmation
                         {
                             ConfirmedEmail = false,
@@ -53,7 +53,7 @@ namespace IServices
                 var confirm = db.AccountConfirmations.FirstOrDefault(x => x.UserId == user.Id);
                 if (db.AccountConfirmations.Any(x => x.ConfirmationCode == salt))
                 {
-                    user.Status = "Подтвержден";
+                    user.StatusUserId = EnumStatusUser.Confirmed;
                     confirm.ConfirmedEmail = true;
                     db.SaveChanges();
                     return true;

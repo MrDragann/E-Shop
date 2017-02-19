@@ -63,6 +63,18 @@
     <Compile Include="Migrations\201702170231008_accountconfirmation.Designer.cs">
       <DependentUpon>201702170231008_accountconfirmation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702191347126_status.cs" />
+    <Compile Include="Migrations\201702191347126_status.Designer.cs">
+      <DependentUpon>201702191347126_status.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702191354259_status2.cs" />
+    <Compile Include="Migrations\201702191354259_status2.Designer.cs">
+      <DependentUpon>201702191354259_status2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702191530510_status3.cs" />
+    <Compile Include="Migrations\201702191530510_status3.Designer.cs">
+      <DependentUpon>201702191530510_status3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="AccountConfirmation.cs" />
@@ -83,6 +95,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702170231008_accountconfirmation.resx">
       <DependentUpon>201702170231008_accountconfirmation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702191347126_status.resx">
+      <DependentUpon>201702191347126_status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702191354259_status2.resx">
+      <DependentUpon>201702191354259_status2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702191530510_status3.resx">
+      <DependentUpon>201702191530510_status3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
