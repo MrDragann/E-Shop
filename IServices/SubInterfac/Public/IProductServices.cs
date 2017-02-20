@@ -13,5 +13,6 @@ namespace IServices
     {
         List<ModelProductPreview> ProductsPreview();
         List<ModelProduct> ProductsDetails();
+        List<ModelCategory> GetCategory();
     }
 }

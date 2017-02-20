@@ -1,5 +1,5 @@
 ﻿@using DataModel
-@model IEnumerable<IServices.Models.UserInfo>
+@model IEnumerable<IServices.Models.ModelProductPreview>
 @{
     Layout = null;
 }
@@ -15,65 +15,44 @@
                         <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
                     </th>
                     <th>
-                        Имя пользователя
+                        Название
                     </th>
                     <th>
-                        Эл. адрес
+                        Производитель
                     </th>
                     <th>
-                        Дата регистрации
+                        Категория
                     </th>
                     <th>
-                        Роль
+                        Цена
                     </th>
                     <th>
-                        Статус
+                        Дата добавления
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model)
+                @foreach (var product in Model)
                 {
                     <tr class="gradeX odd" role="row">
                         <td>
-                            <input type="checkbox" class="checkboxes" value="@user.Id" name="list">
+                            <input type="checkbox" class="checkboxes" value="@product.Id" name="list">
                         </td>
                         <td class="sorting_1">
-                            @user.UserName
+                            @product.Name
                         </td>
                         <td>
-                            <a href="mailto:@user.Email">
-                                @user.Email
-                            </a>
+                            @product
                         </td>
                         <td>
-                            @user.RegistrationDate
+                            @product
                         </td>
                         <td class="center">
-                            @foreach(var role in user.Roles)
-                            {
-                                @role.Name<br />
-                            }
+                            @product.Price
+
                         </td>
                         <td>
-                            @if (user.Status == EnumStatusUser.Confirmed)
-                            {
-                                <span class="label label-sm label-success">
-                                    @user.Status
-                                </span>
-                            }
-                            else if (user.Status == EnumStatusUser.NConfirmed)
-                            {
-                                <span class="label label-sm label-warning">
-                                    @user.Status
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="label label-sm label-default">
-                                    @user.Status
-                                </span>
-                            }
+                            @product.DateAdd
 
                         </td>
                     </tr>
@@ -84,8 +63,8 @@
     </div>
     <div class="row">
         <div class="col-md-10 col-sm-10">
-            <button id="deleteUsers" class="btn btn-danger">Удалить</button>
-            <button id="blockUsers" class="btn btn-danger">Заблокировать</button>
+            <button id="deleteProduct" class="btn btn-danger">Удалить</button>
+            <button id="editProduct" class="btn btn-danger">Редактировать</button>
         </div>
     </div>
     <br />

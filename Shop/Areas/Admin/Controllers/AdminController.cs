@@ -23,6 +23,18 @@ namespace Shop.Areas.Admin.Controllers
             return View(users);
         }
 
+        public ActionResult Products()
+        {
+            
+            return View();
+        }
+
+        public ActionResult Category()
+        {
+
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult DeleteUsers()
@@ -44,16 +56,22 @@ namespace Shop.Areas.Admin.Controllers
             var users = Services.Admin.Users();
             return View(users);
         }
+        public ActionResult upProducts()
+        {
+            var products = Services.Product.ProductsPreview();
+            return View(products);
+        }
+        public ActionResult upCategory()
+        {
+            var category = Services.Product.GetCategory();
+            return View(category);
+        }
 
         [HttpPost]
-        public JsonResult AddUser(string userName, string email, string password)
+        public JsonResult AddUser(string userName, string email, string password, string role, string status)
         {
             var salt = MyExtensions.GetSalt();
-            Services.Register.Register(userName, email, password, salt);
-            WebUser.SendMail("Подтвердите регистрацию", email,
-                $@"Для завершения регистрации перейдите по 
-                 <a href='{Url.Action("Confrimed", "Account", new { area = "", salt = salt, userName = userName }, Request.Url.Scheme)}'
-                 title='Подтвердить регистрацию'>ссылке</a>");
+            Services.Admin.AddUser(userName, email, password, salt);
             return Json("Запрос успешно выполнен");
         }
     }

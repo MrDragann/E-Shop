@@ -12,5 +12,6 @@ namespace IServices
         List<UserInfo> Users();
         void DeleteUsers(List<int> id);
         void BLockUsers(List<int> id);
+        bool AddUser(string userName, string email, string password, string salt);
     }
 }

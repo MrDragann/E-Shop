@@ -62,6 +62,24 @@ namespace IServices
             }
         }
 
+        public static List<ModelRole> GetRoles()
+        {
+            using(var db = new DataContext())
+            {
+                var roles = db.Roles.Select(SelectDetailRole()).ToList();
+                return roles;
+            }
+        }
+
+        public static List<ModelStatus> GetStatuses()
+        {
+            using (var db = new DataContext())
+            {
+                var statuses = db.StatusUsers.Select(SelectDetailStatus()).ToList();
+                return statuses;
+            }
+        }
+
         public static Expression<Func<User, ModelUser>> SelectDetailUser()
         {
             return user => new ModelUser()
@@ -76,6 +94,11 @@ namespace IServices
         public static Expression<Func<Role, ModelRole>> SelectDetailRole()
         {
             return role => new ModelRole { Id = (ModelEnumTypeRoles)role.Id, Name = role.Name };
+        }
+
+        public static Expression<Func<StatusUser, ModelStatus>> SelectDetailStatus()
+        {
+            return status => new ModelStatus { Id = (ModelEnumStatusUser)status.Id, Name = status.Name };
         }
     }
 }

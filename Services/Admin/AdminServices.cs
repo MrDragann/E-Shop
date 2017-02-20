@@ -22,6 +22,41 @@ namespace Services
             }
         }
 
+        public bool AddUser(string userName, string email, string password, string salt)
+        {
+            try
+            {
+                using (var db = new DataContext())
+                {
+                    User user = new User()
+                    {
+                        UserName = userName,
+                        Email = email,
+                        Password = (salt + password).GetHashString(),
+                        Salt = salt,
+                        RegistrationDate = DateTime.Now,
+                        LastLoginDate = DateTime.MinValue,
+                        StatusUserId = EnumStatusUser.NConfirmed,
+                        AccountConfirmation = new AccountConfirmation
+                        {
+                            ConfirmedEmail = false,
+                            ConfirmationCode = salt
+                        },
+                        Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
+                    };
+
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
         public void DeleteUsers(List<int> id)
         {
             try

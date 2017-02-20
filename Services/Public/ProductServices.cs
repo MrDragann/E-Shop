@@ -60,6 +60,19 @@ namespace Services
             };
         }
 
+        public static Expression<Func<Category, ModelCategory>> ShowCategory()
+        {
+            return category => new ModelCategory()
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Parent = category.Parent,
+                Products = category.Products,
+                Сhild = category.Сhild,
+                ParentId = category.ParentId
+            };
+        }
+
         public void AddCategory()
         {
             using (var db = new DataContext())
@@ -70,12 +83,12 @@ namespace Services
             }
         }
 
-        public static void GetCategory()
+        public List<ModelCategory> GetCategory()
         {
             using (var db = new DataContext())
             {
-                var categories = db.Categories.Where(_ => !_.ParentId.HasValue).Include(_ => _.Сhild).Include(_ => _.Сhild.Select(c => c.Сhild)).ToList();
-
+                var categories = db.Categories.Select(ShowCategory()).Where(_ => !_.ParentId.HasValue).Include(_ => _.Сhild).Include(_ => _.Сhild.Select(c => c.Сhild)).ToList();
+                return categories;
             }
         }
 
@@ -101,7 +114,7 @@ namespace Services
             }
         }
 
-        public static void Update(int id, string name)
+        public void Update(int id, string name)
         {
             using (var db = new DataContext())
             {
@@ -112,7 +125,7 @@ namespace Services
 
         }
 
-         public static void Update2(int id, string name)
+         public void Update2(int id, string name)
         {
             using (var db = new DataContext())
             {

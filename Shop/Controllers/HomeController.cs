@@ -21,8 +21,8 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            ProductServices.Update(1,"Test1");
-            ProductServices.Update(1, "Test2");
+            var roles = UserServices.GetRoles();
+            var statuses = UserServices.GetStatuses();
             var products = Services.Product.ProductsPreview();
             return View(products.Take(6));
         }

@@ -1,5 +1,4 @@
-﻿@using IServices
-@model IEnumerable<IServices.Models.UserInfo>
+﻿@model IEnumerable<IServices.Models.ModelCategory>
 
 @{
     ViewBag.Title = "Index";
@@ -74,29 +73,6 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="roles" class="col-sm-4 control-label">Роль</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="role">
-                            @foreach (var role in UserServices.GetRoles())
-                            {
-                                <option value="@role.Id">@role.Name</option>
-                            }
-                            
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="roles" class="col-sm-4 control-label">Статус</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="status">
-                            @foreach (var status in UserServices.GetStatuses())
-                            {
-                                <option value="@status.Id">@status.Name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
                 
                 </div>
             <div class="modal-footer">
@@ -110,15 +86,13 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#upUsers').load("http://localhost:58081/Admin/Admin/upUsers");
+            $('#upUsers').load("http://localhost:58081/Admin/Admin/upCategory");
         
             $('#AddUser').click(function () {
                 var data = {
                     userName: $('#userName').val(),
                     email: $('#email').val(),
-                    password: $('#password').val(),
-                    role: $('#role').val(),
-                    status: $('#status').val()
+                    password: $('#password').val()
                 }
             $.ajax({
                 type: "POST",

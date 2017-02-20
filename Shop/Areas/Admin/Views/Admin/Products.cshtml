@@ -1,5 +1,4 @@
-﻿@using IServices
-@model IEnumerable<IServices.Models.UserInfo>
+﻿@model IEnumerable<IServices.Models.ModelProductPreview>
 
 @{
     ViewBag.Title = "Index";
@@ -11,7 +10,7 @@
         <div class="portlet box grey-cascade">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-users">&nbsp;</i>Управление пользователями
+                    <i class="icon-users">&nbsp;</i>Управление товарами
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -29,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <button id="sample_editable_1_new" class="btn green" data-toggle="modal" data-target="#myModal">
+                                <button id="sample_editable_1_new" class="btn green" data-toggle="modal" data-target="#Modal">
                                     Добавить нового <i class="fa fa-plus"></i>
                                 </button>
                             </div>
@@ -74,29 +73,6 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="roles" class="col-sm-4 control-label">Роль</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="role">
-                            @foreach (var role in UserServices.GetRoles())
-                            {
-                                <option value="@role.Id">@role.Name</option>
-                            }
-                            
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="roles" class="col-sm-4 control-label">Статус</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="status">
-                            @foreach (var status in UserServices.GetStatuses())
-                            {
-                                <option value="@status.Id">@status.Name</option>
-                            }
-                        </select>
-                    </div>
-                </div>
                 
                 </div>
             <div class="modal-footer">
@@ -110,15 +86,13 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#upUsers').load("http://localhost:58081/Admin/Admin/upUsers");
+            $('#upUsers').load("http://localhost:58081/Admin/Admin/upProducts");
         
             $('#AddUser').click(function () {
                 var data = {
                     userName: $('#userName').val(),
                     email: $('#email').val(),
-                    password: $('#password').val(),
-                    role: $('#role').val(),
-                    status: $('#status').val()
+                    password: $('#password').val()
                 }
             $.ajax({
                 type: "POST",
