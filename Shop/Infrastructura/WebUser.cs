@@ -59,7 +59,7 @@ namespace Shop.Infrastructura
 
         public static string Register(string userName, string email, string password)
         {
-            var salt = GetSalt();
+            var salt = MyExtensions.GetSalt();
             Services.Register.Register(userName, email, password.GetHashString(), salt);
             salt = EncryptSalt(salt);
             return salt;
@@ -248,22 +248,7 @@ namespace Shop.Infrastructura
 
         }
 
-        public static string GetSalt()
-        {
-            var random = new RNGCryptoServiceProvider();
-
-            // Максимальная длина соли
-            int max_length = 32;
-
-            // Empty salt array
-            byte[] salt = new byte[max_length];
-
-            // Build the random bytes
-            random.GetNonZeroBytes(salt);
-
-            // Return the string encoded salt
-            return Convert.ToBase64String(salt);
-        }
+        
         #endregion
     }
 }

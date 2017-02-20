@@ -42,7 +42,7 @@
                             @user.UserName
                         </td>
                         <td>
-                            <a href="mailto:userwow@gmail.com">
+                            <a href="mailto:@user.Email">
                                 @user.Email
                             </a>
                         </td>
@@ -109,7 +109,7 @@
                 }).get();
                 formaData.append("list", values);
                 $.ajax({
-                    url: 'DeleteUsers',
+                    url: '/Admin/DeleteUsers',
                     type: 'post',
                     contentType: false,
                     processData: false,
@@ -136,7 +136,7 @@
                 }).get();
                 formaData.append("list", values);
                 $.ajax({
-                    url: 'BlockUsers',
+                    url: '/Admin/BlockUsers',
                     type: 'post',
                     contentType: false,
                     processData: false,
@@ -154,7 +154,7 @@
             });
             function updateUsers() {
 
-                $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+                $('#sample_1_wrapper').load("http://localhost:58081/Admin/upUsers");
             };
         });
     </script>
