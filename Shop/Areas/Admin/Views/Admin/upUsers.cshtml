@@ -109,7 +109,7 @@
                 }).get();
                 formaData.append("list", values);
                 $.ajax({
-                    url: '/Admin/DeleteUsers',
+                    url: 'DeleteUsers',
                     type: 'post',
                     contentType: false,
                     processData: false,
@@ -136,7 +136,7 @@
                 }).get();
                 formaData.append("list", values);
                 $.ajax({
-                    url: '/Admin/BlockUsers',
+                    url: 'BlockUsers',
                     type: 'post',
                     contentType: false,
                     processData: false,
@@ -154,7 +154,7 @@
             });
             function updateUsers() {
 
-                $('#sample_1_wrapper').load("http://localhost:58081/Admin/upUsers");
+                $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
             };
         });
     </script>
