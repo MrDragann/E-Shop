@@ -12,6 +12,8 @@ namespace IServices
         bool Login(string userName, string password);
 
         bool CheckRole(int id, string role);
+
+        void ResetPassword(string email, string password, string salt);
         #endregion
     }
 }

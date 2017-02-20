@@ -3,6 +3,7 @@ using IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace IServices
                     {
                         UserName = userName,
                         Email = email,
-                        Password = salt + password,
+                        Password = (salt + password).GetHashString(),
                         Salt = salt,
                         RegistrationDate = DateTime.Now,
                         LastLoginDate = DateTime.MinValue,
@@ -62,4 +63,21 @@ namespace IServices
             }
         }
     }
+    #region Хеширование
+    public static class Extens
+    {
+        public static string GetHashString(this string s)
+        {
+            SHA256Managed crypt = new SHA256Managed();
+            StringBuilder hash = new StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(s), 0, Encoding.UTF8.GetByteCount(s));
+            foreach (byte theByte in crypto)
+            {
+                hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
+        }
+    }
+
+    #endregion
 }

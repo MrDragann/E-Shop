@@ -50,24 +50,37 @@
     </div>
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">×</button>
-                    <h4 class="modal-title">Восстановление аккаунта</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Что бы восстановить доступ к аккаунту нужно указать адрес электронной почты аккаунта.</p>
-                    <div class="form-group">
-                        <label for="email" class="col-sm-2,5 control-label">Эл. адрес</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                        </div>
+            <form class="form-horizontal" role="form" method="post" action="/account/ResetPassword">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Восстановление аккаунта</h4>
                     </div>
-                    
+                    <div class="modal-body">
+                        <p>Что бы восстановить доступ к аккаунту нужно указать адрес электронной почты аккаунта.</p>
+
+                        <div class="form-group">
+                            <label for="email" class="col-sm-3 control-label">Эл. адрес</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit">Отправить</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+                    </div>
                 </div>
-                <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button></div>
-            </div>
+            </form>
         </div>
     </div>
 </section>
+
+@section scripts{
+    <script>
+       
+
+    </script>
+}
 

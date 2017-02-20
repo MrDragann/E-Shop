@@ -28,10 +28,12 @@ namespace IServices
         {
             using (var db = new DataContext())
             {
-                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == _.Salt + password && _.StatusUserId != EnumStatusUser.Locked );
+                var user = db.Users.FirstOrDefault(_ => _.UserName == userName);
+                var HeshPass = (user.Salt + password).GetHashString();
+
+                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == HeshPass && _.StatusUserId != EnumStatusUser.Locked );
                 if (authorized)
                 {
-                    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(x => x.UserName == userName);
                     user.LastLoginDate = DateTime.Now;
                     db.SaveChanges();
                 }
@@ -46,6 +48,17 @@ namespace IServices
               
                 return db.Users.Select(SelectDetailUser()).FirstOrDefault(x => x.Id == userId);
                 
+            }
+        }
+
+        public void ResetPassword(string email, string password, string salt)
+        {
+            using(var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.Email == email);
+                user.Salt = salt;
+                user.Password = (salt + password).GetHashString();
+                db.SaveChanges();
             }
         }
 

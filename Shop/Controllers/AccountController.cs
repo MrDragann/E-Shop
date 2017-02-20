@@ -25,7 +25,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(string userName, string password, string RememberMe)
         {
-            WebUser.Login(userName, password.GetHashString(), RememberMe == "on");
+            WebUser.Login(userName, password, RememberMe == "on");
 
             return RedirectToAction("index", "home");
         }
@@ -80,6 +80,28 @@ namespace Shop.Controllers
                 return RedirectToAction("index", "home");
             }
             return View("Error");
+        }
+        
+        [HttpPost]
+        public ActionResult ResetPassword(string email)
+        {
+            WebUser.SendMail("Востоновления пароля", email,
+                $@"Для восстановления  пароля перейдите по 
+                 <a href='{Url.Action("NewPassword", "Account", new { email = email }, Request.Url.Scheme)}'
+                 title='Востоновления пароля'>ссылке</a>");
+            return RedirectToAction("login");
+        }
+
+        public ActionResult NewPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewPassword(string email, string password1)
+        {
+            WebUser.NewPassword(email, password1);
+            return RedirectToAction("Login");
         }
 
         /// <summary>

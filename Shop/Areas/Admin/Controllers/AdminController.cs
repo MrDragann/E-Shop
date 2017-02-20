@@ -8,6 +8,7 @@ using Shop.Infrastructura;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    //[FilterUser(Roles ="Admin")]
     public class AdminController : BaseController
     {
         // GET: Admin/Home
@@ -51,7 +52,7 @@ namespace Shop.Areas.Admin.Controllers
             Services.Register.Register(userName, email, password, salt);
             WebUser.SendMail("Подтвердите регистрацию", email,
                 $@"Для завершения регистрации перейдите по 
-                 <a href='{Url.Action("Confrimed", "Account", new { salt = salt, userName = userName }, Request.Url.Scheme)}'
+                 <a href='{Url.Action("Confrimed", "Account", new { area = "", salt = salt, userName = userName }, Request.Url.Scheme)}'
                  title='Подтвердить регистрацию'>ссылке</a>");
             return Json("Запрос успешно выполнен");
         }
