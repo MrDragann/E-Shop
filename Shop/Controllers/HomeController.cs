@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Infrastructura.Extensions;
+using Services;
 
 namespace Shop.Controllers
 {
@@ -20,6 +21,8 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+            ProductServices.Update(1,"Test1");
+            ProductServices.Update(1, "Test2");
             var products = Services.Product.ProductsPreview();
             return View(products.Take(6));
         }

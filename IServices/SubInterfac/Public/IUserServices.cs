@@ -11,7 +11,7 @@ namespace IServices
         #region Registration
         bool Login(string userName, string password);
 
-        bool CheckRole(int id, string role);
+        bool CheckRole(string userName, string role);
 
         void ResetPassword(string email, string password, string salt);
         #endregion

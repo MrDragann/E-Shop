@@ -8,7 +8,7 @@ using Shop.Infrastructura;
 
 namespace Shop.Areas.Admin.Controllers
 {
-    //[FilterUser(Roles ="Admin")]
+    [FilterUser(Roles = "Администратор")]
     public class AdminController : BaseController
     {
         // GET: Admin/Home

@@ -24,10 +24,15 @@ namespace DataModel.Migrations
             //    user2
             //    );
 
-            //context.StatusUsers.AddOrUpdate(p => p.Id,
-            //    new StatusUser { Id=EnumStatusUser.Locked, Name = "Заблокирован", Users = new List<User> { user } },
-            //    new StatusUser { Id=EnumStatusUser.Confirmed, Name = "Подтвержден", Users = new List<User> { user1 } },
-            //    new StatusUser { Id=EnumStatusUser.NConfirmed, Name = "Не пыодтвержден", Users = new List<User> { user2 } }
+            context.StatusUsers.AddOrUpdate(p => p.Id,
+                new StatusUser { Id = EnumStatusUser.Locked, Name = "Заблокирован" },
+                new StatusUser { Id = EnumStatusUser.Confirmed, Name = "Подтвержден" },
+                new StatusUser { Id = EnumStatusUser.NConfirmed, Name = "Не пыодтвержден" }
+                );
+            //context.Roles.AddOrUpdate(p => p.Id,
+            //    new Role { Id = TypeRoles.Admin, Name = "Администратор" },
+            //    new Role { Id = TypeRoles.Moderator, Name = "Модерато" },
+            //   // new Role { Id = EnumStatusUser.NConfirmed, Name = "Не пыодтвержден" }
             //    );
         }
     }

@@ -33,7 +33,7 @@ namespace Shop.Infrastructura
             bool included = false;
             if (role != "")
             {
-                included = WebUser.CheckRole(WebUser.CurrentUser.Id, role);
+                included = WebUser.CheckRole(WebUser.CurrentUser.UserName, role);
             }
             if (user == WebUser.CurrentUser.UserName || included)
             {

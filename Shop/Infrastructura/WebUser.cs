@@ -81,9 +81,9 @@ namespace Shop.Infrastructura
             HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Expires = DateTime.Now.AddDays(-1) });
         }
 
-        public static bool CheckRole(int id, string role)
+        public static bool CheckRole(string userName, string role)
         {
-            return (Services.Users.CheckRole(id, role));
+            return (Services.Users.CheckRole(userName, role));
         }
 
         public static void SendMail(string subject, string email, string body)

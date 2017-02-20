@@ -14,12 +14,12 @@ namespace IServices
 {
     public class UserServices : IUserServices
     {
-        public bool CheckRole(int id, string role)
+        public bool CheckRole(string userName, string role)
         {
             using (var db = new DataContext())
             {
                 var users = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
-                bool included = users.Any(x => x.Id == id);
+                bool included = users.Any(x => x.UserName == userName);
                 return included;
             }
         }

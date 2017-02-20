@@ -75,6 +75,14 @@
     <Compile Include="Migrations\201702191530510_status3.Designer.cs">
       <DependentUpon>201702191530510_status3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702200802186_tmp.cs" />
+    <Compile Include="Migrations\201702200802186_tmp.Designer.cs">
+      <DependentUpon>201702200802186_tmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702200806364_tmp1.cs" />
+    <Compile Include="Migrations\201702200806364_tmp1.Designer.cs">
+      <DependentUpon>201702200806364_tmp1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="AccountConfirmation.cs" />
@@ -104,6 +112,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702191530510_status3.resx">
       <DependentUpon>201702191530510_status3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702200802186_tmp.resx">
+      <DependentUpon>201702200802186_tmp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702200806364_tmp1.resx">
+      <DependentUpon>201702200806364_tmp1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

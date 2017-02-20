@@ -56,10 +56,10 @@
     <Compile Include="Models\User\ModelUser.cs" />
     <Compile Include="Models\User\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IAdminServices.cs" />
-    <Compile Include="SubInterfac\IProductServices.cs" />
-    <Compile Include="SubInterfac\IRegisterServices.cs" />
-    <Compile Include="SubInterfac\IUserServices.cs" />
+    <Compile Include="SubInterfac\Admin\IAdminServices.cs" />
+    <Compile Include="SubInterfac\Public\IProductServices.cs" />
+    <Compile Include="SubInterfac\Public\IRegisterServices.cs" />
+    <Compile Include="SubInterfac\Public\IUserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataModel\Shop.DataModel.csproj">
@@ -71,10 +71,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SubInterfac\Admin\" />
-    <Folder Include="SubInterfac\Public\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

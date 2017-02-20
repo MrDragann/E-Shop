@@ -11,6 +11,9 @@ using System.Net.Mail;
 
 namespace Shop.Controllers
 {
+    /// <summary>
+    /// Контроллер в котором выполняются действия над аккаунтом
+    /// </summary>
     public class AccountController : BaseController
     {
         /// <summary>
@@ -22,6 +25,13 @@ namespace Shop.Controllers
         {
             return View();
         }
+        /// <summary>
+        /// Авторизация пользователя
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="password">Пароль</param>
+        /// <param name="RememberMe">Функция запомнить</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login(string userName, string password, string RememberMe)
         {
@@ -54,20 +64,18 @@ namespace Shop.Controllers
             //    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(_ => _.Id == 19);
             //    user.Roles = db.Roles.Where(_ => new[] { TypeRoles.Admin }.Contains(_.Id)).ToList();
             //    db.SaveChanges();
-
             //}
-
+            // Отправка письма с подтверждением аккаунта
             var salt = WebUser.Register(userName, email, password1);
             WebUser.SendMail("Подтвердите регистрацию", email, 
                 $@"Для завершения регистрации перейдите по 
                  <a href='{Url.Action("Confrimed", "Account", new { salt = salt, userName = userName }, Request.Url.Scheme)}'
                  title='Подтвердить регистрацию'>ссылке</a>");
             
-
             return RedirectToAction("login");
         }
         /// <summary>
-        /// 
+        /// Подтверждение аккаунта
         /// </summary>
         /// <param name="salt"></param>
         /// <param name="userName"></param>
@@ -81,22 +89,35 @@ namespace Shop.Controllers
             }
             return View("Error");
         }
-        
+        /// <summary>
+        /// Сброс пароля пользователя
+        /// </summary>
+        /// <param name="email">Эл. адрес</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ResetPassword(string email)
         {
+            // Отправка письма с ссылкой на сброс пароля
             WebUser.SendMail("Востоновления пароля", email,
                 $@"Для восстановления  пароля перейдите по 
                  <a href='{Url.Action("NewPassword", "Account", new { email = email }, Request.Url.Scheme)}'
                  title='Востоновления пароля'>ссылке</a>");
             return RedirectToAction("login");
         }
-
+        /// <summary>
+        /// Страниица с вводом нового пароля
+        /// </summary>
+        /// <returns></returns>
         public ActionResult NewPassword()
         {
             return View();
         }
-
+        /// <summary>
+        /// Установка нового пароля
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password1"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult NewPassword(string email, string password1)
         {
@@ -105,7 +126,7 @@ namespace Shop.Controllers
         }
 
         /// <summary>
-        /// Корзина
+        /// Корзина пользователя
         /// </summary>
         /// <returns></returns>
         public ActionResult Cart()
