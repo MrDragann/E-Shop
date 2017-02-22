@@ -1,13 +1,14 @@
-﻿using DataModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace IServices.Models
+namespace DataModel
 {
-    public class ModelCategory
+    /// <summary>
+    /// Модель категорий
+    /// </summary>
+    public class Category
     {
         public int Id { get; set; }
 
@@ -19,6 +20,15 @@ namespace IServices.Models
 
         public List<Category> Сhild { get; set; }
 
+        public List<Product> Products { get; set; }
+
+        
+    }
+
+    public class Manufacturer
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
         public List<Product> Products { get; set; }
     }
 }

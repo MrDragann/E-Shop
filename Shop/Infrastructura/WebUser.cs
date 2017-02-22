@@ -60,7 +60,7 @@ namespace Shop.Infrastructura
         public static string Register(string userName, string email, string password)
         {
             var salt = MyExtensions.GetSalt();
-            Services.Register.Register(userName, email, password, salt);
+            Services.Users.Register(userName, email, password, salt);
             return salt;
         }
 
@@ -72,7 +72,7 @@ namespace Shop.Infrastructura
 
         public static void Confrimed(string salt, string userName)
         {
-            Services.Register.ConfrimedEmail(salt, userName);
+            Services.Users.ConfrimedEmail(salt, userName);
         }
 
         public static void LogOff()

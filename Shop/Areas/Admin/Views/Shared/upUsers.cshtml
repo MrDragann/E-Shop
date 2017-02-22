@@ -1,5 +1,5 @@
 ﻿@using DataModel
-@model IEnumerable<IServices.Models.UserInfo>
+@model IEnumerable<IServices.Models.ModelUserInfo>
 @{
     Layout = null;
 }
@@ -85,15 +85,41 @@
     <div class="row">
         <div class="col-md-10 col-sm-10">
             <button id="deleteUsers" class="btn btn-danger">Удалить</button>
-            <button id="blockUsers" class="btn btn-danger">Заблокировать</button>
-            <button id="editRole" class="btn btn-danger">Изменить роль</button>
+            <button id="blockUsers" class="btn grey-cascade">Заблокировать</button>
+            <button id="editRole" class="btn blue-madison" data-toggle="modal" data-target="#modalRole">Назначить роль</button>
         </div>
     </div>
     <br />
     <div class="row"><div class="col-md-5 col-sm-5"><div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing 1 to 5 of 25 records</div></div><div class="col-md-7 col-sm-7"><div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate"><ul class="pagination" style="visibility: visible;"><li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li><li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li><li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li></ul></div></div></div>
 </div>
 
-
+<div id="modalRole" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Назначить роль пользователю</h4>
+            </div>
+            <div class="modal-body">
+                <p class="lead">
+                    Выберите одну из приведенных ниже ролей:
+                </p>
+                <button value="0" class="btn btn-success" id="Admin" data-dismiss="modal">
+                    Администранор <i class="fa fa-font"></i>
+                </button>
+                <button value="1" class="btn blue" id="Moderator" data-dismiss="modal">
+                    Модератор <i class="fa fa-edit"></i>
+                </button>
+                <button value="2" class="btn default" id="User" data-dismiss="modal">
+                    Пользователь <i class="fa fa-user"></i>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script>
         $(document).ready(function () {
@@ -148,8 +174,105 @@
                         console.log(data);
                     }
                 });
-                
+
             });
+
+            $('#Admin').click(function () {
+
+                var formaData = new FormData();
+                var list = $('#delete').attr("name");
+                var listVal = $('#delete').attr("value");
+                values = $("input[name=list]").map(function () {
+                    if ($(this)[0].checked) {
+                        return $(this).val();
+                    }
+
+                }).get();
+                var role = $("#Admin").val();
+
+                formaData.append("list", values);
+                formaData.append("role", role);
+
+                $.ajax({
+                    type: "POST",
+                    url: 'EditRole',
+                    contentType: false,
+                    processData: false,
+                    data: formaData,
+                    success: function (result) {
+                        console.log(result);
+                        updateUsers();
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+            $('#Moderator').click(function () {
+
+                var formaData = new FormData();
+                var list = $('#delete').attr("name");
+                var listVal = $('#delete').attr("value");
+                values = $("input[name=list]").map(function () {
+                    if ($(this)[0].checked) {
+                        return $(this).val();
+                    }
+
+                }).get();
+                var role = $("#Moderator").val();
+
+                formaData.append("list", values);
+                formaData.append("role", role);
+
+                $.ajax({
+                    type: "POST",
+                    url: 'EditRole',
+                    contentType: false,
+                    processData: false,
+                    data: formaData,
+                    success: function (result) {
+                        console.log(result);
+                        updateUsers();
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
+            $('#User').click(function () {
+
+                var formaData = new FormData();
+                var list = $('#delete').attr("name");
+                var listVal = $('#delete').attr("value");
+                values = $("input[name=list]").map(function () {
+                    if ($(this)[0].checked) {
+                        return $(this).val();
+                    }
+
+                }).get();
+                var role = $("#User").val();
+
+                formaData.append("list", values);
+                formaData.append("role", role);
+
+                $.ajax({
+                    type: "POST",
+                    url: 'EditRole',
+                    contentType: false,
+                    processData: false,
+                    data: formaData,
+                    success: function (result) {
+                        console.log(result);
+                        updateUsers();
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+
             $('#reloadUsers').click(function () {
                 updateUsers();
             });

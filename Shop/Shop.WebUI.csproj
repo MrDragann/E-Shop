@@ -226,8 +226,8 @@
     <Content Include="Areas\Admin\Views\Shared\upUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Products.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\upProducts.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\upCategory.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\Category.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\upCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Categories.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />

@@ -49,10 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\AdminServices.cs" />
+    <Compile Include="AdminServices.cs" />
+    <Compile Include="Admin\AdminCategoriesServices.cs" />
+    <Compile Include="Admin\AdminUsersServices.cs" />
     <Compile Include="MainServices.cs" />
     <Compile Include="Public\ProductServices.cs" />
-    <Compile Include="Public\RegisterServices.cs" />
     <Compile Include="Public\UserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,11 +8,46 @@ namespace IServices
 {
     public interface IUserServices
     {
-        #region Registration
+        #region Авторизация/Регистрация
+        /// <summary>
+        /// Авторизация
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         bool Login(string userName, string password);
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="email">Эл. адрес</param>
+        /// <param name="password">Пароль</param>
+        /// <param name="salt">Соль</param>
+        /// <returns></returns>
+        bool Register(string userName, string email, string password, string salt);
+        #endregion
 
+        #region Действия над аккаунтом
+        /// <summary>
+        /// Подтверждение аккаунта
+        /// </summary>
+        /// <param name="salt"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        bool ConfrimedEmail(string salt, string userName);
+        /// <summary>
+        /// Проверка роли пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
         bool CheckRole(string userName, string role);
-
+        /// <summary>
+        /// Сброс пароля пользователя
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="salt"></param>
         void ResetPassword(string email, string password, string salt);
         #endregion
     }

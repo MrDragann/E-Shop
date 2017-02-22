@@ -1,0 +1,11 @@
+﻿<div class="row" id="Categories">
+    
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#Categories').load("http://localhost:58081/Admin/Admin/upCategories");
+        });
+    </script>  
+}

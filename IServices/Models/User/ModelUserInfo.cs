@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IServices.Models
 {
-    public class UserInfo
+    public class ModelUserInfo
     {
         public int Id { get; set; }
 

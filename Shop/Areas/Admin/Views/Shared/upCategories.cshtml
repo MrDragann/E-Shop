@@ -1,0 +1,344 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="col-md-6 col-sm-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box purple">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Дерево категорий
+            </div>
+            <div class="tools">
+                <a href="" class="reload" id="reloadCategories" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <ul style="list-style:none;">
+                @foreach (var category in Services.ProductServices.GetCategories())
+                {
+                    <li>
+                        <h3><i class="fa fa-chevron-down">&nbsp;</i>&nbsp;@category.Name</h3>
+                        <ul style="list-style:none;">
+                            @foreach (var child in category.Сhild)
+                            {
+                                <li><h4><i class="fa fa-chevron-right">&nbsp;</i>&nbsp;@child.Name</h4></li>
+
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+<div class="col-md-6 col-sm-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box yellow" style="margin-bottom:10px">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Добавить главную категорию
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+
+        <div class="portlet-body">
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <input type="text" class="form-control input-lg" id="MainCategory">
+                <label for="MainCategory">Название категории</label>
+            </div>
+            <button class="btn blue btn-block btn-lg m-icon-big" id="AddMainCategory">Добавить <i class="m-icon-big-swapright m-icon-white"></i></button>
+
+        </div>
+    </div>
+    <div class="portlet box yellow" style="margin-bottom:10px">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Добавить дочернюю категорию
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <select class="form-control edited" id="MainCategories">
+                    @foreach (var category in Services.ProductServices.GetCategories())
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <label for="MainCategories">Главная категория</label>
+            </div>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <input type="text" class="form-control input-sm" id="ChildCategory">
+                <label for="ChildCategory">Дочерняя категория</label>
+            </div>
+            <button class="btn blue btn-block btn-lg m-icon-big" id="AddChildCategory">Добавить <i class="m-icon-big-swapright m-icon-white"></i></button>
+        </div>
+
+    </div>
+    <div class="portlet box yellow" style="margin-bottom:10px">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Изменить название категории
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="expand" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: none;">
+            <p class="lead">
+                <i class="fa fa-edit">&nbsp;</i>Изменить название главной категории
+            </p>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <select class="form-control edited" id="EdMainCategories">
+                    @foreach (var category in Services.ProductServices.GetCategories())
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <label for="EdMainCategories">Главная категория</label>
+            </div>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <input type="text" class="form-control input-lg" id="NewMainCategory">
+                <label for="NewMainCategory">Новое название категории</label>
+            </div>
+            <button class="btn blue btn-block btn-lg m-icon-big" id="EditMainCategory" style="margin-bottom:20px">
+                Изменить <i class="m-icon-big-swapright m-icon-white"></i>
+            </button>
+            <p class="lead">
+                <i class="fa fa-edit">&nbsp;</i>Изменить название дочерней категории
+            </p>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <select class="form-control edited" id="EdChildCategories">
+                    @foreach (var category in Services.ProductServices.GetCategories())
+                    {
+                        <optgroup label="@category.Name">
+                            @foreach (var child in category.Сhild)
+                            {
+                                <option value="@child.Id">@child.Name</option>
+                            }
+                        </optgroup>
+
+                    }
+                </select>
+                <label for="EdChildCategories">Дочерняя категория</label>
+            </div>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <input type="text" class="form-control input-lg" id="NewChildCategory">
+                <label for="NewChildCategory">Новое название категории</label>
+            </div>
+            <button class="btn blue btn-block btn-lg m-icon-big" id="EditChildCategory">
+                Изменить <i class="m-icon-big-swapright m-icon-white"></i>
+            </button>
+        </div>
+    </div>
+    <div class="portlet box yellow" style="margin-bottom:10px">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Удалить категорию
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="expand" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body" style="display: none;">
+            <p class="lead">
+                <i class="fa fa-trash-o">&nbsp;</i>Удалить главную категорию
+            </p>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <select class="form-control edited" id="DelMainCategories">
+                    @foreach (var category in Services.ProductServices.GetCategories())
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <label for="DelMainCategories">Главная категория</label>
+            </div>
+            <button class="btn blue btn-block btn-lg m-icon-big" id="DeleteMainCategory" style="margin-bottom:20px">
+                Удалить <i class="m-icon-big-swapright m-icon-white"></i>
+            </button>
+            <p class="lead">
+                <i class="fa fa-trash-o">&nbsp;</i>Удалить дочернюю категорию
+            </p>
+            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                <select class="form-control edited" id="DelChildCategories">
+                    @foreach (var category in Services.ProductServices.GetCategories())
+                    {
+                        <optgroup label="@category.Name">
+                            @foreach (var child in category.Сhild)
+                            {
+                                <option value="@child.Id">@child.Name</option>
+                            }
+                        </optgroup>
+
+                    }
+                </select>
+                <label for="DelChildCategories">Дочерняя категория</label>
+            </div>
+            <button class="btn blue btn-block btn-lg m-icon-big" id="DeleteChildCategory">
+                Удалить <i class="m-icon-big-swapright m-icon-white"></i>
+            </button>
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#reloadCategories').click(function () {
+            UpdateCategories();
+        });
+
+        $('#AddMainCategory').click(function () {
+            var data = {
+                name: $('#MainCategory').val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'AddMainCategory',
+
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    UpdateCategories();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $('#AddChildCategory').click(function () {
+            var select = $('#MainCategories');
+            var SelectedMainCategory = $(':selected', select);
+
+            var data = {
+                mainId: SelectedMainCategory.val(),
+                child: $('#ChildCategory').val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'AddChildCategory',
+
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    UpdateCategories();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $('#EditMainCategory').click(function () {
+            var select = $('#EdMainCategories');
+            var SelectedMainCategory = $(':selected', select);
+
+            var data = {
+                mainId: SelectedMainCategory.val(),
+                newName : $('#NewMainCategory').val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'EditMainCategory',
+
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    UpdateCategories();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $('#EditChildCategory').click(function () {
+            var select = $('#EdChildCategories');
+            var SelectedMainCategory = $(':selected', select);
+
+            var data = {
+                childId: SelectedMainCategory.val(),
+                newName: $('#NewChildCategory').val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'EditChildCategory',
+
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    UpdateCategories();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $('#DeleteMainCategory').click(function () {
+            var select = $('#DelMainCategories');
+            var SelectedMainCategory = $(':selected', select);
+
+            var data = {
+                mainId: SelectedMainCategory.val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'DeleteMainCategory',
+
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    UpdateCategories();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        $('#DeleteChildCategory').click(function () {
+            var select = $('#DelChildCategories');
+            var SelectedMainCategory = $(':selected', select);
+
+            var data = {
+                childId: SelectedMainCategory.val()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: 'DeleteChildCategory',
+
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                    UpdateCategories();
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+
+        function UpdateCategories() {
+            $('#Categories').load("http://localhost:58081/Admin/Admin/upCategories");
+        }
+    });
+</script>  

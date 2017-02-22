@@ -9,21 +9,19 @@ using System.Data.Entity;
 using IServices.Models;
 using System.Linq.Expressions;
 using IServices.Models.User;
+using System.Security.Cryptography;
 
 namespace IServices
 {
     public class UserServices : IUserServices
     {
-        public bool CheckRole(string userName, string role)
-        {
-            using (var db = new DataContext())
-            {
-                var users = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
-                bool included = users.Any(x => x.UserName == userName);
-                return included;
-            }
-        }
-
+        #region Авторизация/Регистрация
+        /// <summary>
+        /// Проверка существования пользователя в БД
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="password">Пароль пользователя</param>
+        /// <returns></returns>
         public bool Login(string userName, string password)
         {
             using (var db = new DataContext())
@@ -31,7 +29,7 @@ namespace IServices
                 var user = db.Users.FirstOrDefault(_ => _.UserName == userName);
                 var HeshPass = (user.Salt + password).GetHashString();
 
-                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == HeshPass && _.StatusUserId != EnumStatusUser.Locked );
+                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == HeshPass && _.StatusUserId != EnumStatusUser.Locked);
                 if (authorized)
                 {
                     user.LastLoginDate = DateTime.Now;
@@ -45,39 +43,47 @@ namespace IServices
         {
             using (var db = new DataContext())
             {
-              
                 return db.Users.Select(SelectDetailUser()).FirstOrDefault(x => x.Id == userId);
-                
             }
         }
-
-        public void ResetPassword(string email, string password, string salt)
+        /// <summary>
+        /// Регистрация пользователя 
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="password">Пароль пользователя</param>
+        public bool Register(string userName, string email, string password, string salt)
         {
-            using(var db = new DataContext())
+            try
             {
-                var user = db.Users.FirstOrDefault(x => x.Email == email);
-                user.Salt = salt;
-                user.Password = (salt + password).GetHashString();
-                db.SaveChanges();
-            }
-        }
+                using (var db = new DataContext())
+                {
+                    User user = new User()
+                    {
+                        UserName = userName,
+                        Email = email,
+                        Password = (salt + password).GetHashString(),
+                        Salt = salt,
+                        RegistrationDate = DateTime.Now,
+                        LastLoginDate = DateTime.MinValue,
+                        StatusUserId = EnumStatusUser.NConfirmed,
+                        AccountConfirmation = new AccountConfirmation
+                        {
+                            ConfirmedEmail = false,
+                            ConfirmationCode = salt
+                        },
+                        Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
+                    };
 
-        public static List<ModelRole> GetRoles()
-        {
-            using(var db = new DataContext())
-            {
-                var roles = db.Roles.Select(SelectDetailRole()).ToList();
-                return roles;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                }
+                return true;
             }
-        }
+            catch (Exception ex)
+            {
+                return false;
+            }
 
-        public static List<ModelStatus> GetStatuses()
-        {
-            using (var db = new DataContext())
-            {
-                var statuses = db.StatusUsers.Select(SelectDetailStatus()).ToList();
-                return statuses;
-            }
         }
 
         public static Expression<Func<User, ModelUser>> SelectDetailUser()
@@ -90,6 +96,55 @@ namespace IServices
                 Roles = user.Roles.Select(role => new ModelRole { Id = (ModelEnumTypeRoles)role.Id, Name = role.Name }).ToList()
             };
         }
+        #endregion
+        #region Действия над аккаунтом
+        public bool ConfrimedEmail(string salt, string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(_ => _.UserName == userName);
+                var confirm = db.AccountConfirmations.FirstOrDefault(x => x.UserId == user.Id);
+                if (db.AccountConfirmations.Any(x => x.ConfirmationCode == salt))
+                {
+                    user.StatusUserId = EnumStatusUser.Confirmed;
+                    confirm.ConfirmedEmail = true;
+                    db.SaveChanges();
+                    return true;
+                }
+                else return false;
+            }
+        }
+        /// <summary>
+        /// Проверка роли пользователя
+        /// </summary>
+        /// <param name="role">Роль пользователя</param>
+        /// <param name="userName">Имя пользователя</param>
+        /// <returns></returns>
+        public bool CheckRole(string userName, string role)
+        {
+            using (var db = new DataContext())
+            {
+                var users = db.Users.Where(x => x.Roles.Any(y => y.Name == role));
+                bool included = users.Any(x => x.UserName == userName);
+                return included;
+            }
+        }
+        /// <summary>
+        /// Замена старого пароля на новый
+        /// </summary>
+        /// <param name="email">Почта пользователя</param>
+        /// <param name="password">Новый пароль</param>
+        /// <param name="salt">Новая соль</param>
+        public void ResetPassword(string email, string password, string salt)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.Email == email);
+                user.Salt = salt;
+                user.Password = (salt + password).GetHashString();
+                db.SaveChanges();
+            }
+        }
 
         public static Expression<Func<Role, ModelRole>> SelectDetailRole()
         {
@@ -100,5 +155,23 @@ namespace IServices
         {
             return status => new ModelStatus { Id = (ModelEnumStatusUser)status.Id, Name = status.Name };
         }
+        #endregion
     }
+    #region Хеширование
+    public static class Extens
+    {
+        public static string GetHashString(this string s)
+        {
+            SHA256Managed crypt = new SHA256Managed();
+            StringBuilder hash = new StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(s), 0, Encoding.UTF8.GetByteCount(s));
+            foreach (byte theByte in crypto)
+            {
+                hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
+        }
+    }
+
+    #endregion
 }

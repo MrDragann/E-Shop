@@ -11,8 +11,15 @@ namespace IServices
 {
     public interface IProductServices
     {
+        /// <summary>
+        /// Вывод частичной информации о товарах
+        /// </summary>
+        /// <returns></returns>
         List<ModelProductPreview> ProductsPreview();
+        /// <summary>
+        /// Вывод полной информации о товарах
+        /// </summary>
+        /// <returns></returns>
         List<ModelProduct> ProductsDetails();
-        List<ModelCategory> GetCategory();
     }
 }

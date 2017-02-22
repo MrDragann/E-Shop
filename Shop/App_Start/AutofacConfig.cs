@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using IServices;
+using Services;
 using System.Web.Mvc;
 
 namespace Shop.App_Start
@@ -20,6 +21,8 @@ namespace Shop.App_Start
 
             // регистрируем споставление типов
             builder.RegisterType<MainServices>().As<IMainServices>();
+            builder.RegisterType<AdminServices>().As<IAdminServices>();
+
 
             // создаем новый контейнер с теми зависимостями, которые определены выше
             var container = builder.Build();
