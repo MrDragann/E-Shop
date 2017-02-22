@@ -38,7 +38,7 @@ namespace DataModel
         /// <summary>
         /// Дата добавления товара
         /// </summary>
-        public string DateAdd { get; set; }
+        public DateTime DateAdd { get; set; }
         /// <summary>
         /// Название изображения товара
         /// </summary>

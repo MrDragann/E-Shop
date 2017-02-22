@@ -170,6 +170,15 @@ namespace Shop.Areas.Admin.Controllers
             return View();
         }
         /// <summary>
+        /// Частичное представление товаров
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult upProducts()
+        {
+            var products = Services.Product.ProductsDetails();
+            return View(products);
+        }
+        /// <summary>
         /// Регистрирует нового пользователя и отправляет на указанную ип почту письмо с потверждением аккаунта
         /// </summary>
         /// <param name="userName">Логин пользователя</param>

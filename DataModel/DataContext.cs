@@ -40,23 +40,13 @@ namespace DataModel
                 .HasColumnType("datetime2")
                 .HasPrecision(0)
                 .IsRequired();
+            modelBuilder.Entity<Product>().
+                Property(p => p.DateAdd)
+                .HasColumnType("datetime2")
+                .HasPrecision(0)
+                .IsRequired();
         }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-
-
-        //    modelBuilder.Entity<User>().HasKey(_ => _.Id);
-        //    modelBuilder.Entity<User>().HasMany(t => t.Roles)
-        //                              .WithMany(t => t.Users)
-        //                                .Map(m =>
-        //                                {
-        //                                    m.ToTable("CourseInstructor");
-        //                                    m.MapLeftKey("CourseID");
-        //                                    m.MapRightKey("InstructorID");
-        //                                });
-
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        
     }
 }

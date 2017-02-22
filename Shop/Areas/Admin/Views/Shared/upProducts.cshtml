@@ -1,1 +1,72 @@
-﻿
+﻿@model IEnumerable<IServices.Models.ModelProduct>
+@{
+    Layout = null;
+}
+
+@*<div class="col-md-6 col-sm-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box purple">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Управление товарами
+            </div>
+            <div class="tools">
+                <a href="" class="reload" id="reloadCategories" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                <thead>
+                    <tr>
+                        <th class="table-checkbox">
+                            <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                        </th>
+                        <th>
+                            Наименование
+                        </th>
+                        <th>
+                            Цена
+                        </th>
+                        <th>
+                            Производитель
+                        </th>
+                        <th>
+                            Категория
+                        </th>
+                        <th>
+                            Дата добавления
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr class="gradeX odd" role="row">
+                            <td>
+                                <input type="checkbox" class="checkboxes" value="@product.Id" name="list">
+                            </td>
+                            <td class="sorting_1">
+                                @product.Name
+                            </td>
+                            <td>
+                                @product.Price
+                            </td>
+                            <td>
+                                @product.ManufacturerId
+                            </td>
+                            <td class="center">
+                                @product.Category
+                            </td>
+                            <td>
+                                @product.DateAdd
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>*@
