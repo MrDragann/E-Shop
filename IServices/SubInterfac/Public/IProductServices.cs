@@ -1,5 +1,6 @@
 ﻿using DataModel;
 using IServices.Models;
+using IServices.Models.Product;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,5 +22,7 @@ namespace IServices
         /// </summary>
         /// <returns></returns>
         List<ModelProduct> ProductsDetails();
+
+        ModelCategories GetCategory();
     }
 }

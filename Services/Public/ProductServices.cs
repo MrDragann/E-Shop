@@ -1,13 +1,12 @@
 ﻿using IServices;
 using DataModel;
 using System;
+using IServices.Models.Product;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
 using IServices.Models;
 using System.Linq.Expressions;
+using System.Data.Entity;
 
 namespace Services
 {
@@ -67,17 +66,37 @@ namespace Services
             };
         }
         /// <summary>
-        /// Вывод списка категорий
+        /// Вывод всех категорий
         /// </summary>
-        /// <returns></returns>
-        public static List<Category> GetCategories()
+        /// <returns>Коллекция всех категорий</returns>
+        public ModelCategories GetCategory()
         {
             using (var db = new DataContext())
             {
-                var categories = db.Categories.Where(_ => !_.ParentId.HasValue).Include(_ => _.Сhild).ToList();
-                return categories;
+                var categories = db.Categories.ToList();
+                return new ModelCategories { Categories = categories.Select(c => ConverModelCategory(c)).ToList() };
             }
         }
+
+        private static ModelCategory ConverModelCategory(Category category)
+        {
+
+            return new ModelCategory
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ParentId = category.ParentId,
+
+            };
+        }
+        //public static List<Category> GetCategories()
+        //{
+        //    using (var db = new DataContext())
+        //    {
+        //        var categories = db.Categories.Where(_ => !_.ParentId.HasValue).Include(_ => _.Сhild).ToList();
+        //        return categories;
+        //    }
+        //}
         #region Может пригодиться
         //public void AddCategory()
         //{
@@ -134,6 +153,14 @@ namespace Services
         //        db.SaveChanges();
         //    }
         //}
+        public static List<Category> GetCategories()
+        {
+            using (var db = new DataContext())
+            {
+                var categories = db.Categories.Where(_ => !_.ParentId.HasValue).Include(_ => _.Сhild).ToList();
+                return categories;
+            }
+        }
         #endregion
     }
 }

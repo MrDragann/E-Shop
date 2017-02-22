@@ -80,6 +80,12 @@ namespace Shop.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult Categories()
+        {
+            var model = Services.Product.GetCategory();
+            return View(model);
+        }
+
     }
 }

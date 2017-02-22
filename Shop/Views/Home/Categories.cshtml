@@ -1,0 +1,51 @@
+﻿@model IServices.Models.Product.ModelCategories
+@{
+    Layout = null;
+}
+
+@*<ul class="nav navbar-nav collapse navbar-collapse">
+    <li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>
+    @foreach (var category in Model.Categories)
+    {
+        if (Model.GetChild(category.Id).Count < 1)
+        {
+            <li><a href="@Url.Action("Category","Home",new { Category = category.Name })">@category.Name</a></li>
+        }
+        else
+        {
+            <li class="dropdown">
+                <a href="#">@category.Name<i class="fa fa-angle-down"></i></a>
+                <ul role="menu" class="sub-menu">
+                    @foreach (var child in Model.GetChild(category.Id))
+                    {
+                        <li><a href="@Url.Action("Category","Home",new { Category = child.Name })">@child.Name</a></li>
+                    }
+                </ul>
+            </li>
+
+        }
+    }
+
+    <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
+</ul>*@
+<ul>
+    @foreach(var category in Model.GetParents())
+    {
+        <li>@category.Name</li>
+        <li>
+            @foreach(var child in Model.GetChild(category.Id))
+            {
+
+            <ul>
+                <li>
+                    @child.Name
+                </li>
+            </ul>
+
+            }
+        </li>
+    }
+</ul>
+
+
+

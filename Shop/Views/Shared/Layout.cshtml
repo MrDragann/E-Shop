@@ -82,7 +82,8 @@
                         </div>
                         
                         <div class="mainmenu pull-left">
-                            <ul class="nav navbar-nav collapse navbar-collapse">
+                            @Html.Action("Categories", "Home")
+                            @*<ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>
                                 @foreach (var category in Services.ProductServices.GetCategories())
                                 {
@@ -106,7 +107,7 @@
                                 }
 
                                 <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
-                            </ul>
+                            </ul>*@
                         </div>
                     </div>
                     <div class="col-sm-3">
