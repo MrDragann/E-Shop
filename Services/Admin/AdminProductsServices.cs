@@ -14,7 +14,7 @@ namespace Services.Admin
     {
         #region Товары
         
-        public void AddProduct(ModelAddProduct model)
+        public void AddProduct(ModelProduct model)
         {
             using(var db=new DataContext())
             {
@@ -27,11 +27,11 @@ namespace Services.Admin
                     Description = model.Description,
                     Characteristics = model.Characteristics,
                     Tags = model.Tags,
-                    Image = model.Image,
+                    Image = model.FileName,
                     DateAdd = model.DateAdd
                 };
                 db.Products.Add(product);
-                //db.SaveChanges();
+                db.SaveChanges();
             }
         }
         #endregion

@@ -36,6 +36,18 @@ namespace Services
                 return products;
             }
         }
+        /// <summary>
+        /// Вывод списка производителей
+        /// </summary>
+        /// <returns></returns>
+        public List<ModelManufacturer> GetManufacturers()
+        {
+            using(var db = new DataContext())
+            {
+                var manufacturers = db.Manufacturers.Select(Manufacturers()).ToList();
+                return manufacturers;
+            }
+        }
 
         public static Expression<Func<Product, ModelProductPreview>> Preview()
         {
@@ -61,9 +73,18 @@ namespace Services
                 Description = product.Description,
                 Characteristics = product.Characteristics,
                 Tags = product.Tags,
-                Image = product.Image,
+                FileName = product.Image,
                 DateAdd = product.DateAdd,
                 ManufacturerId = product.ManufacturerId
+            };
+        }
+
+        public static Expression<Func<Manufacturer, ModelManufacturer>> Manufacturers()
+        {
+            return manufacturer => new ModelManufacturer()
+            {
+                Id = manufacturer.Id,
+                Name = manufacturer.Name
             };
         }
         /// <summary>

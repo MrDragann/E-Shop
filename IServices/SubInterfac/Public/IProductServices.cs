@@ -24,5 +24,10 @@ namespace IServices
         List<ModelProduct> ProductsDetails();
 
         ModelCategories GetCategory();
+        /// <summary>
+        /// Вывод списка производителей
+        /// </summary>
+        /// <returns></returns>
+        List<ModelManufacturer> GetManufacturers();
     }
 }

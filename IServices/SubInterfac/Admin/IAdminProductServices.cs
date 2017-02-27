@@ -10,7 +10,7 @@ namespace IServices.SubInterfac.Admin
     public interface IAdminProductServices
     {
         #region Товары
-        void AddProduct(ModelAddProduct product);
+        void AddProduct(ModelProduct product);
         #endregion
 
         #region Категории

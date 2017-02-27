@@ -228,6 +228,8 @@
     <Content Include="Areas\Admin\Views\Shared\upProducts.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\upCategories.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Categories.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\ManufacturersList.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\CategoriesList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />

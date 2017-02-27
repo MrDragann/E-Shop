@@ -41,8 +41,8 @@ namespace IServices.Models
         /// <summary>
         /// Название изображения товара
         /// </summary>
-        public string Image { get; set; }
-        public HttpPostedFileBase image { get; set; }
+        public string FileName { get; set; }
+        public HttpPostedFileBase file { get; set; }
         /// <summary>
         /// Id категории
         /// </summary>

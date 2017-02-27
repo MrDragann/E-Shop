@@ -54,19 +54,26 @@ namespace Shop.Areas.Admin.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult AddProduct(ModelAddProduct model)
+        public ActionResult AddProduct(ModelProduct model)
         {
-            // получаем имя файла
-            var fileName = model.image.FileName;
-            var path = Server.MapPath("~/Content/Images/");
-            if (!Directory.Exists(path))
+            if (model.file != null)
             {
-                Directory.CreateDirectory(path);
+                // получаем имя файла
+                var fileName = model.file.FileName;
+                var path = Server.MapPath("~/Content/Images/home/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                model.FileName = fileName;
+                // сохраняем файл в папку Images в проекте
+                model.file.SaveAs(Server.MapPath("/Content/Images/home/" + fileName));
             }
-
-            // сохраняем файл в папку Images в проекте
-            model.image.SaveAs(Server.MapPath(path + fileName));
-            //AdminServices.Products.AddProduct(model);
+            else
+            {
+                model.FileName = "unknownProduct.jpg";
+            }
+            AdminServices.Products.AddProduct(model);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -221,6 +228,11 @@ namespace Shop.Areas.Admin.Controllers
                  <a href='{Url.Action("Confrimed", "Account", new { area = "", salt = salt, userName = userName }, Request.Url.Scheme)}'
                  title='Подтвердить регистрацию'>ссылке</a>");
             return Json("Запрос успешно выполнен");
+        }
+        public ActionResult ManufacturersList()
+        {
+            var manufacturers = Services.Product.GetManufacturers();
+            return View(manufacturers);
         }
     }
 }

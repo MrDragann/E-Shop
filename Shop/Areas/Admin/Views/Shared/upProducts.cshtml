@@ -98,8 +98,6 @@
                 <div class="row">
                     <div class="col-md-10 col-sm-10">
                         <button id="deleteUsers" class="btn btn-danger">Удалить</button>
-                        <button id="blockUsers" class="btn grey-cascade">Заблокировать</button>
-                        <button id="editRole" class="btn blue-madison" data-toggle="modal" data-target="#modalRole">Назначить роль</button>
                     </div>
                 </div>
                 <br />
@@ -154,7 +152,7 @@
                         </div>
                     </div>
                     <!--Категория товара-->
-                    <div class="form-group form-md-line-input">
+                    <div class="form-group form-md-line-input" id="CategoriesList">
                         <label class="col-md-2 control-label" for="ProductCategory">Категоря</label>
                         <div class="col-md-10">
                             <select class="form-control" id="ProductCategory">
@@ -165,15 +163,8 @@
                         </div>
                     </div>
                     <!--Производитель товара-->
-                    <div class="form-group form-md-line-input">
-                        <label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
-                        <div class="col-md-10">
-                            <select class="form-control" id="ProductManufacturer">
-                                <option value="1">Option 1</option>
-                            </select>
-                            <div class="form-control-focus">
-                            </div>
-                        </div>
+                    <div class="form-group form-md-line-input" id="ManufacturersList">
+                        @Html.Action("ManufacturersList", "Admin")
                     </div>
                     <!--Цена и зиображение товара-->
                     <div class="form-group form-md-line-input">
@@ -246,26 +237,24 @@
         $('#AddProduct').click(function () {
 
             var files = document.getElementById('ProductImage').files;
-            var formData = {
-                //     "image": files[0],
-                "Price": $('#ProductPrice').val(),
-                "Description": $('#ProductDescription').val(),
-                "Characteristics": $('#ProductCharacteristics').val(),
-                "Tags": $('#ProductTags').val(),
-                "DateAdd": $('#ProductDateAdd').val(),
-                "CategoryId": $('#ProductCategory').val(),
-                "ManufacturerId": $('#ProductManufacturer').val()
-            };
+            var formData = new FormData();
+            formData.append("file", files[0]);
+            formData.append("Name", $('#ProductName').val());
+            formData.append("Price", $('#ProductPrice').val());
+            formData.append("Description", $('#ProductDescription').val());
+            formData.append("Characteristics", $('#ProductCharacteristics').val());
+            formData.append("Tags", $('#ProductTags').val());
+            formData.append("DateAdd", $('#ProductDateAdd').val());  
+            formData.append("CategoryId", $('#ProductCategory').val());
+            formData.append("ManufacturerId", $('#ProductManufacturer').val());
 
-            console.log(JSON.stringify(formData));
 
             $.ajax({
                 type: "POST",
-                url: '/admin/admin/AddProduct',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
+                url: 'AddProduct',
+                contentType: false,
                 processData: false,
-                data: JSON.stringify(formData),
+                data: formData,
                 success: function (result) {
                     console.log(result);
                 },
