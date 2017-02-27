@@ -3,13 +3,13 @@
     Layout = null;
 }
 
-@*<ul class="nav navbar-nav collapse navbar-collapse">
+<ul class="nav navbar-nav collapse navbar-collapse">
     <li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>
-    @foreach (var category in Model.Categories)
+    @foreach (var category in Model.GetParents())
     {
         if (Model.GetChild(category.Id).Count < 1)
         {
-            <li><a href="@Url.Action("Category","Home",new { Category = category.Name })">@category.Name</a></li>
+            <li><a href="@Url.Action("Category","Home",new { Category = category.Id })">@category.Name</a></li>
         }
         else
         {
@@ -18,7 +18,7 @@
                 <ul role="menu" class="sub-menu">
                     @foreach (var child in Model.GetChild(category.Id))
                     {
-                        <li><a href="@Url.Action("Category","Home",new { Category = child.Name })">@child.Name</a></li>
+                        <li><a href="@Url.Action("Category","Home",new { Category = child.Id })">@child.Name</a></li>
                     }
                 </ul>
             </li>
@@ -27,8 +27,8 @@
     }
 
     <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
-</ul>*@
-<ul>
+</ul>
+@*<ul>
     @foreach(var category in Model.GetParents())
     {
         <li>@category.Name</li>
@@ -45,7 +45,7 @@
             }
         </li>
     }
-</ul>
+</ul>*@
 
 
 

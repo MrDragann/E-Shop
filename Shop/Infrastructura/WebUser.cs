@@ -18,7 +18,9 @@ namespace Shop.Infrastructura
     public class WebUser
     {
         private static IMainServices Services = DependencyResolver.Current.GetService<IMainServices>();
-
+        /// <summary>
+        ///  Модель пользователя содержащия сессию и куки в которой находится информация о пользователе
+        /// </summary>
         public static ModelUser CurrentUser
         {
             get
@@ -46,7 +48,12 @@ namespace Shop.Infrastructura
                 HttpContext.Current.Session["user"] = value;
             }
         }
-
+        /// <summary>
+        /// Метод выполняющий авторизацю на сайте
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="password">Пароль пользователя</param>
+        /// <param name="remember">Сохранение в куки</param>
         public static void Login(string userName, string password, bool remember = false)
         {
             if (Services.Users.Login(userName, password))
@@ -56,36 +63,61 @@ namespace Shop.Infrastructura
             }
             
         }
-
+        /// <summary>
+        /// Выполняет регистрацию пользователя на сайте
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="password">Пароль пользователя</param>
+        /// <param name="email">Эл. Адрес</param>
         public static string Register(string userName, string email, string password)
         {
             var salt = MyExtensions.GetSalt();
             Services.Users.Register(userName, email, password, salt);
             return salt;
         }
-
+        /// <summary>
+        /// Сброс пароля пользователя
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
         public static void NewPassword(string email, string password)
         {
             var NewSalt = MyExtensions.GetSalt();
             Services.Users.ResetPassword(email, password, NewSalt);
         }
-
+        /// <summary>
+        /// Потверждение аккаунта
+        /// </summary>
+        /// <param name="salt">Случайное слово</param>
+        /// <param name="userName">Логин</param>
         public static void Confrimed(string salt, string userName)
         {
             Services.Users.ConfrimedEmail(salt, userName);
         }
-
+        /// <summary>
+        /// Удаляет сессию и куки содержащию информацию о состоянии авторизации пользователя
+        /// </summary>
         public static void LogOff()
         {
             HttpContext.Current.Session.Remove("user");
             HttpContext.Current.Response.Cookies.Add(new HttpCookie("data") { Expires = DateTime.Now.AddDays(-1) });
         }
-
+        /// <summary>
+        /// Проверка роли пользователя
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
         public static bool CheckRole(string userName, string role)
         {
             return (Services.Users.CheckRole(userName, role));
         }
-
+        /// <summary>
+        /// Отправка письма на эл.адрес пользователя
+        /// </summary>
+        /// <param name="subject"></param>
+        /// <param name="email"></param>
+        /// <param name="body"></param>
         public static void SendMail(string subject, string email, string body)
         {
             MailMessage msg = new MailMessage();

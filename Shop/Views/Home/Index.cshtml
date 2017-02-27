@@ -55,12 +55,12 @@
                             <li class="active"><a href="#notebook" data-toggle="tab">Ноутбуки</a></li>
                             <li><a href="#tablet" data-toggle="tab">Планшеты</a></li>
                             <li><a href="#smartphone" data-toggle="tab">Смартфоны</a></li>
-                            <li><a href="#aksess" data-toggle="tab">Аксессуары</a></li>
+                            <li><a href="#aksess" data-toggle="tab">Аудио</a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
                         <div class="tab-pane fade active in" id="notebook">
-                            @foreach (var item in Model.Where(x => x.CategoryName == "Ноутбуки").Take(4))
+                            @foreach (var item in Model.Where(x => x.CategoryId==4).Take(4))
                             {
                                 <div class="col-sm-3">
                                     <div class="product-image-wrapper">
@@ -78,7 +78,7 @@
                             }
                         </div>
                         <div class="tab-pane fade active in" id="tablet">
-                            @foreach (var item in Model.Where(x => x.CategoryName == "Планшеты").Take(4))
+                            @foreach (var item in Model.Where(x => x.CategoryId==5).Take(4))
                             {
                                 <div class="col-sm-3">
                                     <div class="product-image-wrapper">
@@ -96,7 +96,7 @@
                             }
                         </div>
                         <div class="tab-pane fade active in" id="smartphone">
-                            @foreach (var item in Model.Where(x => x.CategoryName == "Смартфоны").Take(4))
+                            @foreach (var item in Model.Where(x => x.CategoryId==2).Take(4))
                             {
                                 <div class="col-sm-3">
                                     <div class="product-image-wrapper">
@@ -113,8 +113,8 @@
                                 </div>
                             }
                         </div>
-                        <div class="tab-pane fade active in" id="aksess">
-                            @foreach (var item in Model.Where(x => x.CategoryName == "Аксессуары").Take(4))
+                        <div class="tab-pane fade active in" id="audio">
+                            @foreach (var item in Model.Where(x => x.CategoryId == 9).Take(4))
                             {
                                 <div class="col-sm-3">
                                     <div class="product-image-wrapper">

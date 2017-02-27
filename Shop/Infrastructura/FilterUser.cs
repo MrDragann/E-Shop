@@ -4,7 +4,7 @@ using System.Web.Mvc;
 namespace Shop.Infrastructura
 {
     /// <summary>
-    /// 
+    /// Проверка доступа авторизованного пользователя 
     /// </summary>
     public class FilterUser : AuthorizeAttribute
     {

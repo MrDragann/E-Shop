@@ -12,7 +12,7 @@ using System.Net.Mail;
 namespace Shop.Controllers
 {
     /// <summary>
-    /// Контроллер в котором выполняются действия над аккаунтом
+    /// Представляет методы осуществляющие действия над аккаунтом
     /// </summary>
     public class AccountController : BaseController
     {

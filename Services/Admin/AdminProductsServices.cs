@@ -1,23 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataModel;
+using IServices.Models;
+using IServices.SubInterfac.Admin;
 using System.Data.Entity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IServices.SubInterfac.Admin;
-using DataModel;
 
 namespace Services.Admin
 {
-    public class AdminCategoriesServices : IAdminCategoriesServices
+    public class AdminProductsServices : IAdminProductServices 
     {
+        #region Товары
+        
+        public void AddProduct(ModelProduct model)
+        {
+            using(var db=new DataContext())
+            {
+                var product = new Product
+                {
+                    Name = model.Name,
+                    CategoryId = model.CategoryId,
+                    ManufacturerId = model.ManufacturerId,
+                    Price = model.Price,
+                    Description = model.Description,
+                    Characteristics = model.Characteristics,
+                    Tags = model.Tags,
+                    Image = model.Image,
+                    DateAdd = model.DateAdd
+                };
+                db.Products.Add(product);
+                //db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Категории
         /// <summary>
         /// Добавление главной категории
         /// </summary>
         /// <param name="name">Название категории</param>
         public void AddMainCategory(string name)
         {
-            using(var db = new DataContext())
+            using (var db = new DataContext())
             {
                 db.Categories.Add(new Category { Name = name });
                 db.SaveChanges();
@@ -70,7 +96,7 @@ namespace Services.Admin
         /// <returns></returns>
         public void DeleteMainCategory(int mainId)
         {
-            using (var db = new DataContext()) 
+            using (var db = new DataContext())
             {
                 var category = db.Categories.Include(x => x.Сhild).FirstOrDefault(x => x.Id == mainId);
                 db.Categories.RemoveRange(category.Сhild);
@@ -92,5 +118,6 @@ namespace Services.Admin
                 db.SaveChanges();
             }
         }
+        #endregion
     }
 }

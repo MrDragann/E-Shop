@@ -30,10 +30,10 @@ namespace Shop.Controllers
         /// </summary>
         /// <param name = "Category" > Название категории</param>
         /// <returns>Список товаров</returns>
-        public ActionResult Category(string Category, TypeSort sort = TypeSort.NameAsc)
+        public ActionResult Category(int Category, TypeSort sort = TypeSort.NameAsc)
         {
             ViewBag.Message = Category;
-            var products = Services.Product.ProductsPreview().Where(x => x.CategoryName == Category);
+            var products = Services.Product.ProductsPreview().Where(x => x.CategoryId == Category);
             switch (sort)
             {
                 case TypeSort.NameAsc: products = products.OrderBy(x => x.Name); break;
@@ -80,7 +80,10 @@ namespace Shop.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// Вывод дерева категорий
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Categories()
         {
             var model = Services.Product.GetCategory();

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IServices.Models.Product.ModelCategories
+
+@{
     Layout = null;
 }
 
@@ -16,12 +18,12 @@
         </div>
         <div class="portlet-body">
             <ul style="list-style:none;">
-                @foreach (var category in Services.ProductServices.GetCategories())
+                @foreach (var category in Model.GetParents())
                 {
                     <li>
                         <h3><i class="fa fa-chevron-down">&nbsp;</i>&nbsp;@category.Name</h3>
                         <ul style="list-style:none;">
-                            @foreach (var child in category.Сhild)
+                            @foreach (var child in Model.GetChild(category.Id))
                             {
                                 <li><h4><i class="fa fa-chevron-right">&nbsp;</i>&nbsp;@child.Name</h4></li>
 

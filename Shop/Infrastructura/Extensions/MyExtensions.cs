@@ -9,23 +9,19 @@ namespace Shop.Infrastructura.Extensions
 {
     public static class MyExtensions
     {
-
+        /// <summary>
+        /// Разбиение строки по запятым и пробелам
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string[] SplitString(this string str)
         {
             return str.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
         }
-
-        public static List<int> StrToInt32(this string str)
-        {
-            List<int> list = null;
-            var item = str.SplitString();
-            for(int i = 0; i < str.Count(); i++)
-            {
-                list[i] = Convert.ToInt32(item[i]);
-            }
-            return list;
-        }
-
+        /// <summary>
+        /// Получение рандомной строки
+        /// </summary>
+        /// <returns></returns>
         public static string GetSalt()
         {
             var random = new RNGCryptoServiceProvider();

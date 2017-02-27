@@ -18,10 +18,6 @@ namespace IServices.Models
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Выбранная категория
-        /// </summary>
-        public string CategoryName { get; set; }
-        /// <summary>
         /// Цена товара
         /// </summary>
         public int Price { get; set; }
@@ -33,8 +29,10 @@ namespace IServices.Models
         /// Название изображения товара
         /// </summary>
         public string Image { get; set; }
-
-        public Category Category { get; set; }
+        /// <summary>
+        /// Id категории
+        /// </summary>
+        public int CategoryId { get; set; }
 
 
     }

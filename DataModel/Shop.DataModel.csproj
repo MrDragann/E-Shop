@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201702220734033_product-datetime.Designer.cs">
       <DependentUpon>201702220734033_product-datetime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702261342004_categoryname.cs" />
+    <Compile Include="Migrations\201702261342004_categoryname.Designer.cs">
+      <DependentUpon>201702261342004_categoryname.cs</DependentUpon>
+    </Compile>
     <Compile Include="Product\Category.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Migrations\201702151020120_userprofile.cs" />
@@ -118,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702220734033_product-datetime.resx">
       <DependentUpon>201702220734033_product-datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702261342004_categoryname.resx">
+      <DependentUpon>201702261342004_categoryname.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

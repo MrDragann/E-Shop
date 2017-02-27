@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Shop.Infrastructura.Extensions;
 using Shop.Infrastructura;
+using IServices.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -29,7 +30,10 @@ namespace Shop.Areas.Admin.Controllers
             var users = AdminServices.Users.Users();
             return View(users);
         }
-
+        /// <summary>
+        /// Страница управления товарами
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Products()
         {
             
@@ -42,6 +46,17 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult Categories()
         {
             return View();
+        }
+        /// <summary>
+        /// Добавление товара
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult AddProduct(ModelProduct product)
+        {
+            AdminServices.Products.AddProduct(product);
+            return Json("Запрос успешно выполнен");
         }
         /// <summary>
         /// Удаляет выбраных пользователей из БД 
@@ -95,7 +110,7 @@ namespace Shop.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddMainCategory(string name)
         {
-            AdminServices.Categories.AddMainCategory(name);
+            AdminServices.Products.AddMainCategory(name);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -108,7 +123,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult AddChildCategory(string mainId, string child)
         {
             var id = Convert.ToInt32(mainId);
-            AdminServices.Categories.AddChildCategory(id, child);
+            AdminServices.Products.AddChildCategory(id, child);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -121,7 +136,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult EditMainCategory(string mainId, string newName)
         {
             var id = Convert.ToInt32(mainId);
-            AdminServices.Categories.EditMainCategory(id, newName);
+            AdminServices.Products.EditMainCategory(id, newName);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -134,7 +149,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult EditChildCategory(string childId, string newName)
         {
             var id = Convert.ToInt32(childId);
-            AdminServices.Categories.EditChildCategory(id, newName);
+            AdminServices.Products.EditChildCategory(id, newName);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -146,7 +161,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult DeleteMainCategory(string mainId)
         {
             var id = Convert.ToInt32(mainId);
-            AdminServices.Categories.DeleteMainCategory(id);
+            AdminServices.Products.DeleteMainCategory(id);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -158,7 +173,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult DeleteChildCategory(string childId)
         {
             var id = Convert.ToInt32(childId);
-            AdminServices.Categories.DeleteChildCategory(id);
+            AdminServices.Products.DeleteChildCategory(id);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -167,7 +182,8 @@ namespace Shop.Areas.Admin.Controllers
         /// <returns></returns>
         public ActionResult upCategories()
         {
-            return View();
+            var categories = Services.Product.GetCategory();
+            return View(categories);
         }
         /// <summary>
         /// Частичное представление товаров

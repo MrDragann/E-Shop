@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Базовый контролер
+    /// </summary>
     public class BaseController : Controller
     {
         public IMainServices Services { get; set; }

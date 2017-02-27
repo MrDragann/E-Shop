@@ -16,10 +16,6 @@ namespace DataModel
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Выбранная категория
-        /// </summary>
-        public string CategoryName { get; set; }
-        /// <summary>
         /// Описание товара
         /// </summary>
         public string Description { get; set; }
@@ -43,6 +39,12 @@ namespace DataModel
         /// Название изображения товара
         /// </summary>
         public string Image { get; set; }
+
+        public Category Category { get; set; }
+        /// <summary>
+        /// Id категории
+        /// </summary>
+        public int CategoryId { get; set; }
         /// <summary>
         /// Id производителя
         /// </summary>
@@ -50,7 +52,6 @@ namespace DataModel
 
         public int ManufacturerId { get; set; }
 
-        public Category Category { get; set; }
     }
 
 }

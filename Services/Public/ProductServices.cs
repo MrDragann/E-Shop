@@ -45,7 +45,7 @@ namespace Services
                 Name = product.Name,
                 Price = product.Price,
                 Image = product.Image,
-                CategoryName = product.CategoryName,
+                CategoryId = product.CategoryId,
                 DateAdd = product.DateAdd
             };
         }
@@ -57,12 +57,13 @@ namespace Services
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
-                CategoryName = product.CategoryName,
+                CategoryId = product.CategoryId,
                 Description = product.Description,
                 Characteristics = product.Characteristics,
                 Tags = product.Tags,
                 Image = product.Image,
-                DateAdd = product.DateAdd
+                DateAdd = product.DateAdd,
+                ManufacturerId = product.ManufacturerId
             };
         }
         /// <summary>
@@ -89,14 +90,6 @@ namespace Services
 
             };
         }
-        //public static List<Category> GetCategories()
-        //{
-        //    using (var db = new DataContext())
-        //    {
-        //        var categories = db.Categories.Where(_ => !_.ParentId.HasValue).Include(_ => _.Сhild).ToList();
-        //        return categories;
-        //    }
-        //}
         #region Может пригодиться
         //public void AddCategory()
         //{

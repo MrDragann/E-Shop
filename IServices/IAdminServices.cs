@@ -9,8 +9,8 @@ namespace IServices
         /// </summary>
         IAdminUsersServices Users { get; set; }
         /// <summary>
-        ///Реализует методы связанные с категорями
+        ///Реализует методы связанные с товарами
         /// </summary>
-        IAdminCategoriesServices Categories { get; set; }
+        IAdminProductServices Products { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IServices.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace IServices.SubInterfac.Admin
 {
-    public interface IAdminCategoriesServices
+    public interface IAdminProductServices
     {
+        #region Товары
+        void AddProduct(ModelProduct product);
+        #endregion
+
+        #region Категории
         /// <summary>
         /// Добавление главной категории
         /// </summary>
@@ -42,5 +48,6 @@ namespace IServices.SubInterfac.Admin
         /// <param name="childId">Id дочерней категории</param>
         /// <returns></returns>
         void DeleteChildCategory(int childId);
+        #endregion
     }
 }

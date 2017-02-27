@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminServices.cs" />
-    <Compile Include="Admin\AdminCategoriesServices.cs" />
+    <Compile Include="Admin\AdminProductsServices.cs" />
     <Compile Include="Admin\AdminUsersServices.cs" />
     <Compile Include="MainServices.cs" />
     <Compile Include="Public\ProductServices.cs" />

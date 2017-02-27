@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace IServices.Models
 {
@@ -17,10 +18,6 @@ namespace IServices.Models
         /// Имя товара
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// Выбранная категория
-        /// </summary>
-        public string CategoryName { get; set; }
         /// <summary>
         /// Описание товара
         /// </summary>
@@ -45,11 +42,14 @@ namespace IServices.Models
         /// Название изображения товара
         /// </summary>
         public string Image { get; set; }
+        public HttpPostedFileBase image { get; set; }
+        /// <summary>
+        /// Id категории
+        /// </summary>
+        public int CategoryId { get; set; }
         /// <summary>
         /// Производитель
         /// </summary>
         public int ManufacturerId { get; set; }
-
-        public Category Category { get; set; }
     }
 }
