@@ -158,7 +158,7 @@
                         <label class="col-md-2 control-label" for="ProductCategory">Категоря</label>
                         <div class="col-md-10">
                             <select class="form-control" id="ProductCategory">
-                                <option value="">Option 1</option>
+                                <option value="1">Option 1</option>
                             </select>
                             <div class="form-control-focus">
                             </div>
@@ -169,7 +169,7 @@
                         <label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
                         <div class="col-md-10">
                             <select class="form-control" id="ProductManufacturer">
-                                <option value="">Option 1</option>
+                                <option value="1">Option 1</option>
                             </select>
                             <div class="form-control-focus">
                             </div>
@@ -246,19 +246,26 @@
         $('#AddProduct').click(function () {
 
             var files = document.getElementById('ProductImage').files;
-            var formData = new FormData();
-            formData.append("Price", $('#ProductPrice').val());
-            formData.append("Description", $('#ProductDescription').val());
-            formData.append("Characteristics", $('#ProductCharacteristics').val());
-            formData.append("Tags", $('#ProductTags').val());
-            formData.append("DateAdd", $('#ProductDateAdd').val());
+            var formData = {
+                //     "image": files[0],
+                "Price": $('#ProductPrice').val(),
+                "Description": $('#ProductDescription').val(),
+                "Characteristics": $('#ProductCharacteristics').val(),
+                "Tags": $('#ProductTags').val(),
+                "DateAdd": $('#ProductDateAdd').val(),
+                "CategoryId": $('#ProductCategory').val(),
+                "ManufacturerId": $('#ProductManufacturer').val()
+            };
+
+            console.log(JSON.stringify(formData));
 
             $.ajax({
                 type: "POST",
-                url: 'AddProduct',
-                contentType: false,
+                url: '/admin/admin/AddProduct',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
                 processData: false,
-                data: formData,
+                data: JSON.stringify(formData),
                 success: function (result) {
                     console.log(result);
                 },

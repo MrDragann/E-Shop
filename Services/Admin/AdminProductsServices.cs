@@ -14,7 +14,7 @@ namespace Services.Admin
     {
         #region Товары
         
-        public void AddProduct(ModelProduct model)
+        public void AddProduct(ModelAddProduct model)
         {
             using(var db=new DataContext())
             {

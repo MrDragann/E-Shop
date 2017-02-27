@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Shop.Infrastructura.Extensions;
 using Shop.Infrastructura;
 using IServices.Models;
+using System.IO;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -53,9 +54,19 @@ namespace Shop.Areas.Admin.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult AddProduct(ModelProduct product)
+        public ActionResult AddProduct(ModelAddProduct model)
         {
-            AdminServices.Products.AddProduct(product);
+            // получаем имя файла
+            var fileName = model.image.FileName;
+            var path = Server.MapPath("~/Content/Images/");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            // сохраняем файл в папку Images в проекте
+            model.image.SaveAs(Server.MapPath(path + fileName));
+            //AdminServices.Products.AddProduct(model);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>

@@ -53,6 +53,7 @@
     <Compile Include="IMainServices.cs" />
     <Compile Include="Models\Product\ModelCategories.cs" />
     <Compile Include="Models\Product\ModelCategory.cs" />
+    <Compile Include="Models\Product\ModelAddProduct.cs" />
     <Compile Include="Models\Product\ModelProduct.cs" />
     <Compile Include="Models\Product\ModelProductPreview.cs" />
     <Compile Include="Models\User\ModelRole.cs" />
