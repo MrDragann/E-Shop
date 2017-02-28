@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IServices.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,9 @@ namespace IServices
         /// <returns></returns>
         bool Register(string userName, string email, string password, string salt);
         #endregion
-
+        #region Корзина/Список жедаемого
+        void AddItem(int productId, int quantity, string userName);
+        #endregion
         #region Действия над аккаунтом
         /// <summary>
         /// Подтверждение аккаунта

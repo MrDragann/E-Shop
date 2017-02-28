@@ -125,15 +125,7 @@ namespace Shop.Controllers
             return RedirectToAction("Login");
         }
 
-        /// <summary>
-        /// Корзина пользователя
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Cart()
-        {
-            var products = Services.Product.ProductsPreview();
-            return View(products.Take(2));
-        }
+        
 
     }
 }

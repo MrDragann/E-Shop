@@ -52,6 +52,8 @@ namespace DataModel
 
         public int ManufacturerId { get; set; }
 
+        public List<Cart> Cart { get; set; }
+
     }
 
 }

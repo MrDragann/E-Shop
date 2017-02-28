@@ -40,6 +40,8 @@ namespace DataModel
         public AccountConfirmation AccountConfirmation { get; set; }
 
         public List<Role> Roles { get; set; }
+
+        public int? CartId { get; set; }
     }
 
     public enum EnumStatusUser

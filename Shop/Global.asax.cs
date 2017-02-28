@@ -1,4 +1,7 @@
-﻿using Shop.App_Start;
+﻿using IServices.Models.Product;
+using IServices.Models.User;
+using Shop.App_Start;
+using Shop.Infrastructura.Binders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,7 @@ namespace Shop
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutofacConfig.ConfigureContainer();
+            ModelBinders.Binders.Add(typeof(ModelCart), new CartModelBinder());
         }
     }
 }

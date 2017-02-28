@@ -97,6 +97,7 @@ namespace IServices
             };
         }
         #endregion
+
         #region Действия над аккаунтом
         public bool ConfrimedEmail(string salt, string userName)
         {
@@ -154,6 +155,38 @@ namespace IServices
         public static Expression<Func<StatusUser, ModelStatus>> SelectDetailStatus()
         {
             return status => new ModelStatus { Id = (ModelEnumStatusUser)status.Id, Name = status.Name };
+        }
+        #endregion
+
+        #region Корзина/Список жедаемого
+
+        public void AddItem(int productId, int quantity, string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var cart = db.Carts
+                .Where(p => p.Product.Id == productId)
+                .FirstOrDefault();
+                if (userName != null)
+                {
+
+                }
+                if (cart == null)
+                {
+                    db.Carts.Add(new Cart
+                    {
+                        ProductId = productId,
+                        UserId = 54,
+                        Quantity = quantity
+                    });
+                }
+                else
+                {
+                    cart.Quantity += quantity;
+                }
+                db.SaveChanges();
+            }
+            
         }
         #endregion
     }

@@ -29,5 +29,7 @@ namespace IServices
         /// </summary>
         /// <returns></returns>
         List<ModelManufacturer> GetManufacturers();
+
+        ModelProduct GetProduct(int id);
     }
 }

@@ -36,6 +36,15 @@ namespace Services
                 return products;
             }
         }
+
+        public ModelProduct GetProduct(int id)
+        {
+            using (var db = new DataContext())
+            {
+                var product = db.Products.Select(Details()).FirstOrDefault(x => x.Id == id);
+                return product;
+            }
+        }
         /// <summary>
         /// Вывод списка производителей
         /// </summary>

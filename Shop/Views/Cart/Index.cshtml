@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IServices.Models.ModelProductPreview>
+﻿@model IServices.Models.User.ModelCart
 @{
     ViewBag.Title = "Корзина";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -20,47 +20,67 @@
                         <td class="description"></td>
                         <td class="price">Цена</td>
                         <td class="quantity">Количество</td>
-                        <td class="total">Итого</td>
+                        <td class="total">Общая цена</td>
                         <td></td>
                     </tr>
                 </thead>
-                @foreach (var item in Model)
-                {
-                    <tbody>
+                <tbody>
+                    @foreach (var item in Model.Lines)
+                    {
+
                         <tr>
                             <td class="cart_product">
-                                <a href="@Url.Action("Details","Home",new { id = item.Id })"><img src="~/Content/Images/home/@item.Image" alt="" width="110" height="110"></a>
+                                <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
                             </td>
                             <td class="cart_description">
-                                <h4><a href="@Url.Action("Details","Home",new { id = item.Id })">@item.Name</a></h4>
-                                <p>Product ID: @item.Id</p>
+                                <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
+                                <p>Product ID: @item.Product.Id</p>
                             </td>
                             <td class="cart_price">
-                                <p>@item.Price р.</p>
+                                <p>@item.Product.Price р.</p>
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
                                     <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                                    <input class="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" autocomplete="off" size="2">
                                     <a class="cart_quantity_down" href=""> - </a>
                                 </div>
                             </td>
                             <td class="cart_total">
-                                <p class="cart_total_price">@item.Price р.</p>
+                                <p class="cart_total_price">@((item.Quantity * item.Product.Price).ToString("# р.") )</p>
                             </td>
                             <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                                @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                {
+                                <input id="@item.Product.Id" name="productId" type="hidden" value="@item.Product.Id" />
+                                <button class="cart_quantity_delete btn btn-link" type="submit">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                                }
+                                @*<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>*@
                             </td>
+
                         </tr>
 
-                    </tbody>
-                }
-                
+                    }
+                </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" class="text-right">
+                                <h4>Итого к оплате:</h4>
+                            </td>
+                            <td class="text-right">
+                                <h4>@Model.ComputeTotalValue().ToString("# руб")</h4>
+                            </td>
+                        </tr>
+                    </tfoot>
             </table>
         </div>
     </div>
 </section>
 <!--/#cart_items-->
+
 
 <section id="do_action">
     <div class="container">
@@ -90,11 +110,7 @@
                             <label>Страна:</label>
                             <select>
                                 <option>United States</option>
-                                <option>Bangladesh</option>
-                                <option>UK</option>
                                 <option>India</option>
-                                <option>Pakistan</option>
-                                <option>Ucrane</option>
                                 <option>Canada</option>
                                 <option>Dubai</option>
                             </select>
@@ -104,11 +120,7 @@
                             <label>Регион / Область:</label>
                             <select>
                                 <option>Select</option>
-                                <option>Dhaka</option>
                                 <option>London</option>
-                                <option>Dillih</option>
-                                <option>Lahore</option>
-                                <option>Alaska</option>
                                 <option>Canada</option>
                                 <option>Dubai</option>
                             </select>

@@ -4,7 +4,7 @@
 }
 
 <ul class="nav navbar-nav collapse navbar-collapse">
-    <li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>
+    @*<li><a href="@Url.Action("Index","Home")" class="active">Главная</a></li>*@
     @foreach (var category in Model.GetParents())
     {
         if (Model.GetChild(category.Id).Count < 1)
@@ -28,24 +28,6 @@
 
     <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
 </ul>
-@*<ul>
-    @foreach(var category in Model.GetParents())
-    {
-        <li>@category.Name</li>
-        <li>
-            @foreach(var child in Model.GetChild(category.Id))
-            {
-
-            <ul>
-                <li>
-                    @child.Name
-                </li>
-            </ul>
-
-            }
-        </li>
-    }
-</ul>*@
 
 
 

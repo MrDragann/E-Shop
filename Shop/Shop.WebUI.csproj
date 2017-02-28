@@ -171,11 +171,13 @@
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Paging.cs" />
+    <Compile Include="Infrastructura\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructura\CustomWebViewPage.cs" />
     <Compile Include="Infrastructura\Extensions\MyExtensions.cs" />
     <Compile Include="Infrastructura\FilterUser.cs" />
@@ -268,13 +270,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\leftSidebar.cshtml" />
-    <Content Include="Views\Account\Cart.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Shared\slider.cshtml" />
     <Content Include="Views\Account\NewPassword.cshtml" />
-    <Content Include="Views\Home\Categories.cshtml" />
+    <Content Include="Views\Shared\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -301,6 +303,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataModel\Shop.DataModel.csproj">
+      <Project>{AA9A0A8E-23D0-45D3-9223-51675D14C2BE}</Project>
+      <Name>Shop.DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IServices\Shop.IServices.csproj">
       <Project>{623b36fc-8ebc-4044-bc14-6dfe3714ed0e}</Project>
       <Name>Shop.IServices</Name>

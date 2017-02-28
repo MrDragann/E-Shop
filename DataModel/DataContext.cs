@@ -19,7 +19,7 @@ namespace DataModel
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<AccountConfirmation> AccountConfirmations { get; set; }
-        
+
         public DbSet<StatusUser> StatusUsers { get; set; }
 
         public DbSet<Product> Products { get; set; }
@@ -27,6 +27,8 @@ namespace DataModel
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Manufacturer> Manufacturers { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
