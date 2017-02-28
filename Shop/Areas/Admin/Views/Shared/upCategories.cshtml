@@ -71,7 +71,7 @@
         <div class="portlet-body">
             <div class="form-group form-md-line-input form-md-floating-label has-info">
                 <select class="form-control edited" id="MainCategories">
-                    @foreach (var category in Services.ProductServices.GetCategories())
+                    @foreach (var category in Model.GetParents())
                     {
                         <option value="@category.Id">@category.Name</option>
                     }
@@ -102,7 +102,7 @@
             </p>
             <div class="form-group form-md-line-input form-md-floating-label has-info">
                 <select class="form-control edited" id="EdMainCategories">
-                    @foreach (var category in Services.ProductServices.GetCategories())
+                    @foreach (var category in Model.GetParents())
                     {
                         <option value="@category.Id">@category.Name</option>
                     }
@@ -121,10 +121,10 @@
             </p>
             <div class="form-group form-md-line-input form-md-floating-label has-info">
                 <select class="form-control edited" id="EdChildCategories">
-                    @foreach (var category in Services.ProductServices.GetCategories())
+                    @foreach (var category in Model.GetParents())
                     {
                         <optgroup label="@category.Name">
-                            @foreach (var child in category.Сhild)
+                            @foreach (var child in Model.GetChild(category.Id))
                             {
                                 <option value="@child.Id">@child.Name</option>
                             }
@@ -159,7 +159,7 @@
             </p>
             <div class="form-group form-md-line-input form-md-floating-label has-info">
                 <select class="form-control edited" id="DelMainCategories">
-                    @foreach (var category in Services.ProductServices.GetCategories())
+                    @foreach (var category in Model.GetParents())
                     {
                         <option value="@category.Id">@category.Name</option>
                     }
@@ -174,10 +174,10 @@
             </p>
             <div class="form-group form-md-line-input form-md-floating-label has-info">
                 <select class="form-control edited" id="DelChildCategories">
-                    @foreach (var category in Services.ProductServices.GetCategories())
+                    @foreach (var category in Model.GetParents())
                     {
                         <optgroup label="@category.Name">
-                            @foreach (var child in category.Сhild)
+                            @foreach (var child in Model.GetChild(category.Id))
                             {
                                 <option value="@child.Id">@child.Name</option>
                             }

@@ -1,16 +1,15 @@
-﻿@model IEnumerable<IServices.Models.Product.ModelManufacturer>
+﻿@model IServices.Models.Product.ModelCategories
 @{
     Layout = null;
 }
 
-<label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
-<div class="col-md-10">
-    <select class="form-control" id="ProductManufacturer">
-        @foreach (var manufacturer in Model)
-        {
-            <option value="@manufacturer.Id">@manufacturer.Name</option>
+@foreach (var category in Model.GetParents())
+{
+    <optgroup label="@category.Name">
+        @foreach (var child in Model.GetChild(category.Id))
+                {
+            <option value="@child.Id">@child.Name</option>
         }
-    </select>
-    <div class="form-control-focus">
-    </div>
-</div>
+    </optgroup>
+
+}

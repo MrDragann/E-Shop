@@ -3,14 +3,7 @@
     Layout = null;
 }
 
-<label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
-<div class="col-md-10">
-    <select class="form-control" id="ProductManufacturer">
-        @foreach (var manufacturer in Model)
-        {
-            <option value="@manufacturer.Id">@manufacturer.Name</option>
-        }
-    </select>
-    <div class="form-control-focus">
-    </div>
-</div>
+@foreach (var manufacturer in Model)
+{
+    <option value="@manufacturer.Id">@manufacturer.Name</option>
+}

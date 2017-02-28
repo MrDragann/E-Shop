@@ -10,7 +10,21 @@ namespace IServices.SubInterfac.Admin
     public interface IAdminProductServices
     {
         #region Товары
+        /// <summary>
+        /// Добавление нового товара
+        /// </summary>
+        /// <param name="product"></param>
         void AddProduct(ModelProduct product);
+        /// <summary>
+        /// Удаление выбранных товаров
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteProducts(List<int> id);
+        /// <summary>
+        /// Редактирование выбранного товара
+        /// </summary>
+        /// <param name="model"></param>
+        void EditProduct(ModelProduct model);
         #endregion
 
         #region Категории

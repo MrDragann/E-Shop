@@ -13,10 +13,13 @@ namespace Services.Admin
     public class AdminProductsServices : IAdminProductServices 
     {
         #region Товары
-        
+        /// <summary>
+        /// Добавление нового товара
+        /// </summary>
+        /// <param name="product"></param>
         public void AddProduct(ModelProduct model)
         {
-            using(var db=new DataContext())
+            using (var db = new DataContext()) 
             {
                 var product = new Product
                 {
@@ -31,6 +34,50 @@ namespace Services.Admin
                     DateAdd = model.DateAdd
                 };
                 db.Products.Add(product);
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// Удаление выбранных товаров
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteProducts(List<int> id)
+        {
+            try
+            {
+                using (var db = new DataContext())
+                {
+                    foreach (int item in id)
+                    {
+                        var product = db.Products.FirstOrDefault(_ => _.Id == item);
+                        db.Products.Remove(product);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        /// <summary>
+        /// Редактирование выбранного товара
+        /// </summary>
+        /// <param name="model"></param>
+        public void EditProduct(ModelProduct model)
+        {
+            using (var db = new DataContext())
+            {
+                var product = db.Products.FirstOrDefault(x => x.Id == model.Id);
+                product.Name = model.Name;
+                product.Price = model.Price;
+                product.CategoryId = model.CategoryId;
+                product.ManufacturerId = model.ManufacturerId;
+                product.Description = model.Description;
+                product.Characteristics = model.Characteristics;
+                product.Tags = model.Tags;
+                product.Image = model.FileName;
+                product.DateAdd = model.DateAdd;
                 db.SaveChanges();
             }
         }

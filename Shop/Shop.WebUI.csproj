@@ -230,6 +230,7 @@
     <Content Include="Areas\Admin\Views\Admin\Categories.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\ManufacturersList.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\CategoriesList.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditProduct.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />

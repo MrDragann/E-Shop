@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+<!--Таблица со списком товаров-->
 <div class="col-md-12">
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
     <div class="portlet box grey-cascade">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="table-scrollable">
-                    <table class="table table-striped table-bordered table-hover" id="sample_1">
+                    <table class="table table-striped table-bordered table-hover" id="ProductList">
                         <thead>
                             <tr>
                                 <th class="table-checkbox">
@@ -71,9 +71,11 @@
                             {
                                 <tr class="odd gradeX">
                                     <td>
-                                        <input type="checkbox" class="checkboxes" value="@product.Id" />
+                                        <input type="checkbox" value="@product.Id" name="list"/>
+                                        
                                     </td>
                                     <td>
+                                        <button class="btn btn-link glyphicon glyphicon-edit EditProductId" style="padding:0;" value="@product.Id"></button>
                                         @product.Name
                                     </td>
                                     <td>
@@ -97,7 +99,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-10 col-sm-10">
-                        <button id="deleteUsers" class="btn btn-danger">Удалить</button>
+                        <button id="deleteProducts" class="btn btn-danger">Удалить</button>
                     </div>
                 </div>
                 <br />
@@ -125,6 +127,7 @@
     </div>
     <!-- END EXAMPLE TABLE PORTLET-->
 </div>
+<!--Добавление товара-->
 <div class="col-md-12">
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
     <div class="portlet box grey-cascade">
@@ -155,16 +158,24 @@
                     <div class="form-group form-md-line-input" id="CategoriesList">
                         <label class="col-md-2 control-label" for="ProductCategory">Категоря</label>
                         <div class="col-md-10">
-                            <select class="form-control" id="ProductCategory">
-                                <option value="1">Option 1</option>
+                            <select class="form-control edited" id="ProductCategory">
+                                @Html.Action("CategoriesList", "Admin")
                             </select>
+
                             <div class="form-control-focus">
                             </div>
                         </div>
                     </div>
                     <!--Производитель товара-->
                     <div class="form-group form-md-line-input" id="ManufacturersList">
-                        @Html.Action("ManufacturersList", "Admin")
+                        <label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
+                        <div class="col-md-10">
+                            <select class="form-control edited" id="ProductManufacturer">
+                                @Html.Action("ManufacturersList", "Admin")
+                            </select>
+                            <div class="form-control-focus">
+                            </div>
+                        </div>
                     </div>
                     <!--Цена и зиображение товара-->
                     <div class="form-group form-md-line-input">
@@ -219,9 +230,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="button" class="btn default">Очистить</button>
-                            <button type="button" class="btn blue" id="AddProduct">Добавить</button>
+                        <div class="col-md-offset-2 col-md-5">
+                            <button class="btn blue btn-block btn-lg m-icon-big" id="AddProduct">Добавить <i class="m-icon-big-swapright m-icon-white"></i></button>
                         </div>
                     </div>
                 </div>
@@ -230,7 +240,27 @@
     </div>
     <!-- END EXAMPLE TABLE PORTLET-->
 </div>
-
+<!--Редактирование товара-->
+<div class="col-md-12" id="EddProduct">
+    <div class="portlet box grey-cascade">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-users">&nbsp;</i>Редактировать товар
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                </a>
+                <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <p class="lead">
+                <i class="fa fa-edit">&nbsp;</i>Для редактирования товара кликните на соответствующую иконку в таблице.
+            </p>
+        </div>
+    </div>      
+</div>
 <script>
     $(document).ready(function () {
 
@@ -244,10 +274,9 @@
             formData.append("Description", $('#ProductDescription').val());
             formData.append("Characteristics", $('#ProductCharacteristics').val());
             formData.append("Tags", $('#ProductTags').val());
-            formData.append("DateAdd", $('#ProductDateAdd').val());  
+            formData.append("DateAdd", $('#ProductDateAdd').val());
             formData.append("CategoryId", $('#ProductCategory').val());
             formData.append("ManufacturerId", $('#ProductManufacturer').val());
-
 
             $.ajax({
                 type: "POST",
@@ -257,12 +286,53 @@
                 data: formData,
                 success: function (result) {
                     console.log(result);
+                    updateProducts();
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
                 }
             });
-        })
+        });
 
+        $('#deleteProducts').click(function () {
+            var formaData = new FormData();
+
+            values = $("input[name=list]").map(function () {
+                if ($(this)[0].checked) {
+                    return $(this).val();
+                }
+
+            }).get();
+            formaData.append("list", values);
+
+            $.ajax({
+                url: 'DeleteProducts',
+                type: 'post',
+                contentType: false,
+                processData: false,
+                data: formaData,
+                beforeSend: function () { console.log(values); },
+                success: function (data) {
+                    console.log(data);
+                    updateProducts();
+                }
+            });
+
+        });
+
+        function updateProducts() {
+            $('#Products').load("http://localhost:58081/Admin/Admin/upProducts");
+        }
+        var EddProductId;
+        $('button.EditProductId').click(function () {
+            EddProductId = $(this).val();
+
+            $('#EddProduct').load("http://localhost:58081/Admin/Admin/EditProduct/" + EddProductId);
+            $('body').animate({
+                scrollTop: $('#EddProduct').offset().top
+            }, 1400);
+        });
+
+        
     });
 </script>

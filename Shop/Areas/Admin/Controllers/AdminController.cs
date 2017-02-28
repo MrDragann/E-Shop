@@ -77,14 +77,25 @@ namespace Shop.Areas.Admin.Controllers
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
+        /// Удаляет выбранные товары из БД 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DeleteProducts(string list)
+        {
+            var productList = list.Split(',').Select(int.Parse).ToList();
+            AdminServices.Products.DeleteProducts(productList);
+            return Json("Запрос успешно выполнен");
+        }
+        /// <summary>
         /// Удаляет выбраных пользователей из БД 
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult DeleteUsers()
+        public ActionResult DeleteUsers(string list)
         {
-            var list = Request.Form["list"].Split(',').Select(Int32.Parse).ToList();
-            AdminServices.Users.DeleteUsers(list);
+            var usersList = list.Split(',').Select(int.Parse).ToList();
+            AdminServices.Users.DeleteUsers(usersList);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -92,10 +103,10 @@ namespace Shop.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult BlockUsers()
+        public ActionResult BlockUsers(string list)
         {
-            var list = Request.Form["list"].Split(',').Select(Int32.Parse).ToList();
-            AdminServices.Users.BLockUsers(list);
+            var usersList = list.Split(',').Select(int.Parse).ToList();
+            AdminServices.Users.BLockUsers(usersList);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -104,11 +115,10 @@ namespace Shop.Areas.Admin.Controllers
         /// <param name="role">Выбранная роль</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult EditRole()
+        public ActionResult EditRole(int role, string list)
         {
-            var roleId = Convert.ToInt32(Request.Form["role"]);
-            var list = Request.Form["list"].Split(',').Select(Int32.Parse).ToList();
-            AdminServices.Users.EditRole(list, roleId);
+            var usersList = list.Split(',').Select(int.Parse).ToList();
+            AdminServices.Users.EditRole(usersList, role);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
@@ -233,6 +243,23 @@ namespace Shop.Areas.Admin.Controllers
         {
             var manufacturers = Services.Product.GetManufacturers();
             return View(manufacturers);
+        }
+        public ActionResult CategoriesList()
+        {
+            var categories = Services.Product.GetCategory();
+            return View(categories);
+        }
+        public ActionResult EditProduct(int id)
+        {
+            var products = Services.Product.ProductsDetails();
+            var product = products.FirstOrDefault(x => x.Id == id);
+            return View(product);
+        }
+        [HttpPost]
+        public ActionResult EditProduct(ModelProduct model)
+        {
+            AdminServices.Products.EditProduct(model);
+            return Json("Запрос успешно выполнен");
         }
     }
 }
