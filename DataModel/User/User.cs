@@ -18,6 +18,10 @@ namespace DataModel
         /// </summary>
         public string Email { get; set; }
         /// <summary>
+        /// Фото пользователя
+        /// </summary>
+        public string Photo { get; set; }
+        /// <summary>
         /// Пароль пользователя
         /// </summary>
         public string Password { get; set; }
@@ -33,15 +37,16 @@ namespace DataModel
         /// Время последний авторизции пользователя
         /// </summary>
         public DateTime LastLoginDate { get; set; }
-
+        /// <summary>
+        /// Id статуса заказа
+        /// </summary>
         public EnumStatusUser StatusUserId { get; set; }
 
-        // Ссылка на профиль
         public AccountConfirmation AccountConfirmation { get; set; }
 
         public List<Role> Roles { get; set; }
 
-        public int? CartId { get; set; }
+        public List<Order> Order { get; set; }
     }
 
     public enum EnumStatusUser
@@ -53,8 +58,13 @@ namespace DataModel
 
     public class StatusUser
     {
+        /// <summary>
+        /// Id статуса пользователя
+        /// </summary>
         public EnumStatusUser Id { get; set; }
-
+        /// <summary>
+        /// Имя статуса
+        /// </summary>
         public string Name { get; set; }
 
         public List<User> Users { get; set; }

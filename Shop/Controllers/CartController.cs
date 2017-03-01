@@ -19,16 +19,28 @@ namespace Shop.Controllers
         /// <returns></returns>
         public ViewResult Index(ModelCart cart)
         {
+            if (User.IsAuth)
+            {
+                //Services.Users.GetCart(User.UserName);
+            }
+            else
+            {
+                return View(cart);
+            }
             return View(cart);
         }
-
+        /// <summary>
+        /// Добавление товара в корзину
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <param name="quantity">Количество</param>
         public RedirectToRouteResult AddToCart(ModelCart cart, int productId)
         {
             var product = Services.Product.GetProduct(productId);
 
             if (User.IsAuth)
             {
-                Services.Users.AddItem(productId, 1, User.UserName);
+                //Services.Users.AddItem(productId, 1, User.UserName);
             }
             else
             {
@@ -36,22 +48,29 @@ namespace Shop.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        /// <summary>
+        /// Удаление товара из корзины
+        /// </summary>
+        /// /// <param name="cart"></param>
+        /// <param name="productId"></param>
         public RedirectToRouteResult RemoveFromCart(ModelCart cart, int productId)
         {
             var product = Services.Product.GetProduct(productId);
-
-            if (product != null)
+            if (User.IsAuth)
+            {
+                //Services.Users.RemoveLine(productId, User.UserName);
+            }
+            else
             {
                 cart.RemoveLine(product);
             }
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult Summary(ModelCart cart)
-        {
-            return PartialView(cart);
-        }
+        //public PartialViewResult Summary(ModelCart cart)
+        //{
+        //    return PartialView(cart);
+        //}
         
 
     }

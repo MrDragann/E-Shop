@@ -220,7 +220,7 @@ namespace Shop.Areas.Admin.Controllers
         public ActionResult upProducts()
         {
             var products = Services.Product.ProductsDetails();
-            return View(products);
+            return View(products);//("",products);
         }
         /// <summary>
         /// Регистрирует нового пользователя и отправляет на указанную ип почту письмо с потверждением аккаунта

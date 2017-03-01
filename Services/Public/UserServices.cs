@@ -156,38 +156,102 @@ namespace IServices
         {
             return status => new ModelStatus { Id = (ModelEnumStatusUser)status.Id, Name = status.Name };
         }
+
         #endregion
 
         #region Корзина/Список жедаемого
+        //public List<CartLine> GetCart(string userName)
+        //{
+        //    using (var db = new DataContext())
+        //    {
+        //        var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+        //        var cart = db.Carts.Select(Cart()).Where(p => p.UserId == user.Id).ToList();
 
-        public void AddItem(int productId, int quantity, string userName)
-        {
-            using (var db = new DataContext())
-            {
-                var cart = db.Carts
-                .Where(p => p.Product.Id == productId)
-                .FirstOrDefault();
-                if (userName != null)
-                {
+        //        return (cart);
+        //    }
+        //}
+        ///// <summary>
+        ///// Добавление товара в корзину
+        ///// </summary>
+        ///// <param name="productId">Id товара</param>
+        ///// <param name="quantity">Количество</param>
+        ///// <param name="userName">Имя пользователя</param>
+        //public void AddItem(int productId, int quantity, string userName)
+        //{
+        //    if (userName != null)
+        //    {
+        //        using (var db = new DataContext())
+        //        {
+        //            var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+        //            var cart = db.Carts.Where(p => p.Product.Id == productId).FirstOrDefault();
 
-                }
-                if (cart == null)
-                {
-                    db.Carts.Add(new Cart
-                    {
-                        ProductId = productId,
-                        UserId = 54,
-                        Quantity = quantity
-                    });
-                }
-                else
-                {
-                    cart.Quantity += quantity;
-                }
-                db.SaveChanges();
-            }
-            
-        }
+        //            if (cart == null)
+        //            {
+        //                db.Carts.Add(new Cart
+        //                {
+        //                    ProductId = productId,
+        //                    UserId = user.Id,
+        //                    Quantity = quantity
+        //                });
+        //            }
+        //            else
+        //            {
+        //                cart.Quantity += quantity;
+        //            }
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //}
+        ///// <summary>
+        ///// Удаление товара из корзины
+        ///// </summary>
+        ///// <param name="productId"></param>
+        //public void RemoveLine(int productId, string userName)
+        //{
+
+        //    if (userName != null)
+        //    {
+        //        using (var db = new DataContext())
+        //        {
+        //            var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+        //            var cart = db.Carts.FirstOrDefault(p => p.UserId == user.Id && p.ProductId==productId);
+
+        //            db.Carts.Remove(cart);
+
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //}
+        
+        ///// <summary>
+        ///// Очистка корзины
+        ///// </summary>
+        //public void Clear(string userName)
+        //{
+        //    if (userName != null)
+        //    {
+        //        using (var db = new DataContext())
+        //        {
+        //            var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+        //            var cart = db.Carts.Where(p => p.UserId == user.Id);
+
+        //            db.Carts.RemoveRange(cart);
+
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //}
+
+        //public static Expression<Func<Cart, CartLine>> Cart()
+        //{
+        //    return product => new CartLine()
+        //    {
+        //        Id=product.Id,
+        //        ProductId=product.ProductId,
+        //        UserId=product.UserId,
+        //        Quantity=product.Quantity
+        //    };
+        //}
         #endregion
     }
     #region Хеширование

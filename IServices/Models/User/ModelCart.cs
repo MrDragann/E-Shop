@@ -9,7 +9,11 @@ namespace IServices.Models.User
     public class ModelCart
     {
         public List<CartLine> lineCollection = new List<CartLine>();
-
+        /// <summary>
+        /// Добавление товара в корзину
+        /// </summary>
+        /// <param name="product">Модель товара</param>
+        /// <param name="quantity">Количество</param>
         public void AddItem(ModelProduct product, int quantity)
         {
             CartLine line = lineCollection
@@ -29,17 +33,26 @@ namespace IServices.Models.User
                 line.Quantity += quantity;
             }
         }
-
+        /// <summary>
+        /// Удаление товара из корзины
+        /// </summary>
+        /// <param name="product"></param>
         public void RemoveLine(ModelProduct product)
         {
             lineCollection.RemoveAll(l => l.Product.Id == product.Id);
         }
-
+        /// <summary>
+        /// Суммарная стоимость корзины
+        /// </summary>
+        /// <returns></returns>
         public decimal ComputeTotalValue()
         {
             return lineCollection.Sum(e => e.Product.Price * e.Quantity);
 
         }
+        /// <summary>
+        /// Очистка корзины
+        /// </summary>
         public void Clear()
         {
             lineCollection.Clear();
@@ -53,6 +66,7 @@ namespace IServices.Models.User
 
     public class CartLine
     {
+        public int Id { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public int UserId { get; set; }

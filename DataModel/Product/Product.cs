@@ -52,7 +52,7 @@ namespace DataModel
 
         public int ManufacturerId { get; set; }
 
-        public List<Cart> Cart { get; set; }
+        public List<OrderProduct> OrderProduct { get; set; }
 
     }
 

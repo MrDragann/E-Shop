@@ -28,7 +28,11 @@ namespace DataModel
 
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
-        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<StatusOrder> StatusOrders { get; set; }
+
+        public DbSet<OrderProduct> OrderProducts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
