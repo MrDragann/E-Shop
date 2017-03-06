@@ -39,6 +39,10 @@ namespace IServices.Models
         /// </summary>
         public DateTime DateAdd { get; set; }
         /// <summary>
+        /// Количество товаров
+        /// </summary>
+        public int Quantity { get; set; }
+        /// <summary>
         /// Название изображения товара
         /// </summary>
         public string FileName { get; set; }

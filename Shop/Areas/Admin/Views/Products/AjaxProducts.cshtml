@@ -30,7 +30,7 @@
                                     <option value="15">15</option>
                                     <option value="20">20</option>
                                     <option value="-1">Все</option>
-                                </select> 
+                                </select>
                             </label>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                     <table class="table table-striped table-bordered table-hover" id="ProductList">
                         <thead>
                             <tr>
-                                <th class="table-checkbox">
-                                    <input type="checkbox" class="group-checkable" data-set="#sample_2 .checkboxes" />
+                                <th>
+                                    №
                                 </th>
                                 <th>
                                     Наименование
@@ -72,11 +72,12 @@
                             {
                                 <tr class="odd gradeX">
                                     <td>
-                                        <input type="checkbox" value="@product.Id" name="list"/>
-                                        
+                                        @product.Id
+
                                     </td>
                                     <td>
-                                        <button class="btn btn-link glyphicon glyphicon-edit EditProductId" style="padding:0;" value="@product.Id"></button>
+                                        <button class="btn btn-link glyphicon glyphicon-trash DeleteProductId"  style="padding:0;" value="@product.Id"></button>
+                                        <button class="btn btn-link glyphicon glyphicon-edit EditProductId" data-toggle="modal" href="#EditProductModal" style="padding:0;" value="@product.Id"></button>
                                         @product.Name
                                     </td>
                                     <td>
@@ -99,11 +100,10 @@
                     </table>
                 </div>
                 <div class="row">
-                    <div class="col-md-10 col-sm-10">
-                        <button id="deleteProducts" class="btn btn-danger">Удалить</button>
-                        <button class="btn default" data-toggle="modal" href="#AddProductModal">Добавить товар</button>
+                        <div class="col-md-10 col-sm-10">
+                            <button class="btn default" data-toggle="modal" href="#AddProductModal">Добавить товар</button>
+                        </div>
                     </div>
-                </div>
                 <br />
                 <div class="row">
                     <div class="col-md-5 col-sm-5">
@@ -113,14 +113,15 @@
                         <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
                             <ul class="pagination" style="visibility: visible;">
                                 @*@Html.PagingNav(MyConstats.PageNum, MyConstats.ItemsCount, MyConstats.PageSize, Request.QueryString["sort"])*@
-    <li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li>
-    <li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>
-    <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
-    <li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li>
+                                <li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li>
+                                <li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
+                                <li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -238,26 +239,35 @@
 </div>
 
 <!--Редактирование товара-->
-<div class="col-md-12" id="EddProduct">
-    <div class="portlet box grey-cascade">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="icon-users">&nbsp;</i>Редактировать товар
-            </div>
-            <div class="tools">
-                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                </a>
-                <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
-                </a>
-            </div>
+<div class="modal fade bs-modal-lg" id="EditProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="EditModalContent">
+            
         </div>
-        <div class="portlet-body">
-            <p class="lead">
-                <i class="fa fa-edit">&nbsp;</i>Для редактирования товара кликните на соответствующую иконку в таблице.
-            </p>
-        </div>
-    </div>      
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
+@*<div class="col-md-12" id="EddProduct">
+        <div class="portlet box grey-cascade">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-users">&nbsp;</i>Редактировать товар
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <p class="lead">
+                    <i class="fa fa-edit">&nbsp;</i>Для редактирования товара кликните на соответствующую иконку в таблице.
+                </p>
+            </div>
+        </div>
+    </div>*@
 <script>
     $(document).ready(function () {
 
@@ -315,25 +325,22 @@
                 beforeSend: function () { console.log(values); },
                 success: function (data) {
                     console.log(data);
-                    updateProducts();
                 }
             });
 
         });
 
         function updateProducts() {
-            $('#Products').load("http://localhost:58081/Admin/Admin/upProducts");
+            $('#Products').load("http://localhost:58081/Admin/Products/AjaxProducts");
         }
         var EddProductId;
         $('button.EditProductId').click(function () {
             EddProductId = $(this).val();
 
-            $('#EddProduct').load("http://localhost:58081/Admin/Admin/EditProduct/" + EddProductId);
-            $('body').animate({
-                scrollTop: $('#EddProduct').offset().top
-            }, 1400);
+            $('#EditModalContent').load("http://localhost:58081/Admin/Products/EditProduct/" + EddProductId);
+            
         });
 
-        
+
     });
 </script>

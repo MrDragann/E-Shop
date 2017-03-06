@@ -29,7 +29,7 @@ namespace IServices
         bool Register(string userName, string email, string password, string salt);
         #endregion
         #region Корзина/Список жедаемого
-        List<CartLine> GetCart(string userName);
+        List<ModelProduct> GetCart(string userName);
         void AddToCart(int productId, int quantity, string userName);
         //void RemoveLine(int productId, string userName);
         //void Clear(string userName);

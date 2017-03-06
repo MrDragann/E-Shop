@@ -10,6 +10,7 @@ using IServices.Models;
 using System.Linq.Expressions;
 using IServices.Models.User;
 using System.Security.Cryptography;
+using Services;
 
 namespace IServices
 {
@@ -160,14 +161,15 @@ namespace IServices
         #endregion
 
         #region Корзина/Список жедаемого
-        public List<CartLine> GetCart(string userName)
+        public List<ModelProduct> GetCart(string userName)
         {
             using (var db = new DataContext())
             {
                 var user = db.Users.FirstOrDefault(x => x.UserName == userName);
                 var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
-                var cart = db.OrderProducts.Select(Cart()).ToList();
-                return (cart);
+                var products = GetOrderProducts(order);
+
+                return (products);
             }
         }
         /// <summary>
@@ -178,11 +180,11 @@ namespace IServices
         /// <param name="userName">Имя пользователя</param>
         public void AddToCart(int productId, int quantity, string userName)
         {
-            if (userName == null)
+            if (userName != null)
             {
                 using (var db = new DataContext())
                 {
-                    var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                    var user = db.Users.Include(x=>x.Order).FirstOrDefault(x => x.UserName == userName);
                     var cart = db.Orders.Include(x=>x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
                     //Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
 
@@ -199,6 +201,7 @@ namespace IServices
                         {
                             OrderDate = DateTime.Now,
                             UserId = user.Id,
+                            User = new List<User> { user },
                             StatusOrderId = EnumStatusOrder.Cart
                         });
                         db.OrderProducts.Add(new OrderProduct
@@ -217,13 +220,26 @@ namespace IServices
                     //        Quantity = quantity
                     //    });
                     //}
-                    if (cart.OrderProduct.Any(x => x.ProductId == productId))
+                    if (cart != null)
                     {
-                        var order = db.OrderProducts.FirstOrDefault(x => x.OrderId == cart.Id);
-                        order.Quantity++;
-                        //db.OrderProducts//
-                        //cart.OrderProduct = db.OrderProducts.Where(_ => new[] { productId, quantity }.Contains(_.OrderId)).ToList();
+                        if (cart.OrderProduct.Any(x => x.ProductId == productId))
+                        {
+                            var order = db.OrderProducts.FirstOrDefault(x => x.OrderId == cart.Id);
+                            order.Quantity++;
+                            //db.OrderProducts//
+                            //cart.OrderProduct = db.OrderProducts.Where(_ => new[] { productId, quantity }.Contains(_.OrderId)).ToList();
+                        }
+                        if (cart.OrderProduct.Where(x=>x.ProductId!=productId)==null)
+                        {
+                            db.OrderProducts.Add(new OrderProduct
+                            {
+                                OrderId = user.Order.FirstOrDefault(x=>x.StatusOrderId==EnumStatusOrder.Cart).Id,
+                                ProductId = productId,
+                                Quantity = quantity
+                            });
+                        }
                     }
+                    
                     db.SaveChanges();
                 }
             }
@@ -276,6 +292,21 @@ namespace IServices
                 ProductId = product.ProductId,
                 Quantity = product.Quantity
             };
+        }
+        public List<ModelProduct> GetOrderProducts(Order model)
+        {
+            using (var db = new DataContext())
+            {
+                List<ModelProduct> products = new List<ModelProduct>();
+                foreach (var Product in model.OrderProduct)
+                {
+                    var product = db.Products.Select(ProductServices.Details()).Where(x => x.Id == Product.ProductId).FirstOrDefault();
+                    product.Quantity = Product.Quantity;
+                    products.Add(product);
+                }
+
+                return products;
+            }
         }
         #endregion
     }

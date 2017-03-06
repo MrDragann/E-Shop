@@ -22,6 +22,7 @@ namespace IServices
         /// </summary>
         /// <returns></returns>
         List<ModelProduct> ProductsDetails();
+        //List<ModelProduct> GetOrderProducts(OrderProduct model);
         string GetCategoryName(int id);
         ModelCategories GetCategory();
         /// <summary>

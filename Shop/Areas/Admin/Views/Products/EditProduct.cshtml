@@ -1,0 +1,163 @@
+﻿@model IServices.Models.ModelProduct
+@{
+    Layout = null;
+}
+
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title">Редактировать товар</h4>
+</div>
+<div class="modal-body">
+    <div class="form-horizontal">
+        <!--Название товара-->
+        <input hidden type="text" value="@Model.Id" id="ProductId" />
+        <div class="form-group form-md-line-input">
+            <label class="col-md-2 control-label" for="EdProductName">Название товара</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="EdProductName" placeholder="HP Notebook 15..." value="@Model.Name">
+                <div class="form-control-focus">
+                </div>
+            </div>
+        </div>
+        <!--Категория товара-->
+        <div class="form-group form-md-line-input" id="EdCategoriesList">
+            <label class="col-md-2 control-label" for="EdProductCategory">Категоря</label>
+            <div class="col-md-10">
+                <select class="form-control edited" id="EdProductCategory">
+                    @Html.Action("CategoriesList", "Categories")
+                </select>
+
+                <div class="form-control-focus">
+                </div>
+            </div>
+
+        </div>
+        <!--Производитель товара-->
+        <div class="form-group form-md-line-input" id="EdManufacturersList">
+            <label class="col-md-2 control-label" for="EdProductManufacturer">Производитель</label>
+            <div class="col-md-10">
+                <select class="form-control edited" id="EdProductManufacturer">
+                    @Html.Action("ManufacturersList", "Products")
+                </select>
+                <div class="form-control-focus">
+                </div>
+            </div>
+        </div>
+        <!--Цена и зиображение товара-->
+        <div class="form-group form-md-line-input">
+            <label class="col-md-2 control-label" for="EdProductPrice">Цена</label>
+            <div class="col-md-5">
+                <input type="number" class="form-control" id="EdProductPrice" placeholder="2500" value="@Model.Price">
+                <div class="form-control-focus">
+                </div>
+            </div>
+            <label class="control-label col-md-2" for="EdProductImage">Изображение</label>
+            <div class="col-md-3">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn green fileinput-button">
+                    <i class="fa fa-plus"></i>
+                    <span>
+                        Выбрать файл..
+                    </span>
+                    <input type="file" name="EdProductImage" id="EdProductImage">
+                </span>
+            </div>
+        </div>
+        <!--Описание товара-->
+        <div class="form-group form-md-line-input">
+            <label class="col-md-2 control-label" for="EdProductDescription">Описание</label>
+            <div class="col-md-10">
+                <textarea class="form-control" rows="3" placeholder="Enter more text" id="EdProductDescription">@Model.Description</textarea>
+                <div class="form-control-focus">
+                </div>
+            </div>
+        </div>
+        <!--Характеристики товара-->
+        <div class="form-group form-md-line-input">
+            <label class="col-md-2 control-label" for="EdProductCharacteristics">Характеристики</label>
+            <div class="col-md-10">
+                <textarea class="form-control" rows="3" placeholder="Enter more text" id="EdProductCharacteristics">@Model.Characteristics</textarea>
+                <div class="form-control-focus">
+                </div>
+            </div>
+        </div>
+        <div class="form-group form-md-line-input">
+            <label class="col-md-2 control-label" for="EdProductTags">Теги</label>
+            <div class="col-md-5">
+                <textarea class="form-control" rows="3" placeholder="Enter more text" id="EdProductTags">@Model.Tags</textarea>
+                <div class="form-control-focus">
+                </div>
+            </div>
+            <label class="control-label col-md-2" for="EdProductDateAdd">Дата добавления</label>
+            <div class="col-md-3">
+                @*<div class="date-picker" data-date-format="mm/dd/yyyy">*@
+                <input type="date" name="ProductDateAdd" id="EdProductDateAdd" value="@Model.DateAdd" />
+                @*</div>*@
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-md-offset-2 col-md-5">
+                <button class="btn blue btn-block btn-lg m-icon-big" id="EditProduct">Редактировать <i class="m-icon-big-swapright m-icon-white"></i></button>
+            </div>
+        </div>*@
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn default" data-dismiss="modal">Закрыть</button>
+    <button type="button" class="btn blue" id="EditProduct" data-dismiss="modal">Сохранить</button>
+</div>
+
+@*<div class="portlet box grey-cascade">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-users">&nbsp;</i>Редактировать товар
+        </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse" data-original-title="" title="">
+            </a>
+            <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="dataTables_wrapper no-footer">
+            
+        </div>
+    </div>
+</div>*@
+<!-- END EXAMPLE TABLE PORTLET-->
+
+<script>
+    $('#EditProduct').click(function () {
+        var files = document.getElementById('EdProductImage').files;
+        var formData = new FormData();
+        
+        formData.append("file", files[0]);
+        formData.append("Id", $('#ProductId').val());
+        formData.append("Name", $('#EdProductName').val());
+        formData.append("Price", $('#EdProductPrice').val());
+        formData.append("Description", $('#EdProductDescription').val());
+        formData.append("Characteristics", $('#EdProductCharacteristics').val());
+        formData.append("Tags", $('#EdProductTags').val());
+        formData.append("DateAdd", $('#EdProductDateAdd').val());
+        formData.append("CategoryId", $('#EdProductCategory').val());
+        formData.append("ManufacturerId", $('#EdProductManufacturer').val());
+
+        $.ajax({
+            type: "POST",
+            url: 'EditProduct',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (result) {
+                console.log(result);
+                updateProducts();
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+        
+    });
+</script>

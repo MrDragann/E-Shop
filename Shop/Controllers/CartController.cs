@@ -21,13 +21,12 @@ namespace Shop.Controllers
         {
             if (User.IsAuth)
             {
-                Services.Users.GetCart(User.UserName);
+                return View(Services.Users.GetCart(User.UserName));
             }
             else
             {
                 return View(cart);
             }
-            return View(cart);
         }
         /// <summary>
         /// Добавление товара в корзину
