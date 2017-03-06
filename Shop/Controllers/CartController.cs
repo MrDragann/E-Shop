@@ -21,7 +21,7 @@ namespace Shop.Controllers
         {
             if (User.IsAuth)
             {
-                //Services.Users.GetCart(User.UserName);
+                Services.Users.GetCart(User.UserName);
             }
             else
             {
@@ -40,11 +40,11 @@ namespace Shop.Controllers
 
             if (User.IsAuth)
             {
-                //Services.Users.AddItem(productId, 1, User.UserName);
+                Services.Users.AddToCart(productId, 1, User.UserName);
             }
             else
             {
-                cart.AddItem(product, 1);
+                cart.AddToCart(product, 1);
             }
             return RedirectToAction("Index");
         }

@@ -160,48 +160,74 @@ namespace IServices
         #endregion
 
         #region Корзина/Список жедаемого
-        //public List<CartLine> GetCart(string userName)
-        //{
-        //    using (var db = new DataContext())
-        //    {
-        //        var user = db.Users.FirstOrDefault(x => x.UserName == userName);
-        //        var cart = db.Carts.Select(Cart()).Where(p => p.UserId == user.Id).ToList();
+        public List<CartLine> GetCart(string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                var cart = db.OrderProducts.Select(Cart()).ToList();
+                return (cart);
+            }
+        }
+        /// <summary>
+        /// Добавление товара в корзину
+        /// </summary>
+        /// <param name="productId">Id товара</param>
+        /// <param name="quantity">Количество</param>
+        /// <param name="userName">Имя пользователя</param>
+        public void AddToCart(int productId, int quantity, string userName)
+        {
+            if (userName == null)
+            {
+                using (var db = new DataContext())
+                {
+                    var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                    var cart = db.Orders.Include(x=>x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                    //Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
 
-        //        return (cart);
-        //    }
-        //}
-        ///// <summary>
-        ///// Добавление товара в корзину
-        ///// </summary>
-        ///// <param name="productId">Id товара</param>
-        ///// <param name="quantity">Количество</param>
-        ///// <param name="userName">Имя пользователя</param>
-        //public void AddItem(int productId, int quantity, string userName)
-        //{
-        //    if (userName != null)
-        //    {
-        //        using (var db = new DataContext())
-        //        {
-        //            var user = db.Users.FirstOrDefault(x => x.UserName == userName);
-        //            var cart = db.Carts.Where(p => p.Product.Id == productId).FirstOrDefault();
-
-        //            if (cart == null)
-        //            {
-        //                db.Carts.Add(new Cart
-        //                {
-        //                    ProductId = productId,
-        //                    UserId = user.Id,
-        //                    Quantity = quantity
-        //                });
-        //            }
-        //            else
-        //            {
-        //                cart.Quantity += quantity;
-        //            }
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //}
+                    ////Может пригодиться
+                    //using (var db = new DataContext())
+                    //{
+                    //    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(_ => _.Id == 19);
+                    //    user.Roles = db.Roles.Where(_ => new[] { TypeRoles.Admin }.Contains(_.Id)).ToList();
+                    //    db.SaveChanges();
+                    //}
+                    if (cart == null)
+                    {
+                        var order = db.Orders.Add(new Order
+                        {
+                            OrderDate = DateTime.Now,
+                            UserId = user.Id,
+                            StatusOrderId = EnumStatusOrder.Cart
+                        });
+                        db.OrderProducts.Add(new OrderProduct
+                        {
+                            OrderId = order.Id,
+                            ProductId = productId,
+                            Quantity = quantity
+                        });
+                    }
+                    //if (cart.OrderProduct.Any(x => x.ProductId != productId))
+                    //{
+                    //    db.OrderProducts.Add(new OrderProduct
+                    //    {
+                    //        OrderId = order.Id,
+                    //        ProductId = productId,
+                    //        Quantity = quantity
+                    //    });
+                    //}
+                    if (cart.OrderProduct.Any(x => x.ProductId == productId))
+                    {
+                        var order = db.OrderProducts.FirstOrDefault(x => x.OrderId == cart.Id);
+                        order.Quantity++;
+                        //db.OrderProducts//
+                        //cart.OrderProduct = db.OrderProducts.Where(_ => new[] { productId, quantity }.Contains(_.OrderId)).ToList();
+                    }
+                    db.SaveChanges();
+                }
+            }
+        }
         ///// <summary>
         ///// Удаление товара из корзины
         ///// </summary>
@@ -222,7 +248,7 @@ namespace IServices
         //        }
         //    }
         //}
-        
+
         ///// <summary>
         ///// Очистка корзины
         ///// </summary>
@@ -242,16 +268,15 @@ namespace IServices
         //    }
         //}
 
-        //public static Expression<Func<Cart, CartLine>> Cart()
-        //{
-        //    return product => new CartLine()
-        //    {
-        //        Id=product.Id,
-        //        ProductId=product.ProductId,
-        //        UserId=product.UserId,
-        //        Quantity=product.Quantity
-        //    };
-        //}
+        public static Expression<Func<OrderProduct, CartLine>> Cart()
+        {
+            return product => new CartLine()
+            {
+                OrderId = product.OrderId,
+                ProductId = product.ProductId,
+                Quantity = product.Quantity
+            };
+        }
         #endregion
     }
     #region Хеширование

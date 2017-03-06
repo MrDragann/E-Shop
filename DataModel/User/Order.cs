@@ -24,18 +24,13 @@ namespace DataModel
         /// <summary>
         /// Статус заказа
         /// </summary>
-        public EnumStatusOrder OrderStatus { get; set; }
+        public EnumStatusOrder StatusOrderId { get; set; }
         /// <summary>
         /// Дата заказа
         /// </summary>
         public DateTime OrderDate { get; set; }
-        /// <summary>
-        /// Id статуса заказа
-        /// </summary>
-        
-        public int StatusOrderId { get; set; }
 
-        public List<OrderProduct> OrderProduct{ get; set; }
+        public List<OrderProduct> OrderProduct { get; set; }
 
         public List<User> User { get; set; }
     }
@@ -78,6 +73,7 @@ namespace DataModel
 
     public enum EnumStatusOrder
     {
+        Cart,
         Processing,
         Ordered,
         Confirmed,

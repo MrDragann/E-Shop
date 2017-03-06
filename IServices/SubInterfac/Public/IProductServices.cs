@@ -22,7 +22,7 @@ namespace IServices
         /// </summary>
         /// <returns></returns>
         List<ModelProduct> ProductsDetails();
-
+        string GetCategoryName(int id);
         ModelCategories GetCategory();
         /// <summary>
         /// Вывод списка производителей

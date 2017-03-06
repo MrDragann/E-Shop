@@ -10,13 +10,13 @@
     <div class="container">
         
         <div class="row">
-            @Html.Partial("leftSidebar")
+            @*@Html.Partial("leftSidebar")*@
 
-            <div class="col-sm-9 padding-right">
+            <div class="padding-right">
                 <div class="features_items">
                     <!--features_items-->
                     <h2 class="title text-center">Новинки</h2>
-                    @foreach (var item in Model.OrderByDescending(x=>x.DateAdd).Take(6))
+                    @foreach (var item in Model)
                     {
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
@@ -42,203 +42,16 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>В список желаемого</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     }
                     
                 </div><!--features_items-->
 
-                <div class="category-tab">
-                    <!--category-tab-->
-                    <div class="col-sm-12">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#notebook" data-toggle="tab">Ноутбуки</a></li>
-                            <li><a href="#tablet" data-toggle="tab">Планшеты</a></li>
-                            <li><a href="#smartphone" data-toggle="tab">Смартфоны</a></li>
-                            <li><a href="#aksess" data-toggle="tab">Аудио</a></li>
-                        </ul>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade active in" id="notebook">
-                            @foreach (var item in Model.Where(x => x.CategoryId==4).Take(4))
-                            {
-                                <div class="col-sm-3">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/@item.Image" alt="">
-                                                <h2>@item.Price р.</h2>
-                                                <p>@item.Name</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div class="tab-pane fade active in" id="tablet">
-                            @foreach (var item in Model.Where(x => x.CategoryId==5).Take(4))
-                            {
-                                <div class="col-sm-3">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/@item.Image" alt="">
-                                                <h2>@item.Price р.</h2>
-                                                <p>@item.Name</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div class="tab-pane fade active in" id="smartphone">
-                            @foreach (var item in Model.Where(x => x.CategoryId==2).Take(4))
-                            {
-                                <div class="col-sm-3">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/@item.Image" alt="">
-                                                <h2>@item.Price р.</h2>
-                                                <p>@item.Name</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div class="tab-pane fade active in" id="audio">
-                            @foreach (var item in Model.Where(x => x.CategoryId == 9).Take(4))
-                            {
-                                <div class="col-sm-3">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/@item.Image" alt="">
-                                                <h2>@item.Price р.</h2>
-                                                <p>@item.Name</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-
-                     </div>
-
-                </div>
+                
                 <!--/category-tab-->
                 
-                <div class="recommended_items">
-                    <!--recommended_items-->
-                    <h2 class="title text-center">recommended items</h2>
-
-                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/recommend1.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/recommend2.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/recommend3.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/recommend1.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/recommend2.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="/Content/Images/home/recommend3.jpg" alt="">
-                                                <h2>$56</h2>
-                                                <p>Easy Polo Black Edition</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </div>
-                </div><!--/recommended_items-->
+                <!--/recommended_items-->
 
             </div>
         </div>

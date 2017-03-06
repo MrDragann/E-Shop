@@ -109,6 +109,15 @@ namespace Services
             }
         }
 
+        public string GetCategoryName(int id)
+        {
+            using (var db = new DataContext())
+            {
+                var category = db.Categories.Where(x=>x.Id==id).FirstOrDefault();
+                return category.Name;
+            }
+        }
+
         private static ModelCategory ConverModelCategory(Category category)
         {
 

@@ -120,13 +120,20 @@ namespace Shop.Infrastructura
         /// <param name="body"></param>
         public static void SendMail(string subject, string email, string body)
         {
-            MailMessage msg = new MailMessage();
-            msg.To.Add(email);
-            msg.Subject = subject;
-            msg.Body = body;
-            msg.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Send(msg);
+            try
+            {
+                MailMessage msg = new MailMessage();
+                msg.To.Add(email);
+                msg.Subject = subject;
+                msg.Body = body;
+                msg.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Send(msg);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #region Криптография

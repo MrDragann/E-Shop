@@ -14,7 +14,7 @@ namespace IServices.Models.User
         /// </summary>
         /// <param name="product">Модель товара</param>
         /// <param name="quantity">Количество</param>
-        public void AddItem(ModelProduct product, int quantity)
+        public void AddToCart(ModelProduct product, int quantity)
         {
             CartLine line = lineCollection
                 .Where(p => p.Product.Id == product.Id)
@@ -66,11 +66,10 @@ namespace IServices.Models.User
 
     public class CartLine
     {
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
-        public int UserId { get; set; }
         public ModelProduct Product { get; set; }
-        
+
     }
 }

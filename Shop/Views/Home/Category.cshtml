@@ -1,4 +1,5 @@
-﻿@using Shop.Infrastructura.Extensions
+﻿@using Shop.Infrastructura.Constants
+@using Shop.Infrastructura.Extensions
 @model IEnumerable<IServices.Models.ModelProductPreview>
 
 @{
@@ -69,23 +70,17 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="choose">
-                                        <ul class="nav nav-pills nav-justified">
-                                            <li><a href="#"><i class="fa fa-plus-square"></i>В список желаемого</a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         }
-                        <ul class="pagination">
-                            <li class="active"><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">»</a></li>
-                        </ul>
+                        <div id="pagination" style="clear:both;text-align:center;">
+                            <ul class="pagination">
+                                @Html.CategoryPaging(MyConstats.PageNum, MyConstats.ItemsCount, MyConstats.PageSize, Request.QueryString["Category"], Request.QueryString["sort"])
+                            </ul>
+                        </div>
                     </div><!--features_items-->
                 </div>
-                @Html.Partial("leftSidebar")
+                @Html.Partial("filters")
             }
             <!--features_items-->
         </div>

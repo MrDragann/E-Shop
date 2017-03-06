@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Shop.Infrastructura.Constants;
 using System.Web.Mvc;
 using Shop.Infrastructura.Extensions;
 using Services;
@@ -22,7 +23,7 @@ namespace Shop.Controllers
         public ActionResult Index()
         {
             var products = Services.Product.ProductsPreview();
-            return View(products.Take(6));
+            return View(products.OrderByDescending(x => x.DateAdd).Take(6));
         }
         
         /// <summary>
@@ -30,10 +31,13 @@ namespace Shop.Controllers
         /// </summary>
         /// <param name = "Category" > Название категории</param>
         /// <returns>Список товаров</returns>
-        public ActionResult Category(int Category, TypeSort sort = TypeSort.NameAsc)
+        public ActionResult Category(int Category, int pageNum = 0, TypeSort sort = TypeSort.NameAsc)
         {
-            ViewBag.Message = Category;
+            ViewBag.Message = Services.Product.GetCategoryName(Category);
             var products = Services.Product.ProductsPreview().Where(x => x.CategoryId == Category);
+            MyConstats.PageNum = pageNum;
+            MyConstats.ItemsCount = products.Count();
+            int pageSize = MyConstats.PageSize;
             switch (sort)
             {
                 case TypeSort.NameAsc: products = products.OrderBy(x => x.Name); break;
@@ -41,7 +45,7 @@ namespace Shop.Controllers
                 case TypeSort.PriceAsc: products = products.OrderBy(x => x.Price); break;
                 case TypeSort.PriceDesc: products = products.OrderByDescending(x => x.Price); break;
             }
-            return View(products);
+            return View(products.Skip(pageSize * pageNum).Take(pageSize));
         }
         /// <summary>
         /// Информация о товаре

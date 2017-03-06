@@ -1,4 +1,5 @@
-﻿@model IEnumerable<IServices.Models.ModelProduct>
+﻿@using Shop.Infrastructura.Constants
+@model IEnumerable<IServices.Models.ModelProduct>
 @{
     Layout = null;
 }
@@ -100,6 +101,7 @@
                 <div class="row">
                     <div class="col-md-10 col-sm-10">
                         <button id="deleteProducts" class="btn btn-danger">Удалить</button>
+                        <button class="btn default" data-toggle="modal" href="#AddProductModal">Добавить товар</button>
                     </div>
                 </div>
                 <br />
@@ -110,14 +112,15 @@
                     <div class="col-md-7 col-sm-7">
                         <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
                             <ul class="pagination" style="visibility: visible;">
-                                <li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>
-                                <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
-                                <li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li>
+                                @*@Html.PagingNav(MyConstats.PageNum, MyConstats.ItemsCount, MyConstats.PageSize, Request.QueryString["sort"])*@
+    <li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li>
+    <li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>
+    <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
+    <li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -128,22 +131,15 @@
     <!-- END EXAMPLE TABLE PORTLET-->
 </div>
 <!--Добавление товара-->
-<div class="col-md-12">
-    <!-- BEGIN EXAMPLE TABLE PORTLET-->
-    <div class="portlet box grey-cascade">
-        <div class="portlet-title">
-            <div class="caption">
-                <i class="icon-users">&nbsp;</i>Добавить товар
+
+<div class="modal fade bs-modal-lg" id="AddProductModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Добавить товар</h4>
             </div>
-            <div class="tools">
-                <a href="javascript:;" class="collapse" data-original-title="" title="">
-                </a>
-                <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
-                </a>
-            </div>
-        </div>
-        <div class="portlet-body">
-            <div class="dataTables_wrapper no-footer">
+            <div class="modal-body">
                 <div class="form-horizontal">
                     <!--Название товара-->
                     <div class="form-group form-md-line-input">
@@ -159,7 +155,7 @@
                         <label class="col-md-2 control-label" for="ProductCategory">Категоря</label>
                         <div class="col-md-10">
                             <select class="form-control edited" id="ProductCategory">
-                                @Html.Action("CategoriesList", "Admin")
+                                @Html.Action("CategoriesList", "Categories")
                             </select>
 
                             <div class="form-control-focus">
@@ -171,7 +167,7 @@
                         <label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
                         <div class="col-md-10">
                             <select class="form-control edited" id="ProductManufacturer">
-                                @Html.Action("ManufacturersList", "Admin")
+                                @Html.Action("ManufacturersList", "Products")
                             </select>
                             <div class="form-control-focus">
                             </div>
@@ -225,21 +221,22 @@
                         <label class="control-label col-md-2" for="ProductDateAdd">Дата добавления</label>
                         <div class="col-md-3">
                             @*<div class="date-picker" data-date-format="mm/dd/yyyy">*@
-                            <input type="date" name="ProductDateAdd" id="ProductDateAdd"/>
+                            <input type="date" name="ProductDateAdd" id="ProductDateAdd" />
                             @*</div>*@
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-offset-2 col-md-5">
-                            <button class="btn blue btn-block btn-lg m-icon-big" id="AddProduct">Добавить <i class="m-icon-big-swapright m-icon-white"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn blue" id="AddProduct" data-dismiss="modal">Добавить</button>
+            </div>
         </div>
+        <!-- /.modal-content -->
     </div>
-    <!-- END EXAMPLE TABLE PORTLET-->
+    <!-- /.modal-dialog -->
 </div>
+
 <!--Редактирование товара-->
 <div class="col-md-12" id="EddProduct">
     <div class="portlet box grey-cascade">
@@ -264,6 +261,10 @@
 <script>
     $(document).ready(function () {
 
+        $('#reloadUsers').click(function () {
+            updateProducts();
+        });
+
         $('#AddProduct').click(function () {
 
             var files = document.getElementById('ProductImage').files;
@@ -286,7 +287,7 @@
                 data: formData,
                 success: function (result) {
                     console.log(result);
-                    updateProducts();
+                    //updateProducts();
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);

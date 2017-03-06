@@ -169,6 +169,9 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -178,6 +181,7 @@
     </Compile>
     <Compile Include="Helpers\Paging.cs" />
     <Compile Include="Infrastructura\Binders\CartModelBinder.cs" />
+    <Compile Include="Infrastructura\Constants\MyConstats.cs" />
     <Compile Include="Infrastructura\CustomWebViewPage.cs" />
     <Compile Include="Infrastructura\Extensions\MyExtensions.cs" />
     <Compile Include="Infrastructura\FilterUser.cs" />
@@ -224,14 +228,14 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\Users.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\upUsers.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\Products.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\upProducts.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\upCategories.cshtml" />
-    <Content Include="Areas\Admin\Views\Admin\Categories.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\AjaxUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\AjaxProducts.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\AjaxCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\ManufacturersList.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\CategoriesList.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\CategoriesList.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditProduct.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
@@ -277,6 +281,7 @@
     <Content Include="Views\Shared\slider.cshtml" />
     <Content Include="Views\Account\NewPassword.cshtml" />
     <Content Include="Views\Shared\Categories.cshtml" />
+    <None Include="Views\Shared\filters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
