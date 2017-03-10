@@ -8,21 +8,28 @@ namespace Shop.Infrastructura
     /// </summary>
     public class FilterUser : AuthorizeAttribute
     {
+        /// <summary>
+        /// Вызывается, когда процесс запрашивает авторизацию.
+        /// </summary>
+        /// <param name="filterContext">Контекст фильтра, инкапсулирующий сведения для использования объекта <see cref="T:System.Web.Mvc.AuthorizeAttribute" />.</param>
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-
-            //base.OnAuthorization(filterContext);
             // Переадресация
             if (!AuthorizeCore(filterContext.HttpContext))
             {
                 filterContext.Result = new RedirectToRouteResult(
                 new System.Web.Routing.RouteValueDictionary {
-                { "controller", "Account" }, { "action", "Login" }
+                    { "area", "" }, { "controller", "Account" }, { "action", "Login" }
             });
             }
 
         }
 
+        /// <summary>
+        /// В случае переопределения предоставляет точку входа для пользовательской проверки авторизации.
+        /// </summary>
+        /// <param name="httpContext">Контекст HTTP, который инкапсулирует все НТТР-данные об индивидуальном НТТР-запросе.</param>
+        /// <returns>Значение true, если пользователь авторизован. В противном случае — значение false.</returns>
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             /// Извлечение имен и ролей пользователей, авторизованных

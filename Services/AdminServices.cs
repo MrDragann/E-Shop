@@ -1,14 +1,13 @@
 ﻿using IServices;
-using IServices.SubInterfac.Admin;
+using IServices.SubInterface;
 using Services.Admin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
+    /// <summary>
+    /// Управление админкой
+    /// </summary>
+    /// <seealso cref="IServices.IAdminServices" />
     public class AdminServices : IAdminServices
     {
         public AdminServices()

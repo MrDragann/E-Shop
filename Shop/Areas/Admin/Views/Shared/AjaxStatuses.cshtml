@@ -1,0 +1,55 @@
+﻿@model List<IServices.Models.ModelStatus>
+
+@{
+    Layout = null;
+}
+<p class="lead">
+    Выберите один из приведенных ниже статусов:
+</p>
+@foreach (var status in Model)
+{
+    <button value="@status.Id" class="btn btn-success EditStatus" data-dismiss="modal">
+        @status.Name 
+    </button>
+}
+
+<script>
+    var UserId;
+    $('[data-target=#EditStatusModal]').click(function () {
+        UserId = $(this).val();
+    });
+
+    $('button.EditStatus').click(function () {
+
+        var formaData = new FormData();
+
+        var status = $(this).val();
+        
+        formaData.append("userId", UserId);
+        formaData.append("status", status);
+
+        $.ajax({
+            type: "POST",
+            url: '/Admin/Users/EditStatus',
+            contentType: false,
+            processData: false,
+            data: formaData,
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+</script>
+
+@*<button value="0" class="btn btn-success" id="Admin" data-dismiss="modal">
+    Администранор <i class="fa fa-font"></i>
+</button>
+<button value="1" class="btn blue" id="Moderator" data-dismiss="modal">
+    Модератор <i class="fa fa-edit"></i>
+</button>
+<button value="2" class="btn default" id="User" data-dismiss="modal">
+    Пользователь <i class="fa fa-user"></i>
+</button>*@

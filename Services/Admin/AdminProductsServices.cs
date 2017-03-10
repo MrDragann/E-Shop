@@ -1,13 +1,13 @@
 ﻿using DataModel;
 using IServices.Models;
-using IServices.SubInterfac.Admin;
 using System.Data.Entity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataModel.Models;
+using IServices.SubInterface;
 
+/// <summary>
+/// Содержит классы для работы с административной частью приложения
+/// </summary>
 namespace Services.Admin
 {
     public class AdminProductsServices : IAdminProductServices 
@@ -38,20 +38,17 @@ namespace Services.Admin
             }
         }
         /// <summary>
-        /// Удаление выбранных товаров
+        /// Удаление выбранного товара
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteProducts(List<int> id)
+        public void DeleteProducts(int id)
         {
             try
             {
                 using (var db = new DataContext())
                 {
-                    foreach (int item in id)
-                    {
-                        var product = db.Products.FirstOrDefault(_ => _.Id == item);
-                        db.Products.Remove(product);
-                    }
+                    var product = db.Products.FirstOrDefault(_ => _.Id == id);
+                    db.Products.Remove(product);
                     db.SaveChanges();
                 }
             }

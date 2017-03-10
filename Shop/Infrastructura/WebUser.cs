@@ -1,9 +1,7 @@
 ﻿using IServices;
 using IServices.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -12,11 +10,19 @@ using System.Numerics;
 using System.Globalization;
 using Shop.Infrastructura.Extensions;
 using System.Net.Mail;
-
+/// <summary>
+/// Инфраструктура приложения
+/// </summary>
 namespace Shop.Infrastructura
 {
+    /// <summary>
+    /// Класс реализующий методы связанные с пользователем
+    /// </summary>
     public class WebUser
     {
+        /// <summary>
+        /// The services
+        /// </summary>
         private static IMainServices Services = DependencyResolver.Current.GetService<IMainServices>();
         /// <summary>
         ///  Модель пользователя содержащия сессию и куки в которой находится информация о пользователе
@@ -48,6 +54,7 @@ namespace Shop.Infrastructura
                 HttpContext.Current.Session["user"] = value;
             }
         }
+
         /// <summary>
         /// Метод выполняющий авторизацю на сайте
         /// </summary>
@@ -67,8 +74,9 @@ namespace Shop.Infrastructura
         /// Выполняет регистрацию пользователя на сайте
         /// </summary>
         /// <param name="userName">Имя пользователя</param>
-        /// <param name="password">Пароль пользователя</param>
         /// <param name="email">Эл. Адрес</param>
+        /// <param name="password">Пароль пользователя</param>
+        /// <returns>System.String.</returns>
         public static string Register(string userName, string email, string password)
         {
             var salt = MyExtensions.GetSalt();
@@ -78,8 +86,8 @@ namespace Shop.Infrastructura
         /// <summary>
         /// Сброс пароля пользователя
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
+        /// <param name="email">Эл.адрес</param>
+        /// <param name="password">Пароль</param>
         public static void NewPassword(string email, string password)
         {
             var NewSalt = MyExtensions.GetSalt();
@@ -105,9 +113,9 @@ namespace Shop.Infrastructura
         /// <summary>
         /// Проверка роли пользователя
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="role">Роль пользователя</param>
+        /// <returns><c>true</c> если роль совпадает, <c>false</c> иначе.</returns>
         public static bool CheckRole(string userName, string role)
         {
             return (Services.Users.CheckRole(userName, role));
@@ -115,9 +123,9 @@ namespace Shop.Infrastructura
         /// <summary>
         /// Отправка письма на эл.адрес пользователя
         /// </summary>
-        /// <param name="subject"></param>
-        /// <param name="email"></param>
-        /// <param name="body"></param>
+        /// <param name="subject">Тема письма</param>
+        /// <param name="email">Эл.адрес</param>
+        /// <param name="body">Текст письма</param>
         public static void SendMail(string subject, string email, string body)
         {
             try

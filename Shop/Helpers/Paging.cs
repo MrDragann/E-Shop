@@ -6,8 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
+/// <summary>
+/// Содержит классы-хелперы
+/// </summary>
 namespace Shop.Helpers
 {
+    /// <summary>
+    /// Class Paging.
+    /// </summary>
     public static class Paging
     {
         /// <summary>
@@ -50,12 +56,14 @@ namespace Shop.Helpers
         }
 
         /// <summary>
-        /// Метод организации постраничного вывода
+        /// Метод организации постраничного вывода товаров в разделе категорий
         /// </summary>
-        /// <param name="helper"></param>
-        /// <param name="PageNum"></param>
-        /// <param name="ItemsCount"></param>
-        /// <param name="PageSize"></param>
+        /// <param name="helper">Хелпер</param>
+        /// <param name="PageNum">Номер страницы</param>
+        /// <param name="ItemsCount">Размер коллекции товаров</param>
+        /// <param name="PageSize">Количество на одной странице</param>
+        /// <param name="Category">Выбранная категория</param>
+        /// <param name="Sort">Параметр сортировки</param>
         /// <returns>Элементы списка с ссылками на страницы</returns>
         public static MvcHtmlString CategoryPaging(this HtmlHelper helper, int PageNum, int ItemsCount, int PageSize, string Category, string Sort)
         {

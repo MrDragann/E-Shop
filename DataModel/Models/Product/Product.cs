@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Web;
+using System.Collections.Generic;
 
 /// <summary>
-/// Содержит модели для работы с базой данных
+/// Содержит модели таблиц базы данных
 /// </summary>
-namespace IServices.Models
+namespace DataModel.Models
 {
     /// <summary>
     /// Класс модели товаров
     /// </summary>
-    public class ModelProduct
+    public class Product
     {
         /// <summary>
         /// Идентификатор товара
@@ -50,12 +50,7 @@ namespace IServices.Models
         /// Название изображения товара
         /// </summary>
         /// <value>Название изображения</value>
-        public string FileName { get; set; }
-        /// <summary>
-        /// Gets or sets the file.
-        /// </summary>
-        /// <value>The file.</value>
-        public HttpPostedFileBase file { get; set; }
+        public string Image { get; set; }
         /// <summary>
         /// Идентификатор категории
         /// </summary>
@@ -66,21 +61,22 @@ namespace IServices.Models
         /// </summary>
         /// <value>Идентификатор производителя</value>
         public int ManufacturerId { get; set; }
-    }
-    /// <summary>
-    /// Класс модели производителя
-    /// </summary>
-    public class ModelManufacturer
-    {
         /// <summary>
-        /// Идентификатор производителя
+        /// Ссылка на категории
         /// </summary>
-        /// <value>Идентификатор</value>
-        public int Id { get; set; }
+        /// <value>Категории</value>
+        public Category Category { get; set; }
         /// <summary>
-        /// Наименование производителя
+        /// Ссылка на производителей
         /// </summary>
-        /// <value>Наименование</value>
-        public string Name { get; set; }
+        /// <value>Производители</value>
+        public Manufacturer Manufacturer { get; set; }
+        /// <summary>
+        /// Ссылка на список товаров в заказе
+        /// </summary>
+        /// <value>Список товаров в заказе</value>
+        public List<OrderProduct> OrderProduct { get; set; }
+
     }
+
 }

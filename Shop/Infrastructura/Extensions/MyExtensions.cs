@@ -5,8 +5,14 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
+/// <summary>
+/// Содержит классы расширения
+/// </summary>
 namespace Shop.Infrastructura.Extensions
 {
+    /// <summary>
+    /// Класс с расширениями
+    /// </summary>
     public static class MyExtensions
     {
         /// <summary>
@@ -41,6 +47,9 @@ namespace Shop.Infrastructura.Extensions
     }
 
 
+    /// <summary>
+    /// Параметры для сортировки
+    /// </summary>
     public enum TypeSort
     {
         NameAsc,

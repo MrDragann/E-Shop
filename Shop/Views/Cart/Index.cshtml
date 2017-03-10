@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IServices.Models.ModelProduct>
+﻿@model IServices.Models.ModelCarts
 @{
     ViewBag.Title = "Корзина";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -25,19 +25,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)//.Lines)
+                    @foreach (var item in Model.GetCart())
                     {
 
                         <tr>
                             <td class="cart_product">
-                                <a href="@Url.Action("Details","Home",new { id = item.Id })"><img src="~/Content/Images/home/@item.FileName" alt="" width="110" height="110"></a>
+                                <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
                             </td>
                             <td class="cart_description">
-                                <h4><a href="@Url.Action("Details","Home",new { id = item.Id })">@item.Name</a></h4>
-                                <p>Product ID: @item.Id</p>
+                                <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
+                                <p>Product ID: @item.Product.Id</p>
                             </td>
                             <td class="cart_price">
-                                <p>@item.Price р.</p>
+                                <p>@item.Product.Price р.</p>
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
@@ -47,12 +47,12 @@
                                 </div>
                             </td>
                             <td class="cart_total">
-                                <p class="cart_total_price">@((item.Quantity * item.Price).ToString("# р.") )</p>
+                                <p class="cart_total_price">@((item.Quantity * item.Product.Price).ToString("# р.") )</p>
                             </td>
                             <td class="cart_delete">
                                 @using (Html.BeginForm("RemoveFromCart", "Cart"))
                                 {
-                                <input id="@item.Id" name="productId" type="hidden" value="@item.Id" />
+                                <input id="@item.Product.Id" name="productId" type="hidden" value="@item.Product.Id" />
                                 <button class="cart_quantity_delete btn btn-link" type="submit">
                                     <i class="fa fa-times"></i>
                                 </button>
@@ -71,7 +71,7 @@
                                 <h4>Итого к оплате:</h4>
                             </td>
                             <td class="text-right">
-                                @*<h4>@Model.ComputeTotalValue().ToString("# руб")</h4>*@
+                                <h4>@Model.ComputeTotalValue().ToString("# руб")</h4>
                             </td>
                         </tr>
                     </tfoot>

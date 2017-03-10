@@ -14,7 +14,7 @@
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title="">
                 </a>
-                <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
+                <a href="javascript:;" id="reloadProducts" class="reload" data-original-title="" title="">
                 </a>
             </div>
         </div>
@@ -76,7 +76,7 @@
 
                                     </td>
                                     <td>
-                                        <button class="btn btn-link glyphicon glyphicon-trash DeleteProductId"  style="padding:0;" value="@product.Id"></button>
+                                        <button class="btn btn-link glyphicon glyphicon-trash DeleteProductId" data-toggle="confirmation" style="padding:0;" value="@product.Id"></button>
                                         <button class="btn btn-link glyphicon glyphicon-edit EditProductId" data-toggle="modal" href="#EditProductModal" style="padding:0;" value="@product.Id"></button>
                                         @product.Name
                                     </td>
@@ -268,13 +268,15 @@
             </div>
         </div>
     </div>*@
+<script src="~/Scripts/bootbox.min.js"></script>
 <script>
-    $(document).ready(function () {
 
-        $('#reloadUsers').click(function () {
+    $(document).ready(function () {
+        //Обновление данных по товарам
+        $('#reloadProducts').click(function () {
             updateProducts();
         });
-
+        //Добавление нового товара
         $('#AddProduct').click(function () {
 
             var files = document.getElementById('ProductImage').files;
@@ -291,7 +293,7 @@
 
             $.ajax({
                 type: "POST",
-                url: 'AddProduct',
+                url: '/Products/AddProduct',
                 contentType: false,
                 processData: false,
                 data: formData,
@@ -305,37 +307,44 @@
             });
         });
 
-        $('#deleteProducts').click(function () {
+        //Подтверждение удаления
+        $('[data-toggle=confirmation]').click(function () {
+            var id = $(this).val();
+            bootbox.confirm("Вы действительно хотите удалить товар?", function (e) {
+                if (e) {
+                    deleteProduct(id);
+                }
+            });
+            return false;
+        });
+
+        //Удаление товара
+        function deleteProduct (id) {
             var formaData = new FormData();
 
-            values = $("input[name=list]").map(function () {
-                if ($(this)[0].checked) {
-                    return $(this).val();
-                }
-
-            }).get();
-            formaData.append("list", values);
+            formaData.append("productId", id);
 
             $.ajax({
-                url: 'DeleteProducts',
+                url: '/Products/DeleteProducts',
                 type: 'post',
                 contentType: false,
                 processData: false,
                 data: formaData,
-                beforeSend: function () { console.log(values); },
+                beforeSend: function () { console.log(id); },
                 success: function (data) {
                     console.log(data);
+                    updateProducts();
                 }
             });
 
-        });
-
+        };
+        //Обноновление таблицы товаров
         function updateProducts() {
             $('#Products').load("http://localhost:58081/Admin/Products/AjaxProducts");
         }
-        var EddProductId;
+        //Редактирование товара
         $('button.EditProductId').click(function () {
-            EddProductId = $(this).val();
+            var EddProductId = $(this).val();
 
             $('#EditModalContent').load("http://localhost:58081/Admin/Products/EditProduct/" + EddProductId);
             

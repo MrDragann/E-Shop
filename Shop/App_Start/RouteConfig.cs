@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+/// <summary>
+/// Содержит контроллеры и представления; выступает в качестве пользовательского интерфейса для приложения Shop
+/// </summary>
 namespace Shop
 {
     public class RouteConfig

@@ -14,12 +14,13 @@ namespace Shop.Controllers
     /// <summary>
     /// Представляет методы осуществляющие действия над аккаунтом
     /// </summary>
+    /// <seealso cref="Shop.Controllers.BaseController" />
     public class AccountController : BaseController
     {
         /// <summary>
         /// Страница входа/регистрации
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         [HttpGet]
         public ActionResult Login()
         {
@@ -31,7 +32,7 @@ namespace Shop.Controllers
         /// <param name="userName">Имя пользователя</param>
         /// <param name="password">Пароль</param>
         /// <param name="RememberMe">Функция запомнить</param>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
         public ActionResult Login(string userName, string password, string RememberMe)
         {
@@ -42,44 +43,38 @@ namespace Shop.Controllers
         /// <summary>
         /// Выход из аккаунта
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult LogOut()
         {
             WebUser.LogOff();
 
-            return RedirectToAction("index","home");
+            return RedirectToAction("index", "home");
         }
         /// <summary>
         /// Регистрация пользователя
         /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="password1"></param>
-        /// <returns></returns>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="email">Эл.адрес</param>
+        /// <param name="password1">Пароль</param>
+        /// <returns>System.Web.Mvc.ActionResult.</returns>
         [HttpPost]
         public ActionResult Register(string userName, string email, string password1)
         {
-            ////Может пригодиться
-            //using (var db = new DataContext())
-            //{
-            //    var user = db.Users.Include(_ => _.Roles).FirstOrDefault(_ => _.Id == 19);
-            //    user.Roles = db.Roles.Where(_ => new[] { TypeRoles.Admin }.Contains(_.Id)).ToList();
-            //    db.SaveChanges();
-            //}
             // Отправка письма с подтверждением аккаунта
             var salt = WebUser.Register(userName, email, password1);
-            WebUser.SendMail("Подтвердите регистрацию", email, 
+            WebUser.SendMail("Подтвердите регистрацию", email,
                 $@"Для завершения регистрации перейдите по 
                  <a href='{Url.Action("Confrimed", "Account", new { salt = salt, userName = userName }, Request.Url.Scheme)}'
                  title='Подтвердить регистрацию'>ссылке</a>");
-            
+
             return RedirectToAction("login");
         }
         /// <summary>
         /// Подтверждение аккаунта
         /// </summary>
-        /// <param name="salt"></param>
-        /// <param name="userName"></param>
-        /// <returns></returns>
+        /// <param name="salt">Соль</param>
+        /// <param name="userName">Имя пользователя</param>
+        /// <returns>System.Web.Mvc.ActionResult.</returns>
         public ActionResult Confrimed(string salt, string userName)
         {
             if (salt != null)
@@ -93,7 +88,7 @@ namespace Shop.Controllers
         /// Сброс пароля пользователя
         /// </summary>
         /// <param name="email">Эл. адрес</param>
-        /// <returns></returns>
+        /// <returns>System.Web.Mvc.ActionResult.</returns>
         [HttpPost]
         public ActionResult ResetPassword(string email)
         {
@@ -107,7 +102,7 @@ namespace Shop.Controllers
         /// <summary>
         /// Страниица с вводом нового пароля
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.Web.Mvc.ActionResult.</returns>
         public ActionResult NewPassword()
         {
             return View();
@@ -115,9 +110,9 @@ namespace Shop.Controllers
         /// <summary>
         /// Установка нового пароля
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password1"></param>
-        /// <returns></returns>
+        /// <param name="email">Эл.адрес</param>
+        /// <param name="password1">Пароль</param>
+        /// <returns>System.Web.Mvc.ActionResult.</returns>
         [HttpPost]
         public ActionResult NewPassword(string email, string password1)
         {
@@ -125,7 +120,7 @@ namespace Shop.Controllers
             return RedirectToAction("Login");
         }
 
-        
+
 
     }
 }

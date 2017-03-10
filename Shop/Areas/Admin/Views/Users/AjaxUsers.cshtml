@@ -1,20 +1,23 @@
-﻿@using DataModel
-@model IEnumerable<IServices.Models.ModelUserInfo>
+﻿@model IEnumerable<IServices.Models.ModelUserInfo>
 @{
     Layout = null;
 }
 
 <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
     <div class="row">
-        <div class="col-md-6 col-sm-6"><div class="dataTables_length" id="sample_1_length">
-            <label>Show 
+        <div class="col-md-6 col-sm-6">
+            <div class="dataTables_length" id="sample_1_length">
+            <label>Показать 
                 <select name="sample_1_length" aria-controls="sample_1" class="form-control input-xsmall input-inline">
                     <option value="5">5</option><option value="15">15</option>
-                    <option value="20">20</option><option value="-1">All</option>
-                </select> records</label></div></div>
+                    <option value="20">20</option><option value="-1">Всех</option>
+                </select>
+                </label>
+            </div>
+        </div>
         <div class="col-md-6 col-sm-6">
             <div id="sample_1_filter" class="dataTables_filter">
-                <label>Search:
+                <label>Поиск:
                     <input type="search" class="form-control input-small input-inline" placeholder="" aria-controls="sample_1">
                 </label>
             </div>
@@ -25,8 +28,8 @@
         <table class="table table-striped table-bordered table-hover" id="sample_1">
             <thead>
                 <tr>
-                    <th class="table-checkbox">
-                        <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+                    <th>
+                        №
                     </th>
                     <th>
                         Имя пользователя
@@ -50,10 +53,12 @@
                 {
                     <tr class="gradeX odd" role="row">
                         <td>
-                            <input type="checkbox" class="checkboxes" value="@user.Id" name="list">
+                            @user.Id
                         </td>
                         <td class="sorting_1">
+                            <button class="btn btn-link glyphicon glyphicon-trash DeleteUserId" data-toggle="confirmation" style="padding:0;" value="@user.Id"></button>
                             @user.UserName
+                            
                         </td>
                         <td>
                             <a href="mailto:@user.Email">
@@ -64,31 +69,17 @@
                             @user.RegistrationDate
                         </td>
                         <td class="center">
+                            <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditRoleModal" style="padding:0;" value="@user.Id"></button>
                             @foreach(var role in user.Roles)
                             {
                                 @role.Name<br />
                             }
+                            
                         </td>
                         <td>
-                            @if (user.Status == EnumStatusUser.Confirmed)
-                            {
-                                <span class="label label-sm label-success">
-                                    @user.Status
-                                </span>
-                            }
-                            else if (user.Status == EnumStatusUser.NConfirmed)
-                            {
-                                <span class="label label-sm label-warning">
-                                    @user.Status
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="label label-sm label-default">
-                                    @user.Status
-                                </span>
-                            }
-
+                            <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditStatusModal" style="padding:0;" value="@user.Id"></button>
+                            @user.Status
+                            
                         </td>
                     </tr>
                 }
@@ -96,37 +87,18 @@
             </tbody>
         </table>
     </div>
-    <div class="row">
-        <div class="col-md-10 col-sm-10">
-            <button id="deleteUsers" class="btn btn-danger">Удалить</button>
-            <button id="blockUsers" class="btn grey-cascade">Заблокировать</button>
-            <button id="editRole" class="btn blue-madison" data-toggle="modal" data-target="#modalRole">Назначить роль</button>
-        </div>
-    </div>
-    <br />
-    <div class="row"><div class="col-md-5 col-sm-5"><div class="dataTables_info" id="sample_1_info" role="status" aria-live="polite">Showing 1 to 5 of 25 records</div></div><div class="col-md-7 col-sm-7"><div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate"><ul class="pagination" style="visibility: visible;"><li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li><li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li><li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li></ul></div></div></div>
+    
 </div>
 
-<div id="modalRole" class="modal fade">
+<div id="EditRoleModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">×</button>
                 <h4 class="modal-title">Назначить роль пользователю</h4>
             </div>
-            <div class="modal-body">
-                <p class="lead">
-                    Выберите одну из приведенных ниже ролей:
-                </p>
-                <button value="0" class="btn btn-success" id="Admin" data-dismiss="modal">
-                    Администранор <i class="fa fa-font"></i>
-                </button>
-                <button value="1" class="btn blue" id="Moderator" data-dismiss="modal">
-                    Модератор <i class="fa fa-edit"></i>
-                </button>
-                <button value="2" class="btn default" id="User" data-dismiss="modal">
-                    Пользователь <i class="fa fa-user"></i>
-                </button>
+            <div class="modal-body" id="EditRoleModalBody">
+                
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
@@ -135,164 +107,63 @@
     </div>
 </div>
 
+<div id="EditStatusModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Изменить статус пользователя</h4>
+            </div>
+            <div class="modal-body" id="EditStatusModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/bootbox.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#deleteUsers').click(function () {
+            //Подтверждение удаления
+            $('[data-toggle=confirmation]').click(function () {
+                var id = $(this).val();
+                bootbox.confirm("Вы действительно хотите удалить пользователя?", function (e) {
+                    if (e) {
+                        deleteUser(id);
+                    }
+                });
+                return false;
+            });
+            
+            function deleteUser(id) {
                 var formaData = new FormData();
 
-                var list = $('#delete').attr("name");
-                var listVal = $('#delete').attr("value");
-                values = $("input[name=list]").map(function () {
-                    if ($(this)[0].checked) {
-                        return $(this).val();
-                    }
-
-                }).get();
-                formaData.append("list", values);
+                formaData.append("userId", id);
                 $.ajax({
-                    url: 'DeleteUsers',
+                    url: '/Users/DeleteUser',
                     type: 'post',
                     contentType: false,
                     processData: false,
                     data: formaData,
-                    beforeSend: function () { console.log(values); },
+                    beforeSend: function () { console.log(id); },
                     success: function (data) {
                         updateUsers();
                         console.log(data);
                     }
                 });
                 
-            });
-
-            $('#blockUsers').click(function () {
-                var formaData = new FormData();
-
-                var list = $('#delete').attr("name");
-                var listVal = $('#delete').attr("value");
-                values = $("input[name=list]").map(function () {
-                    if ($(this)[0].checked) {
-                        return $(this).val();
-                    }
-
-                }).get();
-                formaData.append("list", values);
-                $.ajax({
-                    url: 'BlockUsers',
-                    type: 'post',
-                    contentType: false,
-                    processData: false,
-                    data: formaData,
-                    beforeSend: function () { console.log(values); },
-                    success: function (data) {
-                        updateUsers();
-                        console.log(data);
-                    }
-                });
-
-            });
-
-            $('#Admin').click(function () {
-
-                var formaData = new FormData();
-                var list = $('#delete').attr("name");
-                var listVal = $('#delete').attr("value");
-                values = $("input[name=list]").map(function () {
-                    if ($(this)[0].checked) {
-                        return $(this).val();
-                    }
-
-                }).get();
-                var role = $("#Admin").val();
-
-                formaData.append("list", values);
-                formaData.append("role", role);
-
-                $.ajax({
-                    type: "POST",
-                    url: 'EditRole',
-                    contentType: false,
-                    processData: false,
-                    data: formaData,
-                    success: function (result) {
-                        console.log(result);
-                        updateUsers();
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-
-            $('#Moderator').click(function () {
-
-                var formaData = new FormData();
-                var list = $('#delete').attr("name");
-                var listVal = $('#delete').attr("value");
-                values = $("input[name=list]").map(function () {
-                    if ($(this)[0].checked) {
-                        return $(this).val();
-                    }
-
-                }).get();
-                var role = $("#Moderator").val();
-
-                formaData.append("list", values);
-                formaData.append("role", role);
-
-                $.ajax({
-                    type: "POST",
-                    url: 'EditRole',
-                    contentType: false,
-                    processData: false,
-                    data: formaData,
-                    success: function (result) {
-                        console.log(result);
-                        updateUsers();
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-
-            $('#User').click(function () {
-
-                var formaData = new FormData();
-                var list = $('#delete').attr("name");
-                var listVal = $('#delete').attr("value");
-                values = $("input[name=list]").map(function () {
-                    if ($(this)[0].checked) {
-                        return $(this).val();
-                    }
-
-                }).get();
-                var role = $("#User").val();
-
-                formaData.append("list", values);
-                formaData.append("role", role);
-
-                $.ajax({
-                    type: "POST",
-                    url: 'EditRole',
-                    contentType: false,
-                    processData: false,
-                    data: formaData,
-                    success: function (result) {
-                        console.log(result);
-                        updateUsers();
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
+            };
 
             $('#reloadUsers').click(function () {
                 updateUsers();
             });
             function updateUsers() {
 
-                $('#sample_1_wrapper').load("http://localhost:58081/Admin/Admin/upUsers");
+                $('#sample_1_wrapper').load("http://localhost:58081/Admin/Users/AjaxUsers");
             };
+            $('#EditRoleModalBody').load("http://localhost:58081/Admin/Users/AjaxRoles");
+            $('#EditStatusModalBody').load("http://localhost:58081/Admin/Users/AjaxStatuses");
         });
     </script>

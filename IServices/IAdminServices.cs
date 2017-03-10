@@ -1,15 +1,18 @@
-﻿using IServices.SubInterfac.Admin;
+﻿using IServices.SubInterface;
 
 namespace IServices
 {
+    /// <summary>
+    /// Определяет методы публичной части сайта
+    /// </summary>
     public interface IAdminServices
     {
         /// <summary>
-        /// Реализует методы связанные с пользователями
+        /// Определяет методы связанные с пользователями
         /// </summary>
         IAdminUsersServices Users { get; set; }
         /// <summary>
-        ///Реализует методы связанные с товарами
+        /// Определяет методы связанные с товарами
         /// </summary>
         IAdminProductServices Products { get; set; }
     }

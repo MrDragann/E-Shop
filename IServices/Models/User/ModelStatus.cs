@@ -1,22 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IServices.Models.User
+﻿namespace IServices.Models
 {
+    /// <summary>
+    /// Возможные статусы пользователя
+    /// </summary>
     public enum ModelEnumStatusUser
     {
+        /// <summary>
+        /// Заблокирован
+        /// </summary>
         Locked,
+        /// <summary>
+        /// Подтвержден
+        /// </summary>
         Confirmed,
+        /// <summary>
+        /// Не подтвержден
+        /// </summary>
         NConfirmed
     }
-
-    public class ModelStatus
+    /// <summary>
+    /// Класс модели статуса пользователя
+    /// </summary>
+    public class ModelStatusUser
     {
+        /// <summary>
+        /// Идентификатор статуса пользователя
+        /// </summary>
+        /// <value>Идентификатор</value>
         public ModelEnumStatusUser Id { get; set; }
-
+        /// <summary>
+        /// Наименование статуса
+        /// </summary>
+        /// <value>Наименование</value>
         public string Name { get; set; }
         
     }

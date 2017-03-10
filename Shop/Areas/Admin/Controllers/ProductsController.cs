@@ -1,4 +1,5 @@
 ﻿using IServices.Models;
+using Shop.Infrastructura;
 using Shop.Infrastructura.Constants;
 using System;
 using System.Collections.Generic;
@@ -9,22 +10,26 @@ using System.Web.Mvc;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Представляет методы осуществляющие действия над товарами
+    /// </summary>
+    /// <seealso cref="Shop.Areas.Admin.Controllers.BaseController" />
+    [FilterUser(Roles = "Администратор")]
     public class ProductsController : BaseController
     {
         /// <summary>
         /// Страница управления товарами
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult Index()
         {
-
             return View();
         }
         /// <summary>
         /// Добавление товара
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns></returns>
+        /// <param name="model">Модель товара</param>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
         public ActionResult AddProduct(ModelProduct model)
         {
@@ -49,40 +54,52 @@ namespace Shop.Areas.Admin.Controllers
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
-        /// Удаляет выбранные товары из БД 
+        /// Удаляет выбранные товары из БД
         /// </summary>
-        /// <returns></returns>
+        /// <param name="productId">Идентификатор товара</param>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
-        public ActionResult DeleteProducts(string list)
+        public ActionResult DeleteProducts(int productId)
         {
-            var productList = list.Split(',').Select(int.Parse).ToList();
-            AdminServices.Products.DeleteProducts(productList);
+            AdminServices.Products.DeleteProducts(productId);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
         /// Частичное представление товаров
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult AjaxProducts()
         {
             var products = Services.Product.ProductsDetails();
 
-
-
             return View(products);//("",products);
         }
+        /// <summary>
+        /// Вывод списка производителей
+        /// </summary>
+        /// <returns>ActionResult.</returns>
         public ActionResult ManufacturersList()
         {
             var manufacturers = Services.Product.GetManufacturers();
             return View(manufacturers);
         }
-        
+
+        /// <summary>
+        /// Вывод модели товара для редактирования
+        /// </summary>
+        /// <param name="id">Идентификатор товара</param>
+        /// <returns>ActionResult.</returns>
         public ActionResult EditProduct(int id)
         {
             var products = Services.Product.ProductsDetails();
             var product = products.FirstOrDefault(x => x.Id == id);
             return View(product);
         }
+        /// <summary>
+        /// Редактирование товара
+        /// </summary>
+        /// <param name="model">Новая модель товара</param>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
         public ActionResult EditProduct(ModelProduct model)
         {

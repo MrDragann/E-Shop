@@ -167,7 +167,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
@@ -180,7 +179,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Paging.cs" />
-    <Compile Include="Infrastructura\Binders\CartModelBinder.cs" />
     <Compile Include="Infrastructura\Constants\MyConstats.cs" />
     <Compile Include="Infrastructura\CustomWebViewPage.cs" />
     <Compile Include="Infrastructura\Extensions\MyExtensions.cs" />
@@ -237,6 +235,8 @@
     <Content Include="Areas\Admin\Views\Shared\ManufacturersList.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\CategoriesList.cshtml" />
     <Content Include="Areas\Admin\Views\Products\EditProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AjaxRoles.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AjaxStatuses.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />
@@ -267,9 +267,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -288,6 +286,7 @@
     <Folder Include="Areas\Admin\Metronic\admin\" />
     <Folder Include="Areas\Admin\Metronic\global\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Ajax\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Content\Images\404\" />
     <Folder Include="Content\Images\blog\" />

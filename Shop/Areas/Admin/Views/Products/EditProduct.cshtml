@@ -146,13 +146,12 @@
 
         $.ajax({
             type: "POST",
-            url: 'EditProduct',
+            url: '/Products/EditProduct',
             contentType: false,
             processData: false,
             data: formData,
             success: function (result) {
                 console.log(result);
-                updateProducts();
             },
             error: function (xhr) {
                 console.log(xhr.responseText);

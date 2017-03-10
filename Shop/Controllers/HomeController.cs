@@ -10,26 +10,35 @@ using System.Web.Mvc;
 using Shop.Infrastructura.Extensions;
 using Services;
 
+/// <summary>
+/// Контроллеры публичной части приложения
+/// </summary>
 namespace Shop.Controllers
 {
-    
+
+    /// <summary>
+    /// Контроллер главной части приложения
+    /// </summary>
+    /// <seealso cref="Shop.Controllers.BaseController" />
     public class HomeController : BaseController
     {
-        
+
         /// <summary>
         /// Главная страница
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Вывод последних добавленных товаров</returns>
         public ActionResult Index()
         {
             var products = Services.Product.ProductsPreview();
             return View(products.OrderByDescending(x => x.DateAdd).Take(6));
         }
-        
+
         /// <summary>
         /// Поиск товаров по категории
         /// </summary>
-        /// <param name = "Category" > Название категории</param>
+        /// <param name="Category">Название категории</param>
+        /// <param name="pageNum">Номер страницы</param>
+        /// <param name="sort">Параметр соритровки</param>
         /// <returns>Список товаров</returns>
         public ActionResult Category(int Category, int pageNum = 0, TypeSort sort = TypeSort.NameAsc)
         {
@@ -50,8 +59,8 @@ namespace Shop.Controllers
         /// <summary>
         /// Информация о товаре
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Идентификатор товара</param>
+        /// <returns>Вывод информации о товаре</returns>
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -67,11 +76,11 @@ namespace Shop.Controllers
             }
             return View("Error");
         }
-        
+
         /// <summary>
         /// Страница с контактами
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult Contact()
         {
             return View();
@@ -79,7 +88,7 @@ namespace Shop.Controllers
         /// <summary>
         /// Страница с ошибкой
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult Error()
         {
             return View();
@@ -87,7 +96,7 @@ namespace Shop.Controllers
         /// <summary>
         /// Вывод дерева категорий
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Дерево категорий</returns>
         public ActionResult Categories()
         {
             var model = Services.Product.GetCategory();

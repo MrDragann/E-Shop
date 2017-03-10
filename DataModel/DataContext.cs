@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataModel.Models;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+/// <summary>
+/// Содержит сущности и логику предметной области;  создает хранилище с помощью инфраструктуры Entity Framework
+/// </summary>
 namespace DataModel
 {
+    /// <summary>
+    /// Класс контекста, который ассоциирует модель с базой данных. 
+    /// </summary>
+    /// <seealso cref="System.Data.Entity.DbContext" />
     public class DataContext : DbContext
     {
         public DataContext()
         : base("DefaultConnection")
         { }
-
 
         public DbSet<User> Users { get; set; }
 

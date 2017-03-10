@@ -1,0 +1,55 @@
+﻿@model List<IServices.Models.ModelRole>
+
+@{
+    Layout = null;
+}
+<p class="lead">
+    Выберите одну из приведенных ниже ролей:
+</p>
+@foreach (var role in Model)
+{
+    <button value="@role.Id" class="btn btn-success EditRole" data-dismiss="modal">
+        @role.Name 
+    </button>
+}
+
+<script>
+    var UserId;
+    $('[data-target=#EditRoleModal]').click(function () {
+        UserId = $(this).val();
+    });
+
+    $('button.EditRole').click(function () {
+
+        var formaData = new FormData();
+
+        var role = $(this).val();
+        
+        formaData.append("userId", UserId);
+        formaData.append("role", role);
+
+        $.ajax({
+            type: "POST",
+            url: '/Admin/Users/EditRole',
+            contentType: false,
+            processData: false,
+            data: formaData,
+            success: function (result) {
+                console.log(result);
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+</script>
+
+@*<button value="0" class="btn btn-success" id="Admin" data-dismiss="modal">
+    Администранор <i class="fa fa-font"></i>
+</button>
+<button value="1" class="btn blue" id="Moderator" data-dismiss="modal">
+    Модератор <i class="fa fa-edit"></i>
+</button>
+<button value="2" class="btn default" id="User" data-dismiss="modal">
+    Пользователь <i class="fa fa-user"></i>
+</button>*@

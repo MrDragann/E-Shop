@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.Infrastructura;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,11 @@ using System.Web.Mvc;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Представляет методы осуществляющие действия над категориями
+    /// </summary>
+    /// <seealso cref="Shop.Areas.Admin.Controllers.BaseController" />
+    [FilterUser(Roles = "Администратор")]
     public class CategoriesController : BaseController
     {
         /// <summary>

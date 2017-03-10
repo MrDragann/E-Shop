@@ -1,14 +1,17 @@
-﻿using IServices;
-using DataModel;
+﻿using DataModel;
 using System;
-using IServices.Models.Product;
 using System.Collections.Generic;
 using System.Linq;
-using IServices.Models;
 using System.Linq.Expressions;
 using System.Data.Entity;
+using IServices.Models;
+using DataModel.Models;
+using IServices.SubInterface;
 
-namespace Services
+/// <summary>
+/// Содержит классы для работы с административной частью приложения
+/// </summary>
+namespace Services.Public
 {
     public class ProductServices : IProductServices
     {

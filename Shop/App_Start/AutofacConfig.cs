@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace Shop.App_Start
 {
+    /// <summary>
+    /// Определяет один статический метод ConfigureContainer(), который и выполняет настройку зависимости.
+    /// </summary>
     public class AutofacConfig
     {
         /// <summary>

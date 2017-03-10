@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+/// <summary>
+/// Содержит контроллеры административной части приложения
+/// </summary>
 namespace Shop.Areas.Admin.Controllers
 {
     /// <summary>

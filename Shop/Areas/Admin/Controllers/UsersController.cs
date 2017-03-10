@@ -1,66 +1,87 @@
-﻿using Shop.Infrastructura;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using IServices.Models;
+using Shop.Infrastructura;
 using System.Web.Mvc;
 
 namespace Shop.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Представляет методы осуществляющие действия над пользователями
+    /// </summary>
+    /// <seealso cref="Shop.Areas.Admin.Controllers.BaseController" />
+    [FilterUser(Roles = "Администратор")]
     public class UsersController : BaseController
     {
-        
+
         /// <summary>
         /// Страница с таблицей всех пользователей
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult Index()
         {
             var users = AdminServices.Users.Users();
             return View(users);
         }
         /// <summary>
-        /// Удаляет выбраных пользователей из БД 
+        /// Удаляет выбранного пользователя из БД
         /// </summary>
-        /// <returns></returns>
+        /// <param name="userId">Идентификатор пользвателя</param>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
-        public ActionResult DeleteUsers(string list)
+        public ActionResult DeleteUser(int userId)
         {
-            var usersList = list.Split(',').Select(int.Parse).ToList();
-            AdminServices.Users.DeleteUsers(usersList);
+            AdminServices.Users.DeleteUser(userId);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
-        /// Изменяет статус пользователя на заблокированного
+        /// Изменяет статус пользователя
         /// </summary>
-        /// <returns></returns>
+        /// <param name="userId">Идентификатор пользвателя</param>
+        /// <param name="status">Новый статус</param>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
-        public ActionResult BlockUsers(string list)
+        public ActionResult EditStatus(int userId, ModelEnumStatusUser status)
         {
-            var usersList = list.Split(',').Select(int.Parse).ToList();
-            AdminServices.Users.BLockUsers(usersList);
+            AdminServices.Users.EditStatus(userId, status);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
         /// Назначение роли пользователю
         /// </summary>
+        /// <param name="userId">Идентификатор пользвателя</param>
         /// <param name="role">Выбранная роль</param>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         [HttpPost]
-        public ActionResult EditRole(int role, string list)
+        public ActionResult EditRole(int userId, ModelEnumTypeRoles role)
         {
-            var usersList = list.Split(',').Select(int.Parse).ToList();
-            AdminServices.Users.EditRole(usersList, role);
+            AdminServices.Users.EditRole(userId, role);
             return Json("Запрос успешно выполнен");
         }
         /// <summary>
         /// Частичное представление таблицы пользователей
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult.</returns>
         public ActionResult AjaxUsers()
         {
             var users = AdminServices.Users.Users();
             return View(users);
+        }
+        /// <summary>
+        /// Вывод имеющихся ролей пользователей
+        /// </summary>
+        /// <returns>ActionResult.</returns>
+        public ActionResult AjaxRoles()
+        {
+            var roles = Services.Users.GetRoles();
+            return View(roles);
+        }
+        /// <summary>
+        /// Вывод имеющихся статусов пользователей
+        /// </summary>
+        /// <returns>ActionResult.</returns>
+        public ActionResult AjaxStatuses()
+        {
+            var statuses = Services.Users.GetStatuses();
+            return View(statuses);
         }
         /// <summary>
         /// Регистрирует нового пользователя и отправляет на указанную ип почту письмо с потверждением аккаунта
@@ -68,7 +89,7 @@ namespace Shop.Areas.Admin.Controllers
         /// <param name="userName">Логин пользователя</param>
         /// <param name="email">Почта пользователя</param>
         /// <param name="password">Пароль пользователя</param>
-        /// <returns></returns>
+        /// <returns>System.Web.Mvc.JsonResult.</returns>
         [HttpPost]
         public JsonResult AddUser(string userName, string email, string password)
         {

@@ -1,13 +1,16 @@
 ﻿using IServices;
-using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using IServices.SubInterface;
+using Services.Public;
 
-namespace IServices
+/// <summary>
+/// Содержит методы функционала веб-приложения.
+/// </summary>
+namespace Services
 {
+    /// <summary>
+    /// Управление публичной частью
+    /// </summary>
+    /// <seealso cref="IServices.IMainServices" />
     public class MainServices : IMainServices
     {
         public MainServices()
