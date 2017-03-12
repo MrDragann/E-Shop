@@ -21,24 +21,36 @@ namespace Shop.Controllers
         /// Добавление товара в корзину
         /// </summary>
         /// <param name="productId">Идентификатор товара</param>
+        /// <param name="Quantity">Количество</param>
         /// <returns>RedirectToRouteResult.</returns>
-        public RedirectToRouteResult AddToCart(int productId)
+        [HttpPost]
+        public RedirectToRouteResult AddToCart(int productId, int Quantity)
         {
-            var product = Services.Product.GetProduct(productId);
-
-            Services.Users.AddToCart(productId, 1, User.UserName);
+            Services.Users.AddToCart(productId, Quantity, User.UserName);
 
             return RedirectToAction("Index");
+        }
+        /// <summary>
+        /// Изменение количества товара
+        /// </summary>
+        /// <param name="productId">Идентификатор товара</param>
+        /// <param name="Quantity">Количество</param>
+        /// <returns>RedirectToRouteResult.</returns>
+        [HttpPost]
+        public ActionResult EditQuantity(int productId, int Quantity)
+        {
+            Services.Users.EditQuantity(productId, Quantity, User.UserName);
+
+            return Json("Запрос успешно выполнен");
         }
         /// <summary>
         /// Удаление товара из корзины
         /// </summary>
         /// <param name="productId">Идентификатор товара</param>
         /// <returns>RedirectToRouteResult.</returns>
+        [HttpPost]
         public RedirectToRouteResult RemoveFromCart(int productId)
         {
-            var product = Services.Product.GetProduct(productId);
-
             Services.Users.DeleteItem(productId, User.UserName);
 
             return RedirectToAction("Index");

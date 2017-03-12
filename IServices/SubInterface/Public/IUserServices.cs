@@ -58,6 +58,13 @@ namespace IServices.SubInterface
         /// <param name="userName">Имя пользователя</param>
         void AddToCart(int productId, int quantity, string userName);
         /// <summary>
+        /// Изменение количества товара
+        /// </summary>
+        /// <param name="productId">Идентификатор товара</param>
+        /// <param name="quantity">Количество</param>
+        /// <param name="userName">Имя пользователя</param>
+        void EditQuantity(int productId, int quantity, string userName);
+        /// <summary>
         /// Удаление товара из корзины
         /// </summary>
         /// <param name="productId">Идентификатор товара</param>

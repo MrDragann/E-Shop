@@ -319,12 +319,69 @@ namespace Services.Public
                 }
                 else
                 {
-                    CookieReq.Values["productId"] += "," + productId;
-                    CookieReq.Values["quantity"] += "," + quantity;
+                    var CookieProducts = CookieReq.Values["productId"].Split(',').Select(int.Parse).ToList();
+                    var CookieQuantity = CookieReq.Values["quantity"].Split(',').Select(int.Parse).ToList();
+                    if (CookieProducts.Contains(productId))
+                    {
+                        var ProductIndex = CookieProducts.FindIndex(x => x == productId);
+                        CookieQuantity[ProductIndex] += 1;
+                        CookieReq.Values["quantity"] = string.Join(",", CookieQuantity.ToArray());
+                        //aCookie.Expires = DateTime.Now.AddDays(7);
+                        HttpContext.Current.Response.Cookies.Add(CookieReq);
+                    }
+                    else
+                    {
+                        CookieReq.Values["productId"] += "," + productId;
+                        CookieReq.Values["quantity"] += "," + quantity;
+                        HttpContext.Current.Response.Cookies.Add(CookieReq);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Изменение количества товара
+        /// </summary>
+        /// <param name="productId">Идентификатор товара</param>
+        /// <param name="quantity">Количество</param>
+        /// <param name="userName">Имя пользователя</param>
+        public void EditQuantity(int productId, int quantity, string userName)
+        {
+            if (userName != null)
+            {
+                using (var db = new DataContext())
+                {
+                    var user = db.Users.Include(x => x.Order).FirstOrDefault(x => x.UserName == userName);
+                    var cart = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                    
+                    if (cart != null)
+                    {
+                        if (cart.OrderProduct.Any(x => x.ProductId == productId))
+                        {
+                            var order = db.OrderProducts.FirstOrDefault(x => x.OrderId == cart.Id && x.ProductId == productId);
+                            order.Quantity=quantity;
+                            db.SaveChanges();
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                HttpCookie CookieReq = HttpContext.Current.Request.Cookies["UserCart"];
+                if (CookieReq != null)
+                {
+                    var CookieProducts = CookieReq.Values["productId"].Split(',').Select(int.Parse).ToList();
+                    var CookieQuantity = CookieReq.Values["quantity"].Split(',').Select(int.Parse).ToList();
+                    var ProductIndex = CookieProducts.FindIndex(x => x == productId);
+                    CookieQuantity[ProductIndex] = quantity;
+                    CookieReq.Values["quantity"] = string.Join(",", CookieQuantity.ToArray());
+                    //aCookie.Expires = DateTime.Now.AddDays(7);
                     HttpContext.Current.Response.Cookies.Add(CookieReq);
                 }
             }
         }
+
         /// <summary>
         /// Удаление товара из корзины
         /// </summary>

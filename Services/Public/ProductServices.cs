@@ -35,7 +35,14 @@ namespace Services.Public
         {
             using(var db = new DataContext())
             {
-                var products = db.Products.Select(Details()).ToList();
+                var productsCollection = db.Products.Select(Details()).ToList();
+                var products = new List<ModelProduct>();
+                foreach(var product in productsCollection)
+                {
+                    product.Category = GetCategoryById(product.CategoryId);
+                    product.Manufacturer = GetManufacturerById(product.ManufacturerId);
+                    products.Add(product);
+                }
                 return products;
             }
         }
@@ -45,6 +52,7 @@ namespace Services.Public
             using (var db = new DataContext())
             {
                 var product = db.Products.Select(Details()).FirstOrDefault(x => x.Id == id);
+                product.Manufacturer = GetManufacturerById(product.ManufacturerId);
                 return product;
             }
         }
@@ -58,6 +66,18 @@ namespace Services.Public
             {
                 var manufacturers = db.Manufacturers.Select(Manufacturers()).ToList();
                 return manufacturers;
+            }
+        }
+        /// <summary>
+        /// Вывод производителя по ID
+        /// </summary>
+        /// <returns></returns>
+        static ModelManufacturer GetManufacturerById(int id)
+        {
+            using (var db = new DataContext())
+            {
+                var manufacturer = db.Manufacturers.Select(Manufacturers()).FirstOrDefault(x => x.Id == id);
+                return manufacturer;
             }
         }
 
@@ -88,7 +108,7 @@ namespace Services.Public
                 FileName = product.Image,
                 DateAdd = product.DateAdd,
                 ManufacturerId = product.ManufacturerId
-            };
+        };
         }
 
         public static Expression<Func<Manufacturer, ModelManufacturer>> Manufacturers()
@@ -99,6 +119,19 @@ namespace Services.Public
                 Name = manufacturer.Name
             };
         }
+        /// <summary>
+        /// Вывод категории по ее ID
+        /// </summary>
+        /// <returns>Категория</returns>
+        static ModelCategory GetCategoryById(int id)
+        {
+            using (var db = new DataContext())
+            {
+                var category = db.Categories.Select(ConverToModelCategory()).FirstOrDefault(x => x.Id == id);
+                return category;
+            }
+        }
+
         /// <summary>
         /// Вывод всех категорий
         /// </summary>
@@ -120,7 +153,15 @@ namespace Services.Public
                 return category.Name;
             }
         }
-
+        public static Expression<Func<Category, ModelCategory>> ConverToModelCategory()
+        {
+            return category => new ModelCategory()
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ParentId = category.ParentId,
+            };
+        }
         private static ModelCategory ConverModelCategory(Category category)
         {
 

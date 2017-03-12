@@ -68,8 +68,7 @@ namespace Shop.Controllers
             {
                 return View("Error");
             }
-            var products = Services.Product.ProductsDetails();
-            var product = products.FirstOrDefault(x=>x.Id == id);
+            var product = Services.Product.GetProduct((int)id);
             if (product != null)
             {
                 return View(product);

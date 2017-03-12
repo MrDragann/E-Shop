@@ -62,10 +62,20 @@ namespace IServices.Models
         /// <value>Идентификатор категории</value>
         public int CategoryId { get; set; }
         /// <summary>
+        /// Ссылка на категории
+        /// </summary>
+        /// <value>Категории</value>
+        public ModelCategory Category { get; set; }
+        /// <summary>
         /// Идентификатор производителя
         /// </summary>
         /// <value>Идентификатор производителя</value>
         public int ManufacturerId { get; set; }
+        /// <summary>
+        /// Ссылка на производителей
+        /// </summary>
+        /// <value>Производители</value>
+        public ModelManufacturer Manufacturer { get; set; }
     }
     /// <summary>
     /// Класс модели производителя
