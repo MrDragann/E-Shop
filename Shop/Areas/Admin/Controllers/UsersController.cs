@@ -8,7 +8,7 @@ namespace Shop.Areas.Admin.Controllers
     /// Представляет методы осуществляющие действия над пользователями
     /// </summary>
     /// <seealso cref="Shop.Areas.Admin.Controllers.BaseController" />
-    [FilterUser(Roles = "Администратор")]
+    //[FilterUser(Roles = "Администратор")]
     public class UsersController : BaseController
     {
 

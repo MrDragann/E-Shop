@@ -69,6 +69,14 @@
     <Compile Include="Migrations\201703021220392_orderstatus.Designer.cs">
       <DependentUpon>201703021220392_orderstatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703130923103_totalprice.cs" />
+    <Compile Include="Migrations\201703130923103_totalprice.Designer.cs">
+      <DependentUpon>201703130923103_totalprice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703131040469_orderproductsprice.cs" />
+    <Compile Include="Migrations\201703131040469_orderproductsprice.Designer.cs">
+      <DependentUpon>201703131040469_orderproductsprice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product\Category.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Migrations\201702151020120_userprofile.cs" />
@@ -147,6 +155,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703021220392_orderstatus.resx">
       <DependentUpon>201703021220392_orderstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703130923103_totalprice.resx">
+      <DependentUpon>201703130923103_totalprice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703131040469_orderproductsprice.resx">
+      <DependentUpon>201703131040469_orderproductsprice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

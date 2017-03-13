@@ -211,7 +211,7 @@ namespace Services.Public
 
         #endregion
 
-        #region Корзина/Список жедаемого
+        #region Корзина
         /// <summary>
         /// Вывод содержимого корзины
         /// </summary>
@@ -249,7 +249,7 @@ namespace Services.Public
         public ModelCarts CookieCart()
         {
             HttpCookie CookieReq = HttpContext.Current.Request.Cookies["UserCart"];
-            if (CookieReq.Value==null || string.IsNullOrWhiteSpace(CookieReq.Values["productId"]))
+            if (CookieReq==null || string.IsNullOrWhiteSpace(CookieReq.Values["productId"]))
             {
                 return new ModelCarts();
             }
@@ -286,9 +286,9 @@ namespace Services.Public
                     {
                         var order = db.Orders.Add(new Order
                         {
-                            OrderDate = DateTime.Now,
+                            CreateDate = DateTime.Now,
                             UserId = user.Id,
-                            User = new List<User> { user },
+                            User = user,
                             StatusOrderId = EnumStatusOrder.Cart
                         });
                         db.OrderProducts.Add(new OrderProduct
@@ -489,6 +489,90 @@ namespace Services.Public
                 ProductId = product.ProductId,
                 Quantity = product.Quantity
             };
+        }
+        #endregion
+
+        #region Заказы
+        /// <summary>
+        /// Добавление корзины в заказы
+        /// </summary>
+        /// <returns>List&lt;ModelOrder&gt;.</returns>
+        public void NewOrder(string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                order.StatusOrderId = EnumStatusOrder.Processing;
+            }
+        }
+        /// <summary>
+        /// Вывод всех заказов
+        /// </summary>
+        /// <returns>List&lt;ModelOrder&gt;.</returns>
+        public List<Order> Orders(string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                //var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                var orders = db.Orders.Include(x => x.OrderProduct).Where(o=> o.UserId == user.Id && o.StatusOrderId!= EnumStatusOrder.Cart).ToList();
+                List<ModelOrder> OrderList = new List<ModelOrder>();
+                foreach (var order in orders)
+                {
+                    var OrderProductModel = new List<ModelOrderProduct>();
+                    foreach (var product in order.OrderProduct)
+                    {
+                        OrderProductModel.Add(new ModelOrderProduct() { OrderId = product.OrderId, ProductId = product.ProductId, Product = db.Products.Select(ProductServices.Details()).Where(x => x.Id == product.ProductId).FirstOrDefault(), Quantity = product.Quantity });
+
+                    }
+                    
+                    OrderList.Add(new ModelOrder { Id = order.Id, CreateDate = order.CreateDate, OrderProduct = OrderProductModel });
+                }
+                return orders;
+            }
+        }
+
+        public static Expression<Func<Order, ModelOrder>> ShowOrders()
+        {
+            return orders => new ModelOrder()
+            {
+                Id = orders.Id,
+                UserId = orders.UserId,
+                CreateDate = orders.CreateDate,
+                StatusOrderId = (ModelEnumStatusOrder)orders.StatusOrderId,
+                OrderProduct = new List<ModelOrderProduct>(), 
+                TotalPrice = orders.TotalPrice
+
+            };
+        }
+
+        public static List<ModelOrderProduct> OrderProduct(List<OrderProduct> model)
+        {
+            var list = new List<ModelOrderProduct>();
+            foreach (var item in model)
+            {
+                var OrderProducts = new ModelOrderProduct()
+                {
+                    OrderId = item.OrderId,
+                    ProductId = item.ProductId,
+                    Product = new ModelProduct()
+                    {
+                        Id = item.Product.Id,
+                        Name = item.Product.Name,
+                        Price = item.Product.Price,
+                        CategoryId = item.Product.CategoryId,
+                        Description = item.Product.Description,
+                        Characteristics = item.Product.Characteristics,
+                        Tags = item.Product.Tags,
+                        FileName = item.Product.Image,
+                        DateAdd = item.Product.DateAdd,
+                        ManufacturerId = item.Product.ManufacturerId
+                    }
+                };
+                list.Add(OrderProducts);
+            }
+            return list;
         }
         #endregion
     }

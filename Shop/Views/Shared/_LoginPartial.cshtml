@@ -4,7 +4,7 @@
         <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="">
+                    <a href="@Url.Action("Cart","Order")">
                         <i class="fa fa-user"></i> @User.UserName
                     </a>
                 </li>
@@ -19,9 +19,9 @@ else
     <div class="col-sm-8">
         <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
-                <li>
+                @*<li>
                     <a href=""><i class="fa fa-user"></i> Аккаунт</a>
-                </li>
+                </li>*@
                 <li><a href="@Url.Action("Cart","Order")"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
                 <li><a href="@Url.Action("Login","Account")"><i class="fa fa-lock"></i> Войти</a></li>
             </ul>

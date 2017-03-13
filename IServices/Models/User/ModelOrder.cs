@@ -30,7 +30,11 @@ namespace IServices.Models
         /// Дата заказа
         /// </summary>
         /// <value>Дата заказа</value>
-        public DateTime OrderDate { get; set; }
+        public DateTime CreateDate { get; set; }
+        /// <summary>
+        /// Общая стоимость заказа
+        /// </summary>
+        public double TotalPrice { get; set; }
         /// <summary>
         /// Ссылка на список товаров в заказе
         /// </summary>
@@ -58,6 +62,11 @@ namespace IServices.Models
         /// </summary>
         /// <value>Идентификатор товара</value>
         public int ProductId { get; set; }
+        /// <summary>
+        /// Цена товара
+        /// </summary>
+        /// <value>Цена</value>
+        public int Price { get; set; }
         /// <summary>
         /// Количество товаров
         /// </summary>

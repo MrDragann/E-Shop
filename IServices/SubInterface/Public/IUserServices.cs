@@ -1,4 +1,5 @@
-﻿using IServices.Models;
+﻿using DataModel.Models;
+using IServices.Models;
 using System.Collections.Generic;
 
 namespace IServices.SubInterface
@@ -71,6 +72,9 @@ namespace IServices.SubInterface
         /// <param name="userName">Имя пользователя</param>
         void DeleteItem(int productId, string userName);
         //void Clear(string userName);
+        #endregion
+        #region Заказы
+        List<Order> Orders(string userName);
         #endregion
         #region Действия над аккаунтом
         /// <summary>

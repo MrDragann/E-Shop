@@ -1,14 +1,8 @@
 ﻿
 <div class="row" id="Orders">
-
+    @Html.Action("AjaxOrders", "Users", new { area = "Admin" })
 </div>
 
 @section scripts{
-    <script>
-        $(document).ready(function () {
-            $('#Orders').load("http://localhost:58081/Admin/Users/AjaxOrders");
-        
-        });
-        
-    </script>    
+       
 }

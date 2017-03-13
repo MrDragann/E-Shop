@@ -168,7 +168,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -188,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\favicon.ico" />
+    <Content Include="Areas\Admin\Scripts\area_management.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -230,10 +230,10 @@
     <Content Include="Areas\Admin\Views\Users\AjaxUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\AjaxProducts.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\AjaxCategories.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\AjaxCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Categories.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\ManufacturersList.cshtml" />
-    <Content Include="Areas\Admin\Views\Categories\CategoriesList.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\CategoriesList.cshtml" />
     <Content Include="Areas\Admin\Views\Products\EditProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\AjaxRoles.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\AjaxStatuses.cshtml" />
@@ -281,10 +281,12 @@
     <Content Include="Views\Shared\slider.cshtml" />
     <Content Include="Views\Account\NewPassword.cshtml" />
     <Content Include="Views\Shared\Categories.cshtml" />
+    <Content Include="Views\Order\MyOrders.cshtml" />
     <None Include="Views\Shared\filters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Content\" />
     <Folder Include="Areas\Admin\Metronic\admin\" />
     <Folder Include="Areas\Admin\Metronic\global\" />
     <Folder Include="Areas\Admin\Models\" />

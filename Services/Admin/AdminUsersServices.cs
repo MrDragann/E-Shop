@@ -123,7 +123,7 @@ namespace Services.Admin
             {
                 Id = orders.Id,
                 UserId = orders.UserId,
-                OrderDate = orders.OrderDate,
+                CreateDate = orders.CreateDate,
                 StatusOrderId = (ModelEnumStatusOrder)orders.StatusOrderId
 
             };

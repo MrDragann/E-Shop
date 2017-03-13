@@ -15,7 +15,7 @@
             <div class="tools">
                 <a href="javascript:;" class="collapse" data-original-title="" title="">
                 </a>
-                <a href="javascript:;" id="reloadOrders" class="reload" data-original-title="" title="">
+                <a href="javascript:;" id="reloadOrders" class="reload" data-toggle="@Url.Action("AjaxOrders", "Users", new { area = "Admin" })" data-original-title="" title="">
                 </a>
             </div>
         </div>
@@ -76,7 +76,7 @@
 
                                     </td>
                                     <td>
-                                        @order.OrderDate
+                                        @order.CreateDate
                                     </td>
                                     <td>
                                         <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditStatusModal" style="padding:0;" value="@order.Id"></button>
@@ -97,17 +97,3 @@
     <!-- END EXAMPLE TABLE PORTLET-->
 </div>
 
-    <script>
-        $(document).ready(function () {
-            
-
-            $('#reloadOrders').click(function () {
-                updateOrders();
-            });
-            function updateOrders() {
-
-                $('#Orders').load("http://localhost:58081/Admin/Users/AjaxOrders");
-            };
-            
-        });
-    </script>

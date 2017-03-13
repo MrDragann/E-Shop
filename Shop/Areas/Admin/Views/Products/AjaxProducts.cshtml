@@ -156,7 +156,7 @@
                         <label class="col-md-2 control-label" for="ProductCategory">Категоря</label>
                         <div class="col-md-10">
                             <select class="form-control edited" id="ProductCategory">
-                                @Html.Action("CategoriesList", "Categories")
+                                @Html.Action("CategoriesList", "Products", new { area = "Admin" })
                             </select>
 
                             <div class="form-control-focus">
@@ -168,7 +168,7 @@
                         <label class="col-md-2 control-label" for="ProductManufacturer">Производитель</label>
                         <div class="col-md-10">
                             <select class="form-control edited" id="ProductManufacturer">
-                                @Html.Action("ManufacturersList", "Products")
+                                @Html.Action("ManufacturersList", "Products", new { area = "Admin" })
                             </select>
                             <div class="form-control-focus">
                             </div>

@@ -118,21 +118,27 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <ul class="sub-menu">
                             <li>
-                                <a href="/Admin/Users">
+                                <a href="@Url.Action("Index", "Users", new { area = "Admin" })">
                                     <i class="icon-users"></i>
                                     Пользователи
                                 </a>
                             </li>
                             <li>
-                                <a href="/Admin/Products">
+                                <a href="@Url.Action("Index", "Products", new { area = "Admin" })">
                                     <i class="icon-handbag"></i>
                                     Товары
                                 </a>
                             </li>
                             <li>
-                                <a href="/Admin/Categories">
+                                <a href="@Url.Action("Categories", "Products", new { area = "Admin" })">
                                     <i class="icon-settings"></i>
                                     Категории
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Orders", "Users", new { area = "Admin" })">
+                                    <i class="icon-basket"></i>
+                                    Заказы
                                 </a>
                             </li>
                         </ul>
@@ -899,6 +905,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/Areas/Admin/Metronic/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Metronic/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Metronic/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <script src="~/Areas/Admin/Scripts/area_management.js"></script>
     <!-- END CORE PLUGINS -->
     <script src="~/Areas/Admin/Metronic/global/scripts/metronic.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Metronic/admin/layout/scripts/layout.js" type="text/javascript"></script>

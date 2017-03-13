@@ -56,5 +56,11 @@ namespace Shop.Controllers
             return Json("Запрос успешно выполнен");
         }        
 
+        public ActionResult MyOrders()
+        {
+            var orders = Services.Users.Orders(User.UserName);
+            return View(orders);
+        }
+
     }
 }
