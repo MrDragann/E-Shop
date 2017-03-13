@@ -81,6 +81,20 @@ namespace Services.Public
             }
         }
 
+        /// <summary>
+        /// Вывод товаров для слайдера
+        /// </summary>
+        /// <returns>List&lt;ModelProduct&gt;.</returns>
+        public List<ModelProduct> Slider()
+        {
+            using (var db = new DataContext())
+            {
+                var products = db.Products.Select(Details()).OrderByDescending(x=>x.Price).Take(3).ToList();
+                
+                return products;
+            }
+        }
+
         public static Expression<Func<Product, ModelProductPreview>> Preview()
         {
             return product => new ModelProductPreview()

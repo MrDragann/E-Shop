@@ -41,5 +41,11 @@ namespace IServices.SubInterface
         /// <param name="id">Идентификатор</param>
         /// <returns>ModelProduct.</returns>
         ModelProduct GetProduct(int id);
+
+        /// <summary>
+        /// Вывод товаров для слайдера
+        /// </summary>
+        /// <returns>List&lt;ModelProduct&gt;.</returns>
+        List<ModelProduct> Slider();
     }
 }

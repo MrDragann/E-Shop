@@ -12,58 +12,64 @@
                 <li class="active">Корзина</li>
             </ol>
         </div>
-        <div class="table-responsive cart_info">
-            <table class="table table-condensed">
-                <thead>
-                    <tr class="cart_menu">
-                        <td class="image">Продукт</td>
-                        <td class="description"></td>
-                        <td class="price">Цена</td>
-                        <td class="quantity">Количество</td>
-                        <td class="total">Общая цена</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.GetCart())
-                    {
-
-                        <tr>
-                            <td class="cart_product">
-                                <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
-                                <p>Product ID: @item.Product.Id</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>@item.Product.Price р.</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <button class="btn btn-link QuantityDown" id="QuantityDown_@item.Product.Id"> <i class="fa fa-minus"></i> </button>
-                                    <input class="cart_quantity_input Quantity" type="text" id="Quantity_@item.Product.Id" name="Quantity" value="@item.Quantity" autocomplete="off" size="2">
-                                    <button class="btn btn-link QuantityUp" id="QuantityUp_@item.Product.Id"> <i class="fa fa-plus"></i> </button>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">@((item.Quantity * item.Product.Price).ToString("# р.") )</p>
-                            </td>
-                            <td class="cart_delete">
-                                @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                                {
-                                <input id="@item.Product.Id" name="productId" type="hidden" value="@item.Product.Id" />
-                                <button class="cart_quantity_delete btn btn-link" type="submit">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                                }
-                                @*<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>*@
-                            </td>
-
+        @if (Model.ProductCart == null)
+        {
+            <div>
+                <h2>
+                    Ваша корзина пуста. Помогите ей наполниться, вернитесь к покупкам!
+                </h2>
+                <h4 style="text-decoration:none;margin:25px 0 50px 0;"><a href="@Url.Action("Index","Home")"><i style="padding-right:10px;" class="fa fa-arrow-left"></i>Вернуться к покупкам</a></h4>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">Продукт</td>
+                            <td class="description"></td>
+                            <td class="price">Цена</td>
+                            <td class="quantity">Количество</td>
+                            <td class="total">Общая цена</td>
+                            <td></td>
                         </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.GetCart())
+                        {
 
-                    }
-                </tbody>
+                            <tr>
+                                <td class="cart_product">
+                                    <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
+                                </td>
+                                <td class="cart_description">
+                                    <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
+                                    <p>Product ID: @item.Product.Id</p>
+                                </td>
+                                <td class="cart_price">
+                                    <p>@item.Product.Price р.</p>
+                                </td>
+                                <td class="cart_quantity">
+                                    <div class="cart_quantity_button">
+                                        <button class="btn btn-link QuantityDown" id="QuantityDown_@item.Product.Id"> <i class="fa fa-minus"></i> </button>
+                                        <input class="cart_quantity_input Quantity" type="text" id="Quantity_@item.Product.Id" name="Quantity" value="@item.Quantity" autocomplete="off" size="2">
+                                        <button class="btn btn-link QuantityUp" id="QuantityUp_@item.Product.Id"> <i class="fa fa-plus"></i> </button>
+                                    </div>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">@((item.Quantity * item.Product.Price).ToString("# р.") )</p>
+                                </td>
+                                <td class="cart_delete">
+                                    <button class="cart_quantity_delete btn btn-link" id="RemoveFromCart_@item.Product.Id" type="button">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
 
                     <tfoot>
                         <tr>
@@ -75,14 +81,15 @@
                             </td>
                         </tr>
                     </tfoot>
-            </table>
-        </div>
+                </table>
+            </div>
+        }
     </div>
 </section>
 <!--/#cart_items-->
 
 
-<section id="do_action">
+@*<section id="do_action">
     <div class="container">
         <div class="heading">
             <h3>Что дальше?</h3>
@@ -149,7 +156,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 
 @section scripts{
 <script>
@@ -164,7 +171,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '/Cart/EditQuantity',
+                url: '/Order/EditQuantity',
                 contentType: false,
                 processData: false,
                 data: formData,
@@ -209,6 +216,27 @@
 
         });
 
+        $('button.cart_quantity_delete').click(function () {
+            var productId = $(this).attr("id").substr(15);
+
+            var formData = new FormData();
+
+            formData.append("productId", productId);
+
+            $.ajax({
+                type: "POST",
+                url: '/Order/RemoveFromCart',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
     });
 </script> 
 }

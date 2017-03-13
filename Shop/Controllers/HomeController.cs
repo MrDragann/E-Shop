@@ -101,8 +101,15 @@ namespace Shop.Controllers
             var model = Services.Product.GetCategory();
             return View(model);
         }
-
-        
+        /// <summary>
+        /// Вывод товаров для слайдера
+        /// </summary>
+        /// <returns>List&lt;ModelProduct&gt;.</returns>
+        public ActionResult Slider()
+        {
+            var slider = Services.Product.Slider();
+            return View(slider);
+        }
 
     }
 }

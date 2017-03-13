@@ -103,6 +103,32 @@ namespace Services.Admin
 
             };
         }
+        #region Заказы
+        /// <summary>
+        /// Вывод всех заказов
+        /// </summary>
+        /// <returns>List&lt;ModelOrder&gt;.</returns>
+        public List<ModelOrder> Orders()
+        {
+            using (var db = new DataContext())
+            {
+                var order = db.Orders.Include(x => x.OrderProduct).Select(ShowOrders()).ToList();
+                return order;
+            }
+        }
+
+        public static Expression<Func<Order, ModelOrder>> ShowOrders()
+        {
+            return orders => new ModelOrder()
+            {
+                Id = orders.Id,
+                UserId = orders.UserId,
+                OrderDate = orders.OrderDate,
+                StatusOrderId = (ModelEnumStatusOrder)orders.StatusOrderId
+
+            };
+        }
+        #endregion
     }
 }
 

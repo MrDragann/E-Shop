@@ -24,19 +24,23 @@ namespace Services.Public
         /// <returns><c>true</c> если пользователь имеется в базе данных, <c>false</c> иначе.</returns>
         public bool Login(string userName, string password)
         {
-            using (var db = new DataContext())
+            try
             {
-                var user = db.Users.FirstOrDefault(_ => _.UserName == userName);
-                var HeshPass = (user.Salt + password).GetHashString();
-
-                var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == HeshPass && _.StatusUserId != EnumStatusUser.Locked);
-                if (authorized)
+                using (var db = new DataContext())
                 {
-                    user.LastLoginDate = DateTime.Now;
-                    db.SaveChanges();
+                    var user = db.Users.FirstOrDefault(_ => _.UserName == userName);
+                    var HeshPass = (user.Salt + password).GetHashString();
+
+                    var authorized = db.Users.Any(_ => _.UserName == userName && _.Password == HeshPass && _.StatusUserId != EnumStatusUser.Locked);
+                    if (authorized)
+                    {
+                        user.LastLoginDate = DateTime.Now;
+                        db.SaveChanges();
+                    }
+                    return authorized;
                 }
-                return authorized;
             }
+            catch { return false; }
         }
         /// <summary>
         /// Получение модели полезователя по его ID
@@ -221,9 +225,16 @@ namespace Services.Public
                 {
                     var user = db.Users.FirstOrDefault(x => x.UserName == userName);
                     var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
-                    var products = GetOrderProducts(order.OrderProduct);
-
-                    return new ModelCarts { ProductCart = products };
+                    if (order == null || order.OrderProduct.Count < 1) 
+                    {
+                        return new ModelCarts();
+                    }
+                    else
+                    {
+                        var products = GetOrderProducts(order.OrderProduct);
+                        return new ModelCarts { ProductCart = products };
+                    }
+                    
                 }
             }
             else
@@ -238,16 +249,23 @@ namespace Services.Public
         public ModelCarts CookieCart()
         {
             HttpCookie CookieReq = HttpContext.Current.Request.Cookies["UserCart"];
-            var CookieProducts = CookieReq.Values["productId"].Split(',').Select(int.Parse).ToList();
-            var CookieQuantity = CookieReq.Values["quantity"].Split(',').Select(int.Parse).ToList();
-
-            List<OrderProduct> CookieCart = new List<OrderProduct>();
-            for (int i = 0; i < CookieProducts.Count(); i++)
+            if (CookieReq.Value==null || string.IsNullOrWhiteSpace(CookieReq.Values["productId"]))
             {
-                CookieCart.Add(new OrderProduct { ProductId = CookieProducts[i], Quantity = CookieQuantity[i] });
+                return new ModelCarts();
             }
-            var products = GetOrderProducts(CookieCart);
-            return new ModelCarts { ProductCart = products };
+            else
+            {
+                var CookieProducts = CookieReq.Values["productId"].Split(',').Select(int.Parse).ToList();
+                var CookieQuantity = CookieReq.Values["quantity"].Split(',').Select(int.Parse).ToList();
+
+                List<OrderProduct> CookieCart = new List<OrderProduct>();
+                for (int i = 0; i < CookieProducts.Count(); i++)
+                {
+                    CookieCart.Add(new OrderProduct { ProductId = CookieProducts[i], Quantity = CookieQuantity[i] });
+                }
+                var products = GetOrderProducts(CookieCart);
+                return new ModelCarts { ProductCart = products };
+            }
         }
         /// <summary>
         /// Добавление товара в корзину
@@ -307,7 +325,7 @@ namespace Services.Public
             else
             {
                 HttpCookie CookieReq = HttpContext.Current.Request.Cookies["UserCart"];
-                if (CookieReq == null)
+                if (CookieReq == null || string.IsNullOrWhiteSpace(CookieReq.Values["productId"]))
                 {
                     HttpCookie aCookie = new HttpCookie("UserCart");
 

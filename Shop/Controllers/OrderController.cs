@@ -4,16 +4,16 @@ using System.Web.Mvc;
 namespace Shop.Controllers
 {
     /// <summary>
-    /// Содержит методы для работы с корзиной пользователя
+    /// Содержит методы для работы с заказами пользователя
     /// </summary>
     /// <seealso cref="Shop.Controllers.BaseController" />
-    public class CartController : BaseController
+    public class OrderController : BaseController
     {
         /// <summary>
         /// Корзина пользователя
         /// </summary>
         /// <returns>Содержимое корзины</returns>
-        public ViewResult Index()
+        public ViewResult Cart()
         {
             return View(Services.Users.GetCart(User.UserName));
         }
@@ -49,11 +49,11 @@ namespace Shop.Controllers
         /// <param name="productId">Идентификатор товара</param>
         /// <returns>RedirectToRouteResult.</returns>
         [HttpPost]
-        public RedirectToRouteResult RemoveFromCart(int productId)
+        public ActionResult RemoveFromCart(int productId)
         {
             Services.Users.DeleteItem(productId, User.UserName);
 
-            return RedirectToAction("Index");
+            return Json("Запрос успешно выполнен");
         }        
 
     }

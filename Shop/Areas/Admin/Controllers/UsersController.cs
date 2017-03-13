@@ -100,5 +100,25 @@ namespace Shop.Areas.Admin.Controllers
                  title='Подтвердить регистрацию'>ссылке</a>");
             return Json("Запрос успешно выполнен");
         }
+
+        #region Заказы
+        /// <summary>
+        /// Страница с таблицей всех заказов
+        /// </summary>
+        /// <returns>ActionResult.</returns>
+        public ActionResult Orders()
+        {
+            return View();
+        }
+        /// <summary>
+        /// Частичное представление таблицы заказов
+        /// </summary>
+        /// <returns>ActionResult.</returns>
+        public ActionResult AjaxOrders()
+        {
+            var orders = AdminServices.Users.Orders();
+            return View(orders);
+        }
+        #endregion
     }
 }
