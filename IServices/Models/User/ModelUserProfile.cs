@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataModel.Models
+namespace IServices.Models
 {
-    public class UserProfile
+    public class ModelUserProfile
     {
-       
-       
         public int UserId { get; set; }
 
         public string FirstName { get; set; }
@@ -30,6 +26,6 @@ namespace DataModel.Models
         /// Ссылка на пользователя
         /// </summary>
         /// <value>Пользователь</value>
-        public User User { get; set; }
+        public ModelUserInfo User { get; set; }
     }
 }

@@ -285,7 +285,9 @@
     <Content Include="Views\Order\MyOrders.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
     <None Include="Views\Shared\filters.cshtml" />
+    <Content Include="Views\Shared\UserAdress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -81,9 +81,13 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="text-right">
-                                <button style="float:right;" type="submit" class="btn btn-default check_out">Перейти к оплате</button>
-                            </td>
+                            @using (Html.BeginForm("Checkout", "Order"))
+                            {
+                                <td colspan="5" class="text-left">
+                                    <button style="float:right;" type="submit" class="btn btn-default check_out">Перейти к оформлению</button>
+                                </td>
+                            }
+                            
                             <td></td>
                         </tr>
                     </tfoot>

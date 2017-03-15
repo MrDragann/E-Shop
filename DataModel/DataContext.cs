@@ -40,7 +40,9 @@ namespace DataModel
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserProfile>().HasKey(_ => _.UserId);
             modelBuilder.Entity<User>().
+           modelBuilder.Entity<User>().
                 Property(p => p.RegistrationDate)
                 .HasColumnType("datetime2")
                 .HasPrecision(0)

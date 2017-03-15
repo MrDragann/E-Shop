@@ -76,6 +76,12 @@ namespace IServices.SubInterface
         #endregion
         #region Заказы
         List<ModelOrder> Orders(string userName);
+
+        ModelUserInfo GoToCheckout(string userName);
+
+        
+
+        ModelOrder NewOrder(string userName);
         #endregion
         #region Действия над аккаунтом
         /// <summary>
@@ -99,6 +105,8 @@ namespace IServices.SubInterface
         /// <param name="password">Новый пароль</param>
         /// <param name="salt">Новая соль</param>
         void ResetPassword(string email, string password, string salt);
+        void EditUserProfile(ModelUserProfile model, string userName);
+        ModelUserInfo GetUserInfo(string userName);
         #endregion
     }
 }

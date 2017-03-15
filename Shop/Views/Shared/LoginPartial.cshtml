@@ -5,13 +5,13 @@
         <div class="shop-menu pull-right">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="@Url.Action("MyOrders","Order")">
+                    <a href="@Url.Action("MyOrders", "Order")">
                         <i class="fa fa-user"></i> @User.UserName
                     </a>
                 </li>
                 <li>
-                    <a href="@Url.Action("Cart","Order")"><i class="fa fa-shopping-cart"></i> Корзина
-                        @if (Model != null)
+                    <a href="@Url.Action("Cart", "Order")"><i class="fa fa-shopping-cart"></i> Корзина
+                        @if (Model != null || Model.Count()>0)
                         { <span class="badge" style="background-color:#fe980f;">@Model.Count()</span> }
                         else { <span class="badge" style="background-color:#fe980f;">0</span> }
                     </a>
@@ -32,7 +32,7 @@ else
                 <li>
                     <a href="@Url.Action("Cart","Order")">
                         <i class="fa fa-shopping-cart"></i> Корзина
-                        @if (Model != null)
+                        @if (Model != null || Model.Count() > 0)
                         { <span class="badge" style="background-color:#fe980f;">@Model.Count()</span> }
                         else
                         { <span class="badge" style="background-color:#fe980f;">0</span> }

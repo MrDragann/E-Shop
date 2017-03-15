@@ -24,6 +24,21 @@ namespace IServices.Models
         /// <value>Эл.адрес</value>
         public string Email { get; set; }
         /// <summary>
+        /// Фото пользователя
+        /// </summary>
+        /// <value>Фото</value>
+        public string Photo { get; set; }
+        /// <summary>
+        /// Пароль пользователя
+        /// </summary>
+        /// <value>Пароль</value>
+        public string Password { get; set; }
+        /// <summary>
+        /// Соль пользователя
+        /// </summary>
+        /// <value>Соль</value>
+        public string Salt { get; set; }
+        /// <summary>
         /// Дата регистрации пользователя
         /// </summary>
         /// <value>Дата регистрации</value>
@@ -37,11 +52,21 @@ namespace IServices.Models
         /// Идентификатор статуса пользователя
         /// </summary>
         /// <value>Идентификатор статуса пользователя</value>
-        public ModelEnumStatusUser Status { get; set; }
+        public ModelEnumStatusUser StatusUserId { get; set; }
+        /// <summary>
+        /// Ссылка на модель профиля пользователя
+        /// </summary>
+        /// <value>Профиль пользователя</value>
+        public ModelUserProfile UserProfile { get; set; }
         /// <summary>
         /// Ссылка на список ролей
         /// </summary>
         /// <value>Список ролей</value>
         public List<ModelRole> Roles { get; set; }
+        /// <summary>
+        /// Ссылка на список заказов
+        /// </summary>
+        /// <value>Список заказов</value>
+        public List<ModelOrder> Order { get; set; }
     }
 }

@@ -65,6 +65,26 @@ namespace Shop.Controllers
             var orders = Services.Users.Orders(User.UserName);
             return View(orders);
         }
+        //[HttpPost]
+        //public ActionResult NewOrder()
+        //{
+        //    var ModelOrder = Services.Users.NewOrder(User.UserName);
+        //    return RedirectToAction("Checkout", ModelOrder);
+        //}
+        [HttpPost]
+        public ActionResult Checkout(int? OrderId)
+        {
+            if (OrderId != null) 
+            {
+
+            }
+            else
+            {
+                var ModelOrder = Services.Users.NewOrder(User.UserName);
+                //var user = Services.Users.GoToCheckout(User.UserName);
+                return View(ModelOrder);
+            }
+        }
 
     }
 }

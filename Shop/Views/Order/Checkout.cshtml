@@ -1,9 +1,76 @@
-﻿@{
+﻿@model IServices.Models.ModelOrder
+@{
     ViewBag.Title = "Корзина";
     Layout = "~/Views/Shared/Layout.cshtml";
     //подтвердите ваш заказ
-    //Редактировать информацию адреса доставкиИнформация об отправке
+    //Информация об отправке
 }
-<h2>
-    priv
-</h2>
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="@Url.Action("Index","Home")">Главная</a></li>
+                <li class="active">Заказы</li>
+            </ol>
+        </div>
+        @if (Model == null )
+        {
+            <div>
+                <h2>
+                    Вы еще ничего не заказали. Добавляйте товары в корзину и оформляйте заказы!
+                </h2>
+                <h4 style="text-decoration:none;margin:25px 0 50px 0;"><a href="@Url.Action("Index","Home")"><i style="padding-right:10px;" class="fa fa-arrow-left"></i>Вернуться к покупкам</a></h4>
+            </div>
+        }
+        else
+        {
+            @Html.Action("UserAdress", "Account")
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="description" colspan="2">Продукт</td>
+                            <td class="quantity">Количество</td>
+                            <td class="price text-center">Цена</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderProduct)
+                        {
+                            <tr>
+                                <td class="cart_product">
+                                    <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
+                                </td>
+                                <td class="cart_description" style="padding-left:25px;">
+                                    <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
+                                    <p>Product ID: @item.Product.Id</p>
+                                </td>
+                                <td class="cart_quantity">
+                                    <p>x @item.Quantity</p>
+                                </td>
+                                <td class="cart_price text-center">
+                                    <p>@item.Product.Price р.</p>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                    <tfoot style="border-top: 1px solid #F7F7F0;">
+                        <tr>
+                            <td class="text-right" colspan="3">
+                                <p class="cart_total_price">Cтоимость заказа: @(Model.TotalPrice.ToString("# р.") )</p>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-default update" style="margin:0;">Заказать</button>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        }
+    </div>
+</section>
+

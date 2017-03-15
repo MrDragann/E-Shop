@@ -82,7 +82,8 @@ namespace Services.Public
                             ConfirmedEmail = false,
                             ConfirmationCode = salt
                         },
-                        Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList()
+                        Roles = db.Roles.Where(_ => _.Id == TypeRoles.User).ToList(),
+                        UserProfile = new UserProfile()
                     };
 
                     db.Users.Add(user);
@@ -207,6 +208,29 @@ namespace Services.Public
         public static Expression<Func<StatusUser, ModelStatusUser>> DetailStatus()
         {
             return status => new ModelStatusUser { Id = (ModelEnumStatusUser)status.Id, Name = status.Name };
+        }
+
+        public void EditUserProfile(ModelUserProfile model, string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.Include(x=>x.UserProfile).FirstOrDefault(x => x.UserName == userName);
+                user.UserProfile.FirstName = model.FirstName;
+                user.UserProfile.LastName = model.LastName;
+                user.UserProfile.Phone = model.Phone;
+                user.UserProfile.Country = model.Country;
+                user.UserProfile.City = model.City;
+                user.UserProfile.StreetAddress = model.StreetAddress;
+                //{
+                //    FirstName = model.FirstName,
+                //    LastName = model.LastName,
+                //    Phone = model.Phone,
+                //    Country = model.Country,
+                //    City = model.City,
+                //    StreetAddress = model.StreetAddress
+                //};
+                db.SaveChanges();
+            }
         }
 
         #endregion
@@ -501,8 +525,15 @@ namespace Services.Public
             {
                 var user = db.Users.FirstOrDefault(x => x.UserName == userName);
                 var order = db.Orders.Include(x => x.OrderProduct).Where(o => o.UserId == user.Id && o.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                if (order == null)
+                {
+                    return new List<ModelOrderProduct>();
+                }
+                else
+                {
+                    return order.OrderProduct.Select(o => ConverModelOrderProduct(o)).ToList(); ;
+                }
                 
-                return order.OrderProduct.Select(o => ConverModelOrderProduct(o)).ToList(); ;
             }
         }
         #endregion
@@ -512,13 +543,21 @@ namespace Services.Public
         /// Добавление корзины в заказы
         /// </summary>
         /// <returns>List&lt;ModelOrder&gt;.</returns>
-        public void NewOrder(string userName)
+        public ModelOrder NewOrder(string userName)
         {
             using (var db = new DataContext())
             {
                 var user = db.Users.FirstOrDefault(x => x.UserName == userName);
                 var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                var ModelOrder = db.Orders.Select(ShowOrders()).Where(p => p.UserId == user.Id && p.StatusOrderId == ModelEnumStatusOrder.Cart).FirstOrDefault();
+                ModelOrder.OrderProduct = order.OrderProduct.Select(o => ConverModelOrderProduct(o)).ToList(); ;
+                foreach (var product in ModelOrder.OrderProduct)
+                {
+                    product.Product = db.Products.Select(ProductServices.Details()).FirstOrDefault(x => x.Id == product.ProductId);
+                }
                 order.StatusOrderId = EnumStatusOrder.Processing;
+                db.SaveChanges();
+                return ModelOrder;
             }
         }
         /// <summary>
@@ -577,6 +616,57 @@ namespace Services.Public
                 Price = orders.Price,
                 Quantity = orders.Quantity
 
+            };
+        }
+
+        public ModelUserInfo GoToCheckout(string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.Select(DetailUserInfo()).FirstOrDefault(x => x.UserName == userName);
+                //var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Processing).FirstOrDefault();
+                user.UserProfile = db.UserProfiles.Select(ShowUserProfile()).FirstOrDefault(x => x.UserId == user.Id);
+                return user;
+            }
+        }
+
+        public ModelUserInfo GetUserInfo(string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.Select(DetailUserInfo()).FirstOrDefault(x => x.UserName == userName);
+                user.UserProfile = db.UserProfiles.Select(ShowUserProfile()).FirstOrDefault(x => x.UserId == user.Id);
+                return user;
+            }
+        }
+
+        public static Expression<Func<UserProfile, ModelUserProfile>> ShowUserProfile()
+        {
+            return profile => new ModelUserProfile()
+            {
+                UserId = profile.UserId,
+                FirstName = profile.FirstName,
+                LastName = profile.LastName,
+                Phone = profile.Phone,
+                Country = profile.Country,
+                City = profile.City,
+                StreetAddress = profile.StreetAddress
+
+            };
+        }
+
+        /// <summary>
+        /// Конвертирование модели пользователя
+        /// </summary>
+        /// <returns>Expression&lt;Func&lt;User, ModelUser&gt;&gt;.</returns>
+        public static Expression<Func<User, ModelUserInfo>> DetailUserInfo()
+        {
+            return user => new ModelUserInfo()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                Photo =user.Photo
             };
         }
         #endregion

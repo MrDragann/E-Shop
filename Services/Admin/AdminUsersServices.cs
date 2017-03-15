@@ -35,9 +35,11 @@ namespace Services.Admin
                 using (var db = new DataContext())
                 {
                     var user = db.Users.FirstOrDefault(_ => _.Id == id);
-                    var profile = db.AccountConfirmations.FirstOrDefault(_ => _.UserId == id);
+                    var account = db.AccountConfirmations.FirstOrDefault(_ => _.UserId == id);
+                    var profile = db.UserProfiles.FirstOrDefault(_ => _.UserId == id);
                     db.Users.Remove(user);
-                    db.AccountConfirmations.Remove(profile);
+                    db.AccountConfirmations.Remove(account);
+                    db.UserProfiles.Remove(profile);
 
                     db.SaveChanges();
                 }
@@ -98,7 +100,7 @@ namespace Services.Admin
                 Email = users.Email,
                 RegistrationDate = users.RegistrationDate,
                 LastLoginDate = users.LastLoginDate,
-                Status = (ModelEnumStatusUser)users.StatusUserId,
+                StatusUserId = (ModelEnumStatusUser)users.StatusUserId,
                 Roles = users.Roles.Select(role => new ModelRole { Id = (ModelEnumTypeRoles)role.Id, Name = role.Name }).ToList()
 
             };

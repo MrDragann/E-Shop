@@ -134,7 +134,30 @@ namespace Shop.Controllers
             
         }
 
+        public ActionResult EditProfile()
+        {
+            var user = Services.Users.GetUserInfo(User.UserName);//GoToCheckout(User.UserName);
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult EditProfile(ModelUserProfile user)
+        {
+            Services.Users.EditUserProfile(user, User.UserName);
+            return RedirectToAction("EditProfile");
+        }
 
+        public ActionResult UserAdress()
+        {
+            if (User.IsAuth)
+            {
+                var user = Services.Users.GetUserInfo(User.UserName);
+                return PartialView(user);
+            }
+            else
+            {
+                return PartialView(new ModelUserInfo());
+            }
 
+        }
     }
 }

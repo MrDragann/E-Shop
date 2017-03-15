@@ -13,11 +13,11 @@
                 <li class="active">Заказы</li>
             </ol>
         </div>
-        @if (Model == null)
+        @if (Model == null || Model.Count() < 1)
         {
             <div>
                 <h2>
-                    Ваша корзина пуста. Помогите ей наполниться, вернитесь к покупкам!
+                    Вы еще ничего не заказали. Добавляйте товары в корзину и оформляйте заказы!
                 </h2>
                 <h4 style="text-decoration:none;margin:25px 0 50px 0;"><a href="@Url.Action("Index","Home")"><i style="padding-right:10px;" class="fa fa-arrow-left"></i>Вернуться к покупкам</a></h4>
             </div>
@@ -66,7 +66,8 @@
                                     <p class="cart_total_price">Cтоимость заказа: @(order.TotalPrice.ToString("# р.") )</p>
                                 </td>
                                 <td class="text-center">
-                                    <p>@order.StatusOrderId</p>
+                                    <p>Статус: @order.StatusOrderId</p>
+                                    if(@order.StatusOrderId==ModelEnumStatusOrder)
                                     <button class="btn btn-default update" style="margin:0;">Подтвердить получение</button>
                                 </td>
                             </tr>
