@@ -1,0 +1,45 @@
+﻿@model IEnumerable<IServices.Models.ModelOrderProduct>
+@if (User.IsAuth)
+{
+    <div class="col-sm-8">
+        <div class="shop-menu pull-right">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("MyOrders","Order")">
+                        <i class="fa fa-user"></i> @User.UserName
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Cart","Order")"><i class="fa fa-shopping-cart"></i> Корзина
+                        @if (Model != null)
+                        { <span class="badge" style="background-color:#fe980f;">@Model.Count()</span> }
+                        else { <span class="badge" style="background-color:#fe980f;">0</span> }
+                    </a>
+                </li>
+                <li><a href="@Url.Action("LogOut","Account")"><i class="fa fa-unlock"></i> Выйти</a></li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-sm-8">
+        <div class="shop-menu pull-right">
+            <ul class="nav navbar-nav">
+                @*<li>
+                    <a href=""><i class="fa fa-user"></i> Аккаунт</a>
+                </li>*@
+                <li>
+                    <a href="@Url.Action("Cart","Order")">
+                        <i class="fa fa-shopping-cart"></i> Корзина
+                        @if (Model != null)
+                        { <span class="badge" style="background-color:#fe980f;">@Model.Count()</span> }
+                        else
+                        { <span class="badge" style="background-color:#fe980f;">0</span> }
+                    </a>
+                </li>
+                <li><a href="@Url.Action("Login","Account")"><i class="fa fa-lock"></i> Войти</a></li>
+            </ul>
+        </div>
+    </div>
+}

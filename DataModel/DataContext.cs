@@ -36,6 +36,8 @@ namespace DataModel
 
         public DbSet<OrderProduct> OrderProducts { get; set; }
 
+        public DbSet<UserProfile> UserProfiles { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().
@@ -53,6 +55,11 @@ namespace DataModel
                 .HasColumnType("datetime2")
                 .HasPrecision(0)
                 .IsRequired();
+            //modelBuilder.Entity<UserProfile>()
+            //    .HasRequired(e => e.UserId)
+            //    .HasKey(t => t.UserId)
+            //    .HasForeignKey("dbo.Users", t => t.UserId)
+            //    .Index(t => t.UserId);
         }
 
         

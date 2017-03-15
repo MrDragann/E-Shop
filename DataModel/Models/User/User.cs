@@ -59,6 +59,11 @@ namespace DataModel.Models
         /// <value>Подтверждение аккаунта</value>
         public AccountConfirmation AccountConfirmation { get; set; }
         /// <summary>
+        /// Ссылка на модель профиля пользователя
+        /// </summary>
+        /// <value>Профиль пользователя</value>
+        public UserProfile UserProfile { get; set; }
+        /// <summary>
         /// Ссылка на список ролей
         /// </summary>
         /// <value>Список ролей</value>

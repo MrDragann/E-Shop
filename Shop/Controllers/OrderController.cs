@@ -9,6 +9,10 @@ namespace Shop.Controllers
     /// <seealso cref="Shop.Controllers.BaseController" />
     public class OrderController : BaseController
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
         /// <summary>
         /// Корзина пользователя
         /// </summary>

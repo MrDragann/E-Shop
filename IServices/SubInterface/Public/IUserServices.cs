@@ -72,9 +72,10 @@ namespace IServices.SubInterface
         /// <param name="userName">Имя пользователя</param>
         void DeleteItem(int productId, string userName);
         //void Clear(string userName);
+        List<ModelOrderProduct> GetCartQuantity(string userName);
         #endregion
         #region Заказы
-        List<Order> Orders(string userName);
+        List<ModelOrder> Orders(string userName);
         #endregion
         #region Действия над аккаунтом
         /// <summary>

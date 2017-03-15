@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DataModel.Models.Order>
+﻿@using IServices.Models
+@model IEnumerable<IServices.Models.ModelOrder>
 @{
     ViewBag.Title = "Мои заказы";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -23,20 +24,18 @@
         }
         else
         {
-            <div class="table-responsive cart_info">
-
-                @foreach (var order in Model)
+            foreach (var order in Model)
                 {
-                    <p>Дата заказа: @order.CreateDate</p>
+                <div class="table-responsive cart_info">
+
+                    <p style="margin:15px;">Дата заказа: @order.CreateDate</p>
+                    <p style="margin:0 15px 15px 15px;">Номер заказа: @order.Id</p>
                     <table class="table table-condensed">
                         <thead>
                             <tr class="cart_menu">
-                                <td class="image">Продукт</td>
-                                <td class="description"></td>
-                                <td class="price">Цена</td>
+                                <td class="description" colspan="2">Продукт</td>
                                 <td class="quantity">Количество</td>
-                                <td class="total">Общая цена</td>
-                                <td></td>
+                                <td class="price text-center">Цена</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,54 +43,43 @@
                             {
                                 <tr>
                                     <td class="cart_product">
-                                        <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.Image" alt="" width="110" height="110"></a>
+                                        <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
                                     </td>
-                                    <td class="cart_description">
+                                    <td class="cart_description" style="padding-left:25px;">
                                         <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
                                         <p>Product ID: @item.Product.Id</p>
                                     </td>
-                                    <td class="cart_price">
+                                    <td class="cart_quantity">
+                                        <p>x @item.Quantity</p>
+                                    </td>
+                                    <td class="cart_price text-center">
                                         <p>@item.Product.Price р.</p>
                                     </td>
-                                    <td class="cart_quantity">
-                                        <div class="cart_quantity_button">
-                                            <button class="btn btn-link QuantityDown" id="QuantityDown_@item.Product.Id"> <i class="fa fa-minus"></i> </button>
-                                            <input class="cart_quantity_input Quantity" type="text" id="Quantity_@item.Product.Id" name="Quantity" value="@item.Quantity" autocomplete="off" size="2">
-                                            <button class="btn btn-link QuantityUp" id="QuantityUp_@item.Product.Id"> <i class="fa fa-plus"></i> </button>
-                                        </div>
-                                    </td>
-                                    <td class="cart_total">
-                                        <p class="cart_total_price">@((item.Quantity * item.Product.Price).ToString("# р.") )</p>
-                                    </td>
-                                    <td class="cart_delete">
-                                        <button class="cart_quantity_delete btn btn-link" id="RemoveFromCart_@item.Product.Id" type="button">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </td>
-
                                 </tr>
                             }
 
                         </tbody>
-
-                        <tfoot>
+                       
+                        <tfoot style="border-top: 1px solid #F7F7F0;">
                             <tr>
-                                <td colspan="4" class="text-right">
-                                    <h4>Итого к оплате:</h4>
+                                <td class="text-right" colspan="3">
+                                    <p class="cart_total_price">Cтоимость заказа: @(order.TotalPrice.ToString("# р.") )</p>
                                 </td>
-                                <td class="text-right">
-                                    <h4>@order.TotalPrice.ToString("# руб")</h4>
+                                <td class="text-center">
+                                    <p>@order.StatusOrderId</p>
+                                    <button class="btn btn-default update" style="margin:0;">Подтвердить получение</button>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
-                }
 
-            </div>
+                </div>
+                
+            }
+            
         }
     </div>
 </section>
-<!--/#cart_items-->
 
 
 @*<section id="do_action">

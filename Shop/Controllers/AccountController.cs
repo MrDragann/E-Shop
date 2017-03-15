@@ -120,6 +120,20 @@ namespace Shop.Controllers
             return RedirectToAction("Login");
         }
 
+        public ActionResult LoginPartial()
+        {
+            if (User.IsAuth)
+            {
+                var OrderProducts = Services.Users.GetCartQuantity(User.UserName);
+                return PartialView(OrderProducts);
+            }
+            else
+            {
+                return PartialView(new List<ModelOrderProduct>());
+            }
+            
+        }
+
 
 
     }

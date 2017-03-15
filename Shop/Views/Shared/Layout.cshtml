@@ -5,13 +5,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title – E-Shop</title>
+    @*<link href="~/Content/components-md.css" rel="stylesheet" />*@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    
     <link href="~/Content/prettyPhoto.css" rel="stylesheet" />
     <link href="~/Content/price-range.css" rel="stylesheet" />
     <link href="~/Content/animate.css" rel="stylesheet" />
     <link href="~/Content/main.css" rel="stylesheet" />
     <link href="~/Content/responsive.css" rel="stylesheet" />
+    
 
     <script src="~/Scripts/jquery.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -62,7 +65,10 @@
                         </div>
 
                     </div>
-                    @Html.Partial("_LoginPartial")
+                    <div id="LoginPartial" data-href="@Url.Action("LoginPartial", "Account")">
+                        @Html.Action("LoginPartial", "Account")
+                    </div>
+                    
                 </div>
             </div>
         </div><!--/header-middle-->
@@ -109,7 +115,7 @@
                             <h2>Помощь</h2>
                             <ul class="nav nav-pills nav-stacked">
                                 <li><a href="@Url.Action("Contact","Home")">Контакты</a></li>
-                                <li><a href="#">Статус Заказа</a></li>
+                                <li><a href="@Url.Action("MyOrders","Order")">Мои заказы</a></li>
                                 <li><a href="#">FAQ</a></li>
                             </ul>
                         </div>
@@ -155,7 +161,7 @@
                             <h2>Новостная рассылка</h2>
                             <form action="#" class="searchform">
                                 <input type="text" placeholder="Введите E-майл">
-                                <button type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+                                <button id="SubscribeButton" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
                                 <p>Получайте самые последние новости и будьте в курсе всех событий...</p>
                             </form>
                         </div>

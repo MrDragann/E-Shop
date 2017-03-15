@@ -193,6 +193,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\components-md.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\a4Keyb.jpg" />
     <Content Include="Content\Images\flashK.jpg" />
@@ -269,7 +270,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\LoginPartial.cshtml" />
     <Content Include="Views\Shared\Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -282,6 +283,8 @@
     <Content Include="Views\Account\NewPassword.cshtml" />
     <Content Include="Views\Shared\Categories.cshtml" />
     <Content Include="Views\Order\MyOrders.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
     <None Include="Views\Shared\filters.cshtml" />
   </ItemGroup>
   <ItemGroup>

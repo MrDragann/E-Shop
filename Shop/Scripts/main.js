@@ -28,3 +28,38 @@ $(document).ready(function(){
 		});
 	});
 });
+
+/* Корзина */
+
+$(document).ready(function () {
+    $('a.add-to-cart').click(function () {
+        var productId = $(this).attr("id").substr(10);
+        var Quantity = $('input#productQuantity_' + productId).val();
+        if (Quantity == undefined) Quantity = 1;
+
+        var formData = new FormData();
+
+        formData.append("productId", productId);
+        formData.append("Quantity", Quantity);
+
+        $.ajax({
+            type: "POST",
+            url: '/Order/AddToCart',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (result) {
+                console.log(result);
+                $('#AddToCart').modal(Option);
+                UpdateCartStatus();
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    });
+    function UpdateCartStatus() {
+        var href = $('#LoginPartial').attr('data-href');
+        $('#LoginPartial').load(href);
+    }
+});
