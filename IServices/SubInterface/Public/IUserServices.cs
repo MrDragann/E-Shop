@@ -77,11 +77,12 @@ namespace IServices.SubInterface
         #region Заказы
         List<ModelOrder> Orders(string userName);
 
-        ModelUserInfo GoToCheckout(string userName);
+        ModelOrder GoToCheckout(string userName);
 
-        
 
-        ModelOrder NewOrder(string userName);
+        void ConfirmOrder(string userName);
+
+        //ModelOrder NewOrder(string userName);
         #endregion
         #region Действия над аккаунтом
         /// <summary>

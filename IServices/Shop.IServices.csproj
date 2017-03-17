@@ -56,12 +56,14 @@
     <Compile Include="Models\Product\ModelProduct.cs" />
     <Compile Include="Models\Product\ModelProductPreview.cs" />
     <Compile Include="Models\User\ModelCart.cs" />
-    <Compile Include="Models\User\ModelOrder.cs" />
+    <Compile Include="Models\User\Order\ModelOrder.cs" />
     <Compile Include="Models\User\ModelRole.cs" />
     <Compile Include="Models\User\ModelStatus.cs" />
     <Compile Include="Models\User\ModelUser.cs" />
     <Compile Include="Models\User\ModelUserInfo.cs" />
     <Compile Include="Models\User\ModelUserProfile.cs" />
+    <Compile Include="Models\User\Order\ModelOrderProduct.cs" />
+    <Compile Include="Models\User\Order\ModelStatusOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IAdminServices.cs" />
     <Compile Include="SubInterface\Admin\IAdminProductServices.cs" />

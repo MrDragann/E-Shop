@@ -72,18 +72,17 @@ namespace Shop.Controllers
         //    return RedirectToAction("Checkout", ModelOrder);
         //}
         [HttpPost]
-        public ActionResult Checkout(int? OrderId)
+        public ActionResult Checkout()
         {
-            if (OrderId != null) 
-            {
+            var ModelOrder = Services.Users.GoToCheckout(User.UserName);
+            return View(ModelOrder);
+        }
 
-            }
-            else
-            {
-                var ModelOrder = Services.Users.NewOrder(User.UserName);
-                //var user = Services.Users.GoToCheckout(User.UserName);
-                return View(ModelOrder);
-            }
+        [HttpPost]
+        public ActionResult ConfirmOrder()
+        {
+            Services.Users.ConfirmOrder(User.UserName);
+            return RedirectToAction("MyOrders");
         }
 
     }

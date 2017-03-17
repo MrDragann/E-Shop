@@ -539,25 +539,40 @@ namespace Services.Public
         #endregion
 
         #region Заказы
+        
         /// <summary>
-        /// Добавление корзины в заказы
+        /// Перейти к оформлению заказа
         /// </summary>
         /// <returns>List&lt;ModelOrder&gt;.</returns>
-        public ModelOrder NewOrder(string userName)
+        public ModelOrder GoToCheckout(string userName)
         {
             using (var db = new DataContext())
             {
                 var user = db.Users.FirstOrDefault(x => x.UserName == userName);
                 var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
                 var ModelOrder = db.Orders.Select(ShowOrders()).Where(p => p.UserId == user.Id && p.StatusOrderId == ModelEnumStatusOrder.Cart).FirstOrDefault();
-                ModelOrder.OrderProduct = order.OrderProduct.Select(o => ConverModelOrderProduct(o)).ToList(); ;
+                ModelOrder.OrderProduct = order.OrderProduct.Select(o => ConverModelOrderProduct(o)).ToList();
+                double TotalPrice = 0;
                 foreach (var product in ModelOrder.OrderProduct)
                 {
                     product.Product = db.Products.Select(ProductServices.Details()).FirstOrDefault(x => x.Id == product.ProductId);
+                    TotalPrice += product.Product.Price * product.Quantity;
                 }
-                order.StatusOrderId = EnumStatusOrder.Processing;
+                order.TotalPrice = TotalPrice;
                 db.SaveChanges();
+                ModelOrder.TotalPrice = TotalPrice;
                 return ModelOrder;
+            }
+        }
+        public void ConfirmOrder(string userName)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
+                
+                order.StatusOrderId = EnumStatusOrder.Confirmed;
+                db.SaveChanges();
             }
         }
         /// <summary>
@@ -617,17 +632,6 @@ namespace Services.Public
                 Quantity = orders.Quantity
 
             };
-        }
-
-        public ModelUserInfo GoToCheckout(string userName)
-        {
-            using (var db = new DataContext())
-            {
-                var user = db.Users.Select(DetailUserInfo()).FirstOrDefault(x => x.UserName == userName);
-                //var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Processing).FirstOrDefault();
-                user.UserProfile = db.UserProfiles.Select(ShowUserProfile()).FirstOrDefault(x => x.UserId == user.Id);
-                return user;
-            }
         }
 
         public ModelUserInfo GetUserInfo(string userName)

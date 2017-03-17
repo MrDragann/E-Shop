@@ -10,8 +10,8 @@ namespace DataModel.Models
 {
     public class UserProfile
     {
-       
-       
+        [Key]
+        [ForeignKey("User")]
         public int UserId { get; set; }
 
         public string FirstName { get; set; }
