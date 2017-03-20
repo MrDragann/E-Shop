@@ -243,6 +243,7 @@
     <Content Include="Areas\Admin\Views\Shared\AjaxStatuses.cshtml" />
     <Content Include="Areas\Admin\Views\Users\AjaxOrders.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Orders.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\AjaxOrderStatuses.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />
@@ -257,6 +258,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mainSctipts.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\price-range.js" />
@@ -289,6 +291,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Checkout.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
+    <Content Include="Views\Order\AjaxCart.cshtml" />
     <None Include="Views\Shared\filters.cshtml" />
     <Content Include="Views\Shared\UserAdress.cshtml" />
   </ItemGroup>

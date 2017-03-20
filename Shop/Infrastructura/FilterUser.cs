@@ -8,6 +8,8 @@ namespace Shop.Infrastructura
     /// </summary>
     public class FilterUser : AuthorizeAttribute
     {
+        public bool IsAuth { set { } get { return WebUser.CurrentUser.IsAuth; } }
+
         /// <summary>
         /// Вызывается, когда процесс запрашивает авторизацию.
         /// </summary>
@@ -36,13 +38,14 @@ namespace Shop.Infrastructura
             /// для получения доступа
             var role = Roles;
             var user = Users;
-            
+            var isAuth = IsAuth;
+
             bool included = false;
             if (role != "")
             {
                 included = WebUser.CheckRole(WebUser.CurrentUser.UserName, role);
             }
-            if (user == WebUser.CurrentUser.UserName || included)
+            if (user == WebUser.CurrentUser.UserName || included || isAuth)
             {
                 return WebUser.CurrentUser.IsAuth;
             }

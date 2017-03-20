@@ -1,4 +1,5 @@
-﻿@model IEnumerable<IServices.Models.ModelOrder>
+﻿@using Shop.Infrastructura.Extensions
+@model IEnumerable<IServices.Models.ModelOrder>
 @{
     Layout = null;
 }
@@ -49,16 +50,25 @@
                         <thead>
                             <tr>
                                 <th>
-                                    №
+                                    Номер заказа
                                 </th>
                                 <th>
-                                    № пользователя
+                                    Имя пользователя
+                                </th>
+                                <th>
+                                    Эл.адрес пользователя
                                 </th>
                                 <th>
                                     Дата заказа
                                 </th>
                                 <th>
                                     Статус
+                                </th>
+                                <th>
+                                    Дата подтверждения
+                                </th>
+                                <th>
+                                    Удалить
                                 </th>
                             </tr>
                         </thead>
@@ -67,27 +77,36 @@
                             {
                                 <tr class="gradeX odd" role="row">
                                     <td>
-                                        <button class="btn btn-link glyphicon glyphicon-trash DeleteUserId" data-toggle="confirmation" style="padding:0;" value="@order.Id"></button>
+                                        
                                         @order.Id
                                     </td>
-                                    <td class="sorting_1">
+                                    <td>
 
-                                        @order.UserId
+                                        @order.User.UserName
+
+                                    </td>
+                                    <td>
+
+                                        @order.User.Email
 
                                     </td>
                                     <td>
                                         @order.CreateDate
                                     </td>
                                     <td>
-                                        <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditStatusModal" style="padding:0;" value="@order.Id"></button>
-                                        @order.StatusOrderId
+                                        <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditOrderStatusModal" style="padding:0;" value="@order.Id"></button>
+                                        @order.StatusOrderId.EnumOrderDescription()
 
+                                    </td>
+                                    <td>
+                                        @order.CreateDate
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-link glyphicon glyphicon-trash DeleteUserId" data-toggle="confirmation" style="padding:0;" value="@order.Id"></button>
                                     </td>
                                 </tr>
                             }
-
                         </tbody>
-
                     </table>
                 </div>
                 
@@ -96,4 +115,23 @@
     </div>
     <!-- END EXAMPLE TABLE PORTLET-->
 </div>
+
+<div id="EditOrderStatusModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Изменить статус заказа</h4>
+            </div>
+            <div class="modal-body" id="EditOrderStatusModalBody">
+                @Html.Action("AjaxOrderStatuses", "Users", new { area = "Admin" })
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/bootbox.min.js"></script>
+
 

@@ -30,11 +30,21 @@ namespace IServices.SubInterface
         /// <param name="userId">Идентификатор пользователя</param>
         /// <param name="roleId">Выбранная роль</param>
         void EditRole(int userId, ModelEnumTypeRoles roleId);
-
+        /// <summary>
+        /// Изменение статуса заказа
+        /// </summary>
+        /// <param name="OrderId"></param>
+        /// <param name="StatusId"></param>
+        void EditOrderStatus(int OrderId, ModelEnumStatusOrder StatusId);
         /// <summary>
         /// Вывод всех заказов
         /// </summary>
         /// <returns>List&lt;ModelOrder&gt;.</returns>
         List<ModelOrder> Orders();
+        /// <summary>
+        /// Вывод все имеющихся статусов заказов
+        /// </summary>
+        /// <returns></returns>
+        List<ModelStatusOrder> GetOrderStatuses();
     }
 }

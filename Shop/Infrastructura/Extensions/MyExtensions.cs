@@ -1,5 +1,7 @@
-﻿using System;
+﻿using IServices.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -43,6 +45,34 @@ namespace Shop.Infrastructura.Extensions
 
             // Return the string encoded salt
             return Convert.ToBase64String(salt);
+        }
+        /// <summary>
+        /// Описание статуса заказа
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        static public string EnumOrderDescription(this ModelEnumStatusOrder value)
+        {
+            var attribute = value.GetType()
+                .GetField(value.ToString())
+                .GetCustomAttributes(false)
+                .First() as DescriptionAttribute;
+
+            return attribute.Description;
+        }
+        /// <summary>
+        /// Описание статуса пользователя
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        static public string EnumUserDescription(this ModelEnumStatusUser value)
+        {
+            var attribute = value.GetType()
+                .GetField(value.ToString())
+                .GetCustomAttributes(false)
+                .First() as DescriptionAttribute;
+
+            return attribute.Description;
         }
     }
 

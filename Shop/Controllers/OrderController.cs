@@ -1,4 +1,5 @@
 ﻿using IServices.Models;
+using Shop.Infrastructura;
 using System.Web.Mvc;
 
 namespace Shop.Controllers
@@ -18,6 +19,10 @@ namespace Shop.Controllers
         /// </summary>
         /// <returns>Содержимое корзины</returns>
         public ViewResult Cart()
+        {
+            return View();
+        }
+        public ActionResult AjaxCart()
         {
             return View(Services.Users.GetCart(User.UserName));
         }
@@ -58,26 +63,21 @@ namespace Shop.Controllers
             Services.Users.DeleteItem(productId, User.UserName);
 
             return Json("Запрос успешно выполнен");
-        }        
-
+        }
+        [FilterUser(IsAuth = true)]
         public ActionResult MyOrders()
         {
             var orders = Services.Users.Orders(User.UserName);
             return View(orders);
         }
-        //[HttpPost]
-        //public ActionResult NewOrder()
-        //{
-        //    var ModelOrder = Services.Users.NewOrder(User.UserName);
-        //    return RedirectToAction("Checkout", ModelOrder);
-        //}
+        [FilterUser(IsAuth = true)]
         [HttpPost]
         public ActionResult Checkout()
         {
             var ModelOrder = Services.Users.GoToCheckout(User.UserName);
             return View(ModelOrder);
         }
-
+        [FilterUser(IsAuth = true)]
         [HttpPost]
         public ActionResult ConfirmOrder()
         {

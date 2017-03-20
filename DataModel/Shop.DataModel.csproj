@@ -77,9 +77,9 @@
     <Compile Include="Migrations\201703131040469_orderproductsprice.Designer.cs">
       <DependentUpon>201703131040469_orderproductsprice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703150620259_userprofile1.cs" />
-    <Compile Include="Migrations\201703150620259_userprofile1.Designer.cs">
-      <DependentUpon>201703150620259_userprofile1.cs</DependentUpon>
+    <Compile Include="Migrations\201703201123210_addressOrder.cs" />
+    <Compile Include="Migrations\201703201123210_addressOrder.Designer.cs">
+      <DependentUpon>201703201123210_addressOrder.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Product\Category.cs" />
     <Compile Include="DataContext.cs" />
@@ -169,8 +169,8 @@
     <EmbeddedResource Include="Migrations\201703131040469_orderproductsprice.resx">
       <DependentUpon>201703131040469_orderproductsprice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703150620259_userprofile1.resx">
-      <DependentUpon>201703150620259_userprofile1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703201123210_addressOrder.resx">
+      <DependentUpon>201703201123210_addressOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

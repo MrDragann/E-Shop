@@ -1,4 +1,4 @@
-﻿@using IServices.Models
+﻿@using Shop.Infrastructura.Extensions
 @model IEnumerable<IServices.Models.ModelOrder>
 @{
     ViewBag.Title = "Мои заказы";
@@ -66,10 +66,16 @@
                                     <p class="cart_total_price">Cтоимость заказа: @(order.TotalPrice.ToString("# р.") )</p>
                                 </td>
                                 <td class="text-center">
-                                    <p>Статус: @order.StatusOrderId</p>
-                                    
-                                    <button class="btn btn-default update" style="margin:0;">Подтвердить получение</button>
-                                    
+                                    <h4>Статус: @order.StatusOrderId.EnumOrderDescription()</h4>
+                                    @if (@order.StatusOrderId == IServices.Models.ModelEnumStatusOrder.ShippedOut)
+                                    {
+                                        <button id="ConfirmReceipt" value="@order.Id" class="btn btn-default update" style="margin:0;">Подтвердить получение</button>
+                                    }
+                                    @if (@order.StatusOrderId == IServices.Models.ModelEnumStatusOrder.Confirmed)
+                                    {
+                                        <button id="CancelTheOrder" value="@order.Id" class="btn btn-default update" style="margin:0;">Отменить заказ</button>
+                                    }
+
                                 </td>
                             </tr>
                         </tfoot>
@@ -153,86 +159,5 @@
     </div>
 </section>*@
 
-@section scripts{
-<script>
-    $(document).ready(function () {
 
-        function EditQuantity(productId, Quantity) {
-
-            var formData = new FormData();
-
-            formData.append("productId", productId);
-            formData.append("Quantity", Quantity);
-
-            $.ajax({
-                type: "POST",
-                url: '/Order/EditQuantity',
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        }
-
-        $('input.Quantity').change(function () {
-            //alert($(this).val());
-            var productId = $(this).attr("id").substr(9);
-            var Quantity = $(this).val();
-            EditQuantity(productId, Quantity);
-            
-        });
-
-        $('button.QuantityDown').click(function () {
-            var ItemId = $(this).attr("id").substr(13);
-            var ItemQuantity = $('input#Quantity_' + ItemId);
-            var ItemQuantityValue = ItemQuantity.val();
-            if (ItemQuantityValue > 1) {
-                var NewQuantity = parseInt(ItemQuantityValue) - 1;
-                ItemQuantity.val(NewQuantity);
-                EditQuantity(ItemId, NewQuantity);
-            }
-            
-        });
-
-        $('button.QuantityUp').click(function () {
-            var ItemId = $(this).attr("id").substr(11);
-            var ItemQuantity = $('input#Quantity_' + ItemId);
-            var ItemQuantityValue = ItemQuantity.val();
-            if (ItemQuantityValue < 30) {
-                var NewQuantity = parseInt(ItemQuantityValue) + 1;
-                ItemQuantity.val(NewQuantity);
-                EditQuantity(ItemId, NewQuantity);
-            }
-
-        });
-
-        $('button.cart_quantity_delete').click(function () {
-            var productId = $(this).attr("id").substr(15);
-
-            var formData = new FormData();
-
-            formData.append("productId", productId);
-
-            $.ajax({
-                type: "POST",
-                url: '/Order/RemoveFromCart',
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (result) {
-                    console.log(result);
-                },
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-    });
-</script> 
-}
 

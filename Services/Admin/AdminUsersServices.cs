@@ -72,6 +72,28 @@ namespace Services.Admin
             }
         }
         /// <summary>
+        /// Изменение статуса заказа
+        /// </summary>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        /// <param name="StatusId">Новый статус</param>
+        public void EditOrderStatus(int OrderId, ModelEnumStatusOrder StatusId)
+        {
+            try
+            {
+                using (var db = new DataContext())
+                {
+                    var order = db.Orders.FirstOrDefault(_ => _.Id == OrderId);
+                    order.StatusOrderId= (EnumStatusOrder)StatusId;
+
+                    db.SaveChanges();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        /// <summary>
         /// Добавляет роль пользователю 
         /// </summary>
         /// <param name="id">Список пользователй</param>
@@ -90,7 +112,26 @@ namespace Services.Admin
             }
             catch (Exception ex) { }
         }
-
+        /// <summary>
+        /// Вывод имеющихся статусов заказов
+        /// </summary>
+        /// <returns>List&lt;ModelStatusUser&gt;.</returns>
+        public List<ModelStatusOrder> GetOrderStatuses()
+        {
+            using (var db = new DataContext())
+            {
+                var statuses = db.StatusOrders.Select(DetailOrderStatus()).ToList();
+                return statuses;
+            }
+        }
+        /// <summary>
+        /// Конвертирование модели статусов заказов
+        /// </summary>
+        /// <returns>Expression&lt;Func&lt;StatusUser, ModelStatusUser&gt;&gt;.</returns>
+        public static Expression<Func<StatusOrder, ModelStatusOrder>> DetailOrderStatus()
+        {
+            return status => new ModelStatusOrder { Id = (ModelEnumStatusOrder)status.Id, Name = status.Name };
+        }
         public static Expression<Func<User, ModelUserInfo>> ShowUsers()
         {
             return users => new ModelUserInfo()
@@ -114,7 +155,7 @@ namespace Services.Admin
         {
             using (var db = new DataContext())
             {
-                var order = db.Orders.Include(x => x.OrderProduct).Select(ShowOrders()).ToList();
+                var order = db.Orders.Include(x => x.OrderProduct).Include(x=>x.User).Select(ShowOrders()).OrderByDescending(x=>x.StatusOrderId).ToList();
                 return order;
             }
         }
@@ -126,8 +167,12 @@ namespace Services.Admin
                 Id = orders.Id,
                 UserId = orders.UserId,
                 CreateDate = orders.CreateDate,
-                StatusOrderId = (ModelEnumStatusOrder)orders.StatusOrderId
-
+                StatusOrderId = (ModelEnumStatusOrder)orders.StatusOrderId,
+                User = new ModelUserInfo()
+                {
+                    UserName=orders.User.UserName,
+                    Email=orders.User.Email
+                }
             };
         }
         #endregion

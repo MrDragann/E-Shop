@@ -32,9 +32,18 @@ namespace IServices.Models
         /// <value>Дата заказа</value>
         public DateTime CreateDate { get; set; }
         /// <summary>
+        /// Дата получения
+        /// </summary>
+        /// <value>Дата получения</value>
+        public DateTime ReceivingDate { get; set; }
+        /// <summary>
         /// Общая стоимость заказа
         /// </summary>
         public double TotalPrice { get; set; }
+        /// <summary>
+        /// Адрес заказа
+        /// </summary>
+        public string Address { get; set; }
         /// <summary>
         /// Ссылка на список товаров в заказе
         /// </summary>
@@ -44,6 +53,6 @@ namespace IServices.Models
         /// Ссылка на список пользователей
         /// </summary>
         /// <value>Список пользователей</value>
-        public List<ModelUserInfo> User { get; set; }
+        public ModelUserInfo User { get; set; }
     }
 }

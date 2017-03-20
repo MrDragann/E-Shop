@@ -1,0 +1,99 @@
+﻿@model IServices.Models.ModelCarts
+@{
+    Layout = null;
+}
+<div class="container">
+    <div class="breadcrumbs">
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index","Home")">Главная</a></li>
+            <li class="active">Корзина</li>
+        </ol>
+    </div>
+    @if (Model.ProductCart == null)
+    {
+        <div>
+            <h2>
+                Ваша корзина пуста. Помогите ей наполниться, вернитесь к покупкам!
+            </h2>
+            <h4 style="text-decoration:none;margin:25px 0 50px 0;"><a href="@Url.Action("Index","Home")"><i style="padding-right:10px;" class="fa fa-arrow-left"></i>Вернуться к покупкам</a></h4>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Продукт</td>
+                        <td class="description"></td>
+                        <td class="price">Цена</td>
+                        <td class="quantity">Количество</td>
+                        <td class="total">Общая цена</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.GetCart())
+                    {
+
+                        <tr>
+                            <td class="cart_product">
+                                <a href="@Url.Action("Details","Home",new { id = item.Product.Id })"><img src="~/Content/Images/home/@item.Product.FileName" alt="" width="110" height="110"></a>
+                            </td>
+                            <td class="cart_description">
+                                <h4><a href="@Url.Action("Details","Home",new { id = item.Product.Id })">@item.Product.Name</a></h4>
+                                <p>Product ID: @item.Product.Id</p>
+                            </td>
+                            <td class="cart_price">
+                                <p>@item.Product.Price р.</p>
+                            </td>
+                            <td class="cart_quantity">
+                                <div class="cart_quantity_button">
+                                    <button class="btn btn-link QuantityDown" id="QuantityDown_@item.Product.Id"> <i class="fa fa-minus"></i> </button>
+                                    <input class="cart_quantity_input Quantity" type="text" id="Quantity_@item.Product.Id" name="Quantity" value="@item.Quantity" autocomplete="off" size="2">
+                                    <button class="btn btn-link QuantityUp" id="QuantityUp_@item.Product.Id"> <i class="fa fa-plus"></i> </button>
+                                </div>
+                            </td>
+                            <td class="cart_total">
+                                <p class="cart_total_price">@((item.Quantity * item.Product.Price).ToString("# р.") )</p>
+                            </td>
+                            <td class="cart_delete">
+                                <button class="cart_quantity_delete btn btn-link" id="RemoveFromCart_@item.Product.Id" type="button">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-right">
+                            <h4>Итого к оплате:</h4>
+                        </td>
+                        <td class="text-right">
+                            <h4>@Model.ComputeTotalValue().ToString("# руб")</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-left">
+                            @using (Html.BeginForm("Checkout", "Order"))
+                            {
+                                <button style="float:right;" type="submit" class="btn btn-default check_out">Перейти к оформлению</button>
+                            }
+                        </td>
+                        
+
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+
+</div>
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.scrollUp.min.js"></script>
+<script src="~/Scripts/mainSctipts.js"></script>

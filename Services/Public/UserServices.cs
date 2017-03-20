@@ -192,6 +192,7 @@ namespace Services.Public
                 return statuses;
             }
         }
+        
         /// <summary>
         /// Конвертирование модели ролей пользователей
         /// </summary>
@@ -209,6 +210,8 @@ namespace Services.Public
         {
             return status => new ModelStatusUser { Id = (ModelEnumStatusUser)status.Id, Name = status.Name };
         }
+
+        
 
         public void EditUserProfile(ModelUserProfile model, string userName)
         {
@@ -564,13 +567,17 @@ namespace Services.Public
                 return ModelOrder;
             }
         }
+        /// <summary>
+        /// Подтверждение заказа
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
         public void ConfirmOrder(string userName)
         {
             using (var db = new DataContext())
             {
-                var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+                var user = db.Users.Include(x=>x.UserProfile).FirstOrDefault(x => x.UserName == userName);
                 var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Cart).FirstOrDefault();
-                
+                order.Address = GlueAddress(user.UserProfile);
                 order.StatusOrderId = EnumStatusOrder.Confirmed;
                 db.SaveChanges();
             }
@@ -597,7 +604,18 @@ namespace Services.Public
                     return orders;
             }
         }
-
+        /// <summary>
+        /// Склеивание адреса заказа в строку
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public string GlueAddress(UserProfile model)
+        {
+            string Address = (
+                    model.FirstName + ";" + model.LastName + ";" + model.Phone + ";" + model.Country + ";" + model.City + ";" + model.StreetAddress
+                );
+            return Address;
+        }
         public static Expression<Func<Order, ModelOrder>> ShowOrders()
         {
             return orders => new ModelOrder()

@@ -8,7 +8,7 @@ namespace Shop.Areas.Admin.Controllers
     /// Представляет методы осуществляющие действия над пользователями
     /// </summary>
     /// <seealso cref="Shop.Areas.Admin.Controllers.BaseController" />
-    //[FilterUser(Roles = "Администратор")]
+    [FilterUser(Roles = "Администратор")]
     public class UsersController : BaseController
     {
 
@@ -118,6 +118,27 @@ namespace Shop.Areas.Admin.Controllers
         {
             var orders = AdminServices.Users.Orders();
             return View(orders);
+        }
+        /// <summary>
+        /// Вывод имеющихся статусов заказов
+        /// </summary>
+        /// <returns>ActionResult.</returns>
+        public ActionResult AjaxOrderStatuses()
+        {
+            var statuses = AdminServices.Users.GetOrderStatuses();
+            return View(statuses);
+        }
+        /// <summary>
+        /// Изменяет статус заказа
+        /// </summary>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        /// <param name="StatusId">Новый статус</param>
+        /// <returns>ActionResult.</returns>
+        [HttpPost]
+        public ActionResult EditOrderStatus(int OrderId, ModelEnumStatusOrder StatusId)
+        {
+            AdminServices.Users.EditOrderStatus(OrderId, StatusId);
+            return Json("Запрос успешно выполнен");
         }
         #endregion
     }

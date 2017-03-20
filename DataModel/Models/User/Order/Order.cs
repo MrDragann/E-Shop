@@ -36,9 +36,18 @@ namespace DataModel.Models
         /// <value>Дата заказа</value>
         public DateTime CreateDate { get; set; }
         /// <summary>
+        /// Дата получения
+        /// </summary>
+        /// <value>Дата получения</value>
+        public DateTime ReceivingDate { get; set; }
+        /// <summary>
         /// Общая стоимость заказа
         /// </summary>
         public double TotalPrice { get; set; }
+        /// <summary>
+        /// Адрес заказа
+        /// </summary>
+        public string Address { get; set; }
         /// <summary>
         /// Ссылка на список товаров в заказе
         /// </summary>

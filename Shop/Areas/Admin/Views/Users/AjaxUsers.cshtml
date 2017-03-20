@@ -1,4 +1,5 @@
-﻿@model IEnumerable<IServices.Models.ModelUserInfo>
+﻿@using Shop.Infrastructura.Extensions
+@model IEnumerable<IServices.Models.ModelUserInfo>
 @{
     Layout = null;
 }
@@ -69,16 +70,35 @@
                             @user.RegistrationDate
                         </td>
                         <td class="center">
-                            <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditRoleModal" style="padding:0;" value="@user.Id"></button>
-                            @foreach(var role in user.Roles)
+                            
+                            @foreach (var role in user.Roles)
                             {
+                                <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditRoleModal" style="padding:0;" value="@user.Id"></button>
                                 @role.Name<br />
                             }
                             
                         </td>
                         <td>
                             <button class="btn btn-link glyphicon glyphicon-edit " data-toggle="modal" data-target="#EditStatusModal" style="padding:0;" value="@user.Id"></button>
-                            @user.StatusUserId
+                            @if (user.StatusUserId == IServices.Models.ModelEnumStatusUser.Confirmed)
+                            {
+                                <span class="label label-sm label-success">
+                                    @user.StatusUserId.EnumUserDescription()
+                                </span>
+                            }
+                            else if (user.StatusUserId == IServices.Models.ModelEnumStatusUser.NConfirmed)
+                            {
+                                <span class="label label-sm label-warning">
+                                    @user.StatusUserId.EnumUserDescription()
+                                </span>
+                            }
+                            else if (user.StatusUserId == IServices.Models.ModelEnumStatusUser.Locked)
+                            {
+                                <span class="label label-sm label-default">
+                                    @user.StatusUserId.EnumUserDescription()
+                                </span>
+                            }
+
                         </td>
                     </tr>
                 }
@@ -97,7 +117,7 @@
                 <h4 class="modal-title">Назначить роль пользователю</h4>
             </div>
             <div class="modal-body" id="EditRoleModalBody">
-                
+                @Html.Action("AjaxRoles", "Users", new { area = "Admin" })
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
@@ -114,7 +134,7 @@
                 <h4 class="modal-title">Изменить статус пользователя</h4>
             </div>
             <div class="modal-body" id="EditStatusModalBody">
-
+                @Html.Action("AjaxStatuses", "Users", new { area = "Admin" })
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
@@ -162,7 +182,5 @@
 
                 $('#sample_1_wrapper').load("http://localhost:58081/Admin/Users/AjaxUsers");
             };
-            $('#EditRoleModalBody').load("http://localhost:58081/Admin/Users/AjaxRoles");
-            $('#EditStatusModalBody').load("http://localhost:58081/Admin/Users/AjaxStatuses");
         });
     </script>

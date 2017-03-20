@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,24 +35,29 @@ namespace IServices.Models
     public enum ModelEnumStatusOrder
     {
         /// <summary>
-        /// Корзина
+        /// В корзине
         /// </summary>
+        [Description("В корзине")]
         Cart,
         /// <summary>
         /// Подтвержден
         /// </summary>
+        [Description("Подтвержден")]
         Confirmed,
         /// <summary>
         /// Отправлен
         /// </summary>
+        [Description("Отправлен")]
         ShippedOut,
         /// <summary>
         /// Доставлен
         /// </summary>
+        [Description("Доставлен")]
         Delivered,
         /// <summary>
         /// Отказ
         /// </summary>
+        [Description("Отказ")]
         Denial
     }
 }

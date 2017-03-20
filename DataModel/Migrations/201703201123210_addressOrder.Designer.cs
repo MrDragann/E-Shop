@@ -7,13 +7,13 @@ namespace DataModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class userprofile1 : IMigrationMetadata
+    public sealed partial class addressOrder : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(userprofile1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addressOrder));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703150620259_userprofile1"; }
+            get { return "201703201123210_addressOrder"; }
         }
         
         string IMigrationMetadata.Source

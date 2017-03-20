@@ -1,4 +1,6 @@
-﻿namespace IServices.Models
+﻿using System.ComponentModel;
+
+namespace IServices.Models
 {
     /// <summary>
     /// Возможные статусы пользователя
@@ -8,14 +10,17 @@
         /// <summary>
         /// Заблокирован
         /// </summary>
+        [Description("Заблокирован")]
         Locked,
         /// <summary>
         /// Подтвержден
         /// </summary>
+        [Description("Подтвержден")]
         Confirmed,
         /// <summary>
         /// Не подтвержден
         /// </summary>
+        [Description("Не подтвержден")]
         NConfirmed
     }
     /// <summary>

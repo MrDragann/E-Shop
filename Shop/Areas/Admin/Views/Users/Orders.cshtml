@@ -4,5 +4,36 @@
 </div>
 
 @section scripts{
-       
+       <script>
+    $(document).ready(function () {
+        var OrderId;
+        $('[data-target=#EditOrderStatusModal]').click(function () {
+            OrderId = $(this).val();
+        });
+
+        $('button.EditOrderStatus').click(function () {
+
+            var formaData = new FormData();
+
+            var status = $(this).val();
+
+            formaData.append("OrderId", OrderId);
+            formaData.append("StatusId", status);
+
+            $.ajax({
+                type: "POST",
+                url: '/Admin/Users/EditOrderStatus',
+                contentType: false,
+                processData: false,
+                data: formaData,
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 }
