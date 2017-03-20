@@ -16,17 +16,20 @@
             <!-- Сортировка -->
             <span class="sortButton">Сортировка: </span>
             <div class="btn-group sortButton">
-
                 <a class="btn btn-default" href="@Url.Action("index","Home")">По умолчанию</a>
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                     <span class="sr-only">Меню с переключением</span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"], sort = TypeSort.NameAsc })">По названию, от А до Я</a></li>
-                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"], sort = TypeSort.NameDesc })">По названию, от Я до А</a></li>
-                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"], sort = TypeSort.PriceAsc })">По цене, сначала недорогие</a></li>
-                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"], sort = TypeSort.PriceDesc })">По цене, сначала дорогие</a></li>
+                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"],
+                                sort = TypeSort.NameAsc })">По названию, от А до Я</a></li>
+                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"],
+                                sort = TypeSort.NameDesc })">По названию, от Я до А</a></li>
+                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"],
+                                sort = TypeSort.PriceAsc })">По цене, сначала недорогие</a></li>
+                    <li><a href="@Url.Action("Category","Home",new { Category = Request.QueryString["Category"],
+                                sort = TypeSort.PriceDesc })">По цене, сначала дорогие</a></li>
                 </ul>
             </div>
         </div>

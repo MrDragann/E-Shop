@@ -132,7 +132,10 @@
     <!-- END EXAMPLE TABLE PORTLET-->
 </div>
 <!--Добавление товара-->
-
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="/Areas/Admin/Metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/Areas/Admin/Metronic/admin/pages/scripts/components-pickers.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
 <div class="modal fade bs-modal-lg" id="AddProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -221,8 +224,10 @@
                         </div>
                         <label class="control-label col-md-2" for="ProductDateAdd">Дата добавления</label>
                         <div class="col-md-3">
+                            <div id="datePicker"class="date-picker" data-date-format="mm/dd/yyyy">
+                            </div>
                             @*<div class="date-picker" data-date-format="mm/dd/yyyy">*@
-                            <input type="date" name="ProductDateAdd" id="ProductDateAdd" />
+                            @*<input type="date" name="ProductDateAdd" id="ProductDateAdd" />*@
                             @*</div>*@
                         </div>
                     </div>
@@ -253,6 +258,7 @@
 <script>
 
     $(document).ready(function () {
+        ComponentsPickers.init();
         //Обновление данных по товарам
         $('#reloadProducts').click(function () {
             updateProducts();
