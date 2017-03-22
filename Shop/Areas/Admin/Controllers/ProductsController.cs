@@ -72,7 +72,7 @@ namespace Shop.Areas.Admin.Controllers
         {
             var products = Services.Product.ProductsDetails();
 
-            return View(products);//("",products);
+            return View(products);
         }
         /// <summary>
         /// Вывод списка производителей

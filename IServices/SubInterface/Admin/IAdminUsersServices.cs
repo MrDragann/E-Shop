@@ -40,12 +40,18 @@ namespace IServices.SubInterface
         /// Вывод всех заказов
         /// </summary>
         /// <returns>List&lt;ModelOrder&gt;.</returns>
-        List<ModelOrder> Orders();
+        List<ModelOrder> Orders(string UserName);
         /// <summary>
         /// Вывод все имеющихся статусов заказов
         /// </summary>
         /// <returns></returns>
         List<ModelStatusOrder> GetOrderStatuses();
+        /// <summary>
+        /// Выполняет поиск пользователей
+        /// </summary>
+        /// <param name="term">Введенная строка</param>
+        /// <returns></returns>
+        List<ModelUser> SearchUser(string term);
         #region Обратная связь
         /// <summary>
         /// Вывод всех сообщений обратной связи

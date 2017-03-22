@@ -82,7 +82,18 @@ namespace IServices.SubInterface
 
         void ConfirmOrder(string userName);
 
-        //ModelOrder NewOrder(string userName);
+        /// <summary>
+        /// Подтверждение получения заказа
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        void ConfirmReceipt(string userName, int OrderId);
+        /// <summary>
+        /// Отмена заказа
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        void CancelOrder(string userName, int OrderId);
         #endregion
         #region Действия над аккаунтом
         /// <summary>

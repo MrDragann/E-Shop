@@ -605,6 +605,36 @@ namespace Services.Public
             }
         }
         /// <summary>
+        /// Подтверждение получения заказа
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        public void ConfirmReceipt(string userName, int OrderId)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.Include(x => x.UserProfile).FirstOrDefault(x => x.UserName == userName);
+                var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.ShippedOut).FirstOrDefault(x=>x.Id==OrderId);
+                order.StatusOrderId = EnumStatusOrder.Delivered;
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// Отмена заказа
+        /// </summary>
+        /// <param name="userName">Имя пользователя</param>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        public void CancelOrder(string userName, int OrderId)
+        {
+            using (var db = new DataContext())
+            {
+                var user = db.Users.Include(x => x.UserProfile).FirstOrDefault(x => x.UserName == userName);
+                var order = db.Orders.Include(x => x.OrderProduct).Where(p => p.UserId == user.Id && p.StatusOrderId == EnumStatusOrder.Confirmed).FirstOrDefault(x => x.Id == OrderId);
+                order.StatusOrderId = EnumStatusOrder.Denial;
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
         /// Склеивание адреса заказа в строку
         /// </summary>
         /// <param name="model"></param>
@@ -692,6 +722,7 @@ namespace Services.Public
             };
         }
         #endregion
+
         #region Обратная связь
         /// <summary>
         /// Добавление нового сообщения обратной связи

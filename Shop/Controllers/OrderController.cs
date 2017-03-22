@@ -64,12 +64,20 @@ namespace Shop.Controllers
 
             return Json("Запрос успешно выполнен");
         }
+        /// <summary>
+        /// Вывод всех имеющихсся заказов пользователя
+        /// </summary>
+        /// <returns></returns>
         [FilterUser(IsAuth = true)]
         public ActionResult MyOrders()
         {
             var orders = Services.Users.Orders(User.UserName);
             return View(orders);
         }
+        /// <summary>
+        /// Переход к оформлению заказа
+        /// </summary>
+        /// <returns></returns>
         [FilterUser(IsAuth = true)]
         [HttpPost]
         public ActionResult Checkout()
@@ -77,11 +85,39 @@ namespace Shop.Controllers
             var ModelOrder = Services.Users.GoToCheckout(User.UserName);
             return View(ModelOrder);
         }
+        /// <summary>
+        /// Подтверждение оформления заказа
+        /// </summary>
+        /// <returns></returns>
         [FilterUser(IsAuth = true)]
         [HttpPost]
         public ActionResult ConfirmOrder()
         {
             Services.Users.ConfirmOrder(User.UserName);
+            return RedirectToAction("MyOrders");
+        }
+        /// <summary>
+        /// Подтверждение получения заказа
+        /// </summary>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        /// <returns></returns>
+        [FilterUser(IsAuth = true)]
+        [HttpPost]
+        public ActionResult ConfirmReceipt(int OrderId)
+        {
+            Services.Users.ConfirmReceipt(User.UserName, OrderId);
+            return RedirectToAction("MyOrders");
+        }
+        /// <summary>
+        /// Отмена заказа
+        /// </summary>
+        /// <param name="OrderId">Идентификатор заказа</param>
+        /// <returns></returns>
+        [FilterUser(IsAuth = true)]
+        [HttpPost]
+        public ActionResult CancelOrder(int OrderId)
+        {
+            Services.Users.CancelOrder(User.UserName, OrderId);
             return RedirectToAction("MyOrders");
         }
 

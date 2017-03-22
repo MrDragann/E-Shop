@@ -69,13 +69,18 @@
                                     <h4>Статус: @order.StatusOrderId.EnumOrderDescription()</h4>
                                     @if (@order.StatusOrderId == IServices.Models.ModelEnumStatusOrder.ShippedOut)
                                     {
-                                        <button id="ConfirmReceipt" value="@order.Id" class="btn btn-default update" style="margin:0;">Подтвердить получение</button>
+                                        using (Html.BeginForm("ConfirmReceipt", "Order"))
+                                        {
+                                            <button id="ConfirmReceipt" value="@order.Id" name="OrderId" class="btn btn-default update" style="margin:0;">Подтвердить получение</button>
+                                        }
                                     }
                                     @if (@order.StatusOrderId == IServices.Models.ModelEnumStatusOrder.Confirmed)
                                     {
-                                        <button id="CancelTheOrder" value="@order.Id" class="btn btn-default update" style="margin:0;">Отменить заказ</button>
+                                        using (Html.BeginForm("CancelOrder", "Order"))
+                                        {
+                                            <button id="CancelTheOrder" value="@order.Id" name="OrderId" class="btn btn-default update" style="margin:0;">Отменить заказ</button>
+                                        }
                                     }
-
                                 </td>
                             </tr>
                         </tfoot>

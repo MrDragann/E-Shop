@@ -1,5 +1,7 @@
 ﻿using IServices.Models;
 using Shop.Infrastructura;
+using Shop.Infrastructura.Constants;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Shop.Areas.Admin.Controllers
@@ -114,10 +116,20 @@ namespace Shop.Areas.Admin.Controllers
         /// Частичное представление таблицы заказов
         /// </summary>
         /// <returns>ActionResult.</returns>
-        public ActionResult AjaxOrders()
+        public ActionResult AjaxOrders(string UserName, int pageNum = 0)
         {
-            var orders = AdminServices.Users.Orders();
-            return View(orders);
+            var orders = AdminServices.Users.Orders(UserName);
+            MyConstats.PageNum = pageNum;
+            MyConstats.ItemsCount = orders.Count();
+            int pageSize = 5;
+            return View(orders.Skip(pageSize * pageNum).Take(pageSize));
+        }
+        public ActionResult AutocompleteUsersSearch(string term)
+        {
+            var users = AdminServices.Users.SearchUser(term);
+            var models = users.Select(x => new { value = x.UserName }).ToList();
+            return Json(models, JsonRequestBehavior.AllowGet);
+
         }
         /// <summary>
         /// Вывод имеющихся статусов заказов

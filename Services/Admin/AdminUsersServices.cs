@@ -146,20 +146,64 @@ namespace Services.Admin
 
             };
         }
+
+        /// <summary>
+        /// Выполняет поиск пользователей
+        /// </summary>
+        /// <param name="term">Введенная строка</param>
+        /// <returns></returns>
+        public List<ModelUser> SearchUser(string term)
+        {
+            using (var db = new DataContext())
+            {
+                var users = db.Users.Where(x => x.UserName.Contains(term))
+                                    .Select(x => new ModelUser() { UserName = x.UserName })
+                                    .Distinct().ToList();
+                return users;
+            }
+        }
         #region Заказы
         /// <summary>
         /// Вывод всех заказов
         /// </summary>
         /// <returns>List&lt;ModelOrder&gt;.</returns>
-        public List<ModelOrder> Orders()
+        public List<ModelOrder> Orders(string UserName)
         {
-            using (var db = new DataContext())
+            if (UserName != null)
             {
-                var order = db.Orders.Include(x => x.OrderProduct).Include(x=>x.User).Select(ShowOrders()).OrderByDescending(x=>x.StatusOrderId).ToList();
-                return order;
+                using (var db = new DataContext())
+                {
+                    var user = db.Users.Include(x => x.Order).Where(x => x.UserName == UserName).FirstOrDefault();
+                    var order = user.Order.Select(x => ConvertModelOrder(x)).OrderByDescending(x => x.StatusOrderId).ToList();
+                    return order;
+                }
             }
+            else
+            {
+                using (var db = new DataContext())
+                {
+                    var order = db.Orders.Include(x => x.OrderProduct).Include(x => x.User).Select(ShowOrders()).OrderByDescending(x => x.StatusOrderId).ToList();
+                    return order;
+                }
+            }
+            
         }
+        private static ModelOrder ConvertModelOrder(Order order)
+        {
 
+            return new ModelOrder()
+            {
+                Id = order.Id,
+                UserId = order.UserId,
+                CreateDate = order.CreateDate,
+                StatusOrderId = (ModelEnumStatusOrder)order.StatusOrderId,
+                User = new ModelUserInfo()
+                {
+                    UserName = order.User.UserName,
+                    Email = order.User.Email
+                }
+            };
+        }
         public static Expression<Func<Order, ModelOrder>> ShowOrders()
         {
             return orders => new ModelOrder()
@@ -176,6 +220,7 @@ namespace Services.Admin
             };
         }
         #endregion
+
         #region Обратная связь
         /// <summary>
         /// Вывод всех сообщений обратной связи

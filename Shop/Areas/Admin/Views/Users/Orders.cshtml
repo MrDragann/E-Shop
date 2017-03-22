@@ -34,6 +34,18 @@
                 }
             });
         });
+
+        $('#SearchUserOrders').click(function () {
+            var UserName = $('#inputSearch').val();
+            var url = '@Url.Action("AjaxOrders", "Users")?UserName=' + UserName;
+            $('#Orders').load(url);
+        });
+        $(function () {
+            $("[data-autocomplete-source]").each(function () {
+                var target = $(this);
+                target.autocomplete({ source: target.attr("data-autocomplete-source") });
+            });
+        });
     });
 </script>
 }
