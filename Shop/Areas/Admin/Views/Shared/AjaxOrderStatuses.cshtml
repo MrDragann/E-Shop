@@ -16,7 +16,7 @@
 <div class="form-group">
     @*<label class="control-label col-md-3">Large Input</label>*@
     <div class="col-md-4">
-        <select class="form-control input-large select2me input-lg" data-placeholder="Select...">
+        <select id="OrderStatuses" class="form-control input-large select2me input-lg" data-placeholder="Select...">
             @foreach (var status in Model)
             {
                 <option value="@status.Id">@status.Name</option>

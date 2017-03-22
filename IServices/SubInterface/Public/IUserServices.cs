@@ -109,5 +109,8 @@ namespace IServices.SubInterface
         void EditUserProfile(ModelUserProfile model, string userName);
         ModelUserInfo GetUserInfo(string userName);
         #endregion
+        #region Обратная связь
+        void NewFeedbackMessage(ModelFeedback model);
+        #endregion
     }
 }

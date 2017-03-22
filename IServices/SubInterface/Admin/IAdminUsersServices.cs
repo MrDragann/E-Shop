@@ -46,5 +46,12 @@ namespace IServices.SubInterface
         /// </summary>
         /// <returns></returns>
         List<ModelStatusOrder> GetOrderStatuses();
+        #region Обратная связь
+        /// <summary>
+        /// Вывод всех сообщений обратной связи
+        /// </summary>
+        /// <returns>ModelFeedback.</returns>
+        List<ModelFeedback> ShowFeedbacks();
+        #endregion
     }
 }

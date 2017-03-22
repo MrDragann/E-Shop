@@ -81,6 +81,14 @@
     <Compile Include="Migrations\201703201123210_addressOrder.Designer.cs">
       <DependentUpon>201703201123210_addressOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703220016570_feedback.cs" />
+    <Compile Include="Migrations\201703220016570_feedback.Designer.cs">
+      <DependentUpon>201703220016570_feedback.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703220116326_feedbackDate.cs" />
+    <Compile Include="Migrations\201703220116326_feedbackDate.Designer.cs">
+      <DependentUpon>201703220116326_feedbackDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product\Category.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Migrations\201702151020120_userprofile.cs" />
@@ -114,6 +122,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product\Product.cs" />
     <Compile Include="Models\User\AccountConfirmation.cs" />
+    <Compile Include="Models\User\Feedback.cs" />
     <Compile Include="Models\User\Order\StatusOrder.cs" />
     <Compile Include="Models\User\Order\OrderProduct.cs" />
     <Compile Include="Models\User\UserProfile.cs" />
@@ -171,6 +180,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703201123210_addressOrder.resx">
       <DependentUpon>201703201123210_addressOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703220016570_feedback.resx">
+      <DependentUpon>201703220016570_feedback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703220116326_feedbackDate.resx">
+      <DependentUpon>201703220116326_feedbackDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

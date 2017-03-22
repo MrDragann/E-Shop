@@ -9,6 +9,7 @@ using Shop.Infrastructura.Constants;
 using System.Web.Mvc;
 using Shop.Infrastructura.Extensions;
 using Services;
+using IServices.Models;
 
 /// <summary>
 /// Контроллеры публичной части приложения
@@ -109,6 +110,12 @@ namespace Shop.Controllers
         {
             var slider = Services.Product.Slider();
             return View(slider);
+        }
+        [HttpPost]
+        public ActionResult Feedback(ModelFeedback model)
+        {
+            Services.Users.NewFeedbackMessage(model);
+            return RedirectToAction("Contact");
         }
 
     }

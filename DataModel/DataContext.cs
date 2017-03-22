@@ -38,6 +38,8 @@ namespace DataModel
 
         public DbSet<UserProfile> UserProfiles { get; set; }
 
+        public DbSet<Feedback> Feedbacks { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<UserProfile>().HasKey(_ => _.UserId);

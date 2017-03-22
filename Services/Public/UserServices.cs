@@ -692,6 +692,38 @@ namespace Services.Public
             };
         }
         #endregion
+        #region Обратная связь
+        /// <summary>
+        /// Добавление нового сообщения обратной связи
+        /// </summary>
+        /// <param name="model">Объект ModelFeedback</param>
+        public void NewFeedbackMessage(ModelFeedback model)
+        {
+            using(var db = new DataContext())
+            {
+                model.CreateDate = DateTime.Now;
+                var NewFeedback = ConvertToFeedback(model);
+                db.Feedbacks.Add(NewFeedback);
+                db.SaveChanges();
+            }
+        }
+        /// <summary>
+        /// Конмертирование в Feedback
+        /// </summary>
+        /// <param name="model">Объект ModelFeedback</param>
+        /// <returns>Feedback.</returns>
+        public static Feedback ConvertToFeedback(ModelFeedback model)
+        {
+            return new Feedback
+            {
+                Name = model.Name,
+                Email = model.Email,
+                CreateDate = model.CreateDate,
+                Subject = model.Subject,
+                Message = model.Message
+            };
+        }
+        #endregion
     }
     #region Хеширование
     /// <summary>

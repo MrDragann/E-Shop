@@ -13,12 +13,12 @@
 
         $('button.EditOrderStatus').click(function () {
 
+            var select = $('#OrderStatuses');
+            var SelectedOrderStatus = $(':selected', select).val();
             var formaData = new FormData();
 
-            var status = $(this).val();
-
             formaData.append("OrderId", OrderId);
-            formaData.append("StatusId", status);
+            formaData.append("StatusId", SelectedOrderStatus);
 
             $.ajax({
                 type: "POST",

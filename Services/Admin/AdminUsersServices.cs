@@ -176,6 +176,35 @@ namespace Services.Admin
             };
         }
         #endregion
+        #region Обратная связь
+        /// <summary>
+        /// Вывод всех сообщений обратной связи
+        /// </summary>
+        /// <returns>ModelFeedback.</returns>
+        public List<ModelFeedback> ShowFeedbacks()
+        {
+            using(var db = new DataContext())
+            {
+                var feedbacks = db.Feedbacks.Select(ConvertFeedbacks()).OrderByDescending(x=>x.CreateDate).ToList();
+                return feedbacks;
+            }
+        }
+        /// <summary>
+        /// Конвертирование модели обратной связи
+        /// </summary>
+        /// <returns>Expression&lt;Func&lt;StatusUser, ModelStatusUser&gt;&gt;.</returns>
+        public static Expression<Func<Feedback, ModelFeedback>> ConvertFeedbacks()
+        {
+            return feedback => new ModelFeedback
+            {
+                Name = feedback.Name,
+                Email = feedback.Email,
+                CreateDate = feedback.CreateDate,
+                Subject = feedback.Subject,
+                Message = feedback.Message
+            };
+        }
+        #endregion
     }
 }
 

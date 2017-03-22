@@ -141,5 +141,14 @@ namespace Shop.Areas.Admin.Controllers
             return Json("Запрос успешно выполнен");
         }
         #endregion
+        /// <summary>
+        /// Страница с таблицей всех пользователей
+        /// </summary>
+        /// <returns>ActionResult.</returns>
+        public ActionResult Feedbacks()
+        {
+            var feedbacks = AdminServices.Users.ShowFeedbacks();
+            return View(feedbacks);
+        }
     }
 }

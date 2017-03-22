@@ -244,6 +244,7 @@
     <Content Include="Areas\Admin\Views\Users\AjaxOrders.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Orders.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\AjaxOrderStatuses.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Feedbacks.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />
