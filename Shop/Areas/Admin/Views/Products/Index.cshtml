@@ -1,14 +1,21 @@
 ﻿
 <div class="row" id="Products">
-    
+    @Html.Action("AjaxProducts", "Products", new { area = "Admin" })
 </div>
 
 @section scripts{
-    <script>
-    $(document).ready(function () {
+    <!-- Подключение плагина Select2 -->
+<script type="text/javascript" src="~/Areas/Admin/Metronic/global/plugins/select2/select2.min.js"></script>
+<script src="~/Areas/Admin/Metronic/global/plugins/select2/select2_locale_ru.js"></script>
+<script src="~/Areas/Admin/Metronic/admin/pages/scripts/form-samples.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
 
-        $('#Products').load("http://localhost:58081/Admin/Products/AjaxProducts");
+<script type="text/javascript" src="/Areas/Admin/Metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="/Areas/Admin/Metronic/admin/pages/scripts/components-pickers.js"></script>
+@*<script>
+    $(document).ready(function () {
+        FormSamples.init();
 
     });
-</script>    
+</script>*@    
 }

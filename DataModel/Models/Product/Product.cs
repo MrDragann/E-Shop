@@ -76,7 +76,11 @@ namespace DataModel.Models
         /// </summary>
         /// <value>Список товаров в заказе</value>
         public List<OrderProduct> OrderProduct { get; set; }
-
+        /// <summary>
+        /// Ссылка на слайдер
+        /// </summary>
+        /// <value>Модель слайдера</value>
+        public Slider Slider { get; set; }
     }
 
 }

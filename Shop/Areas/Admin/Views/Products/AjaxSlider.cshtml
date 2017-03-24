@@ -1,0 +1,116 @@
+﻿@model IEnumerable<IServices.Models.ModelSlider>
+@{
+    Layout = null;
+}
+
+<div class="col-md-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box grey-cascade">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-basket">&nbsp;</i>Управление слайдером
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse" data-original-title="" title="">
+                </a>
+                <a href="javascript:;" id="reloadSliderProducts" class="reload" data-toggle="@Url.Action("AjaxOrders", "Users", new { area = "Admin" })" data-original-title="" title="">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="dataTables_wrapper no-footer">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="dataTables_length" id="sample_1_length">
+                            <label>
+                                Показать
+                                <select name="sample_1_length" aria-controls="sample_1" class="form-control input-xsmall input-inline">
+                                    <option value="5">5</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="-1">Все</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div id="sample_1_filter" class="dataTables_filter">
+                            <label>
+                                Поиск по названию:
+                                <input type="search" id="inputSearch" @*data-autocomplete-source='@Url.Action("AutocompleteUsersSearch", "Users")'*@ class="form-control input-small input-inline" placeholder="" aria-controls="sample_1">
+                            </label>
+                            <button id="SearchUserOrders" name="UserName" class="btn btn-default">Ок</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover" id="ProductList">
+                        <thead>
+                            <tr>
+                                <th>
+                                    
+                                </th>
+                                <th>
+                                    Наименование
+                                </th>
+                                <th>
+                                    Цена
+                                </th>
+                                <th>
+                                    Описание
+                                </th>
+                                <th>
+                                    Характеристики
+                                </th>
+                                <th>
+                                    Дата дабавления
+                                </th>
+                                <th>
+                                    
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var slider in Model)
+                            {
+                                <tr class="gradeX odd" role="row">
+                                    <td style="width:100px;">
+
+                                        <img src="~/Content/Images/home/@slider.Product.FileName" alt="..." class="img-thumbnail">
+                                    </td>
+                                    <td>
+                                        @slider.Product.Name
+                                    </td>
+                                    <td>
+                                        @slider.Product.Price
+                                    </td>
+                                    <td>
+                                        @slider.Product.Description
+                                    </td>
+                                    <td>
+                                        @slider.Product.Characteristics
+                                    </td>
+                                    <td>
+                                        @slider.CreateDate
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-link glyphicon glyphicon-trash DeleteSliderProduct" data-toggle="confirmation" style="padding:0;" value="@slider.Product.Id"></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @*@Html.OrdersPaging(MyConstats.PageNum, MyConstats.ItemsCount)*@
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-sm-10">
+                    <button id="sample_editable_1_new" class="btn green" data-toggle="modal" data-target="#AddSliderProductModal">
+                        Добавить<i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>

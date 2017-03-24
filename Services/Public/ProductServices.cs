@@ -85,16 +85,37 @@ namespace Services.Public
         /// Вывод товаров для слайдера
         /// </summary>
         /// <returns>List&lt;ModelProduct&gt;.</returns>
-        public List<ModelProduct> Slider()
+        public List<ModelSlider> Slider()
         {
             using (var db = new DataContext())
             {
-                var products = db.Products.Select(Details()).OrderByDescending(x=>x.Price).Take(3).ToList();
-                
-                return products;
+                var sliders = db.Sliders.Include(x => x.Product).ToList();
+                var ModelSlider = new List<ModelSlider>();
+                foreach (var item in sliders)
+                {
+                    var slider = new ModelSlider()
+                    {
+                        ProductId = item.ProductId,
+                        Product = SliderProduct(item.Product),
+                        CreateDate = item.CreateDate
+                    };
+                    ModelSlider.Add(slider);
+                }
+                return ModelSlider;
             }
         }
-
+        public static ModelProduct SliderProduct(Product model)
+        {
+            return new ModelProduct()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Characteristics = model.Characteristics,
+                FileName = model.Image
+            };
+        }
         public static Expression<Func<Product, ModelProductPreview>> Preview()
         {
             return product => new ModelProductPreview()

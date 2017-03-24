@@ -55,6 +55,7 @@
     <Compile Include="Models\Product\ModelCategory.cs" />
     <Compile Include="Models\Product\ModelProduct.cs" />
     <Compile Include="Models\Product\ModelProductPreview.cs" />
+    <Compile Include="Models\Product\ModelSlider.cs" />
     <Compile Include="Models\User\ModelCart.cs" />
     <Compile Include="Models\User\ModelFeedback.cs" />
     <Compile Include="Models\User\Order\ModelOrder.cs" />

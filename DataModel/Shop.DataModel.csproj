@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201703220116326_feedbackDate.Designer.cs">
       <DependentUpon>201703220116326_feedbackDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703221834257_slider.cs" />
+    <Compile Include="Migrations\201703221834257_slider.Designer.cs">
+      <DependentUpon>201703221834257_slider.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product\Category.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Migrations\201702151020120_userprofile.cs" />
@@ -121,6 +125,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product\Product.cs" />
+    <Compile Include="Models\Product\Slider.cs" />
     <Compile Include="Models\User\AccountConfirmation.cs" />
     <Compile Include="Models\User\Feedback.cs" />
     <Compile Include="Models\User\Order\StatusOrder.cs" />
@@ -186,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703220116326_feedbackDate.resx">
       <DependentUpon>201703220116326_feedbackDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703221834257_slider.resx">
+      <DependentUpon>201703221834257_slider.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

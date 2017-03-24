@@ -133,8 +133,7 @@
 </div>
 <!--Добавление товара-->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script type="text/javascript" src="/Areas/Admin/Metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="/Areas/Admin/Metronic/admin/pages/scripts/components-pickers.js"></script>
+
 <!-- END PAGE LEVEL SCRIPTS -->
 <div class="modal fade bs-modal-lg" id="AddProductModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -215,13 +214,18 @@
                             </div>
                         </div>
                     </div>
+                    <!--Теги товара-->
                     <div class="form-group form-md-line-input">
-                        <label class="col-md-2 control-label" for="ProductTags">Теги</label>
+                        <label class="control-label col-md-2" for="ProductTags">Теги</label>
+                        <div class="col-md-5">
+                            <input id="ProductTags" type="hidden" class="form-control select2_sample3" value="red, blue">
+                        </div>
+                        @*<label class="col-md-2 control-label" for="ProductTags">Теги</label>
                         <div class="col-md-5">
                             <textarea class="form-control" rows="3" placeholder="Enter more text" id="ProductTags"></textarea>
                             <div class="form-control-focus">
                             </div>
-                        </div>
+                        </div>*@
                         <label class="control-label col-md-2" for="ProductDateAdd">Дата добавления</label>
                         <div class="col-md-3">
                             <div id="datePicker"class="date-picker" data-date-format="mm/dd/yyyy">
@@ -254,89 +258,8 @@
     <!-- /.modal-dialog -->
 </div>
 
-<script src="~/Scripts/bootbox.min.js"></script>
+
 <script>
 
-    $(document).ready(function () {
-        ComponentsPickers.init();
-        //Обновление данных по товарам
-        $('#reloadProducts').click(function () {
-            updateProducts();
-        });
-        //Добавление нового товара
-        $('#AddProduct').click(function () {
-
-            var files = document.getElementById('ProductImage').files;
-            var formData = new FormData();
-            formData.append("file", files[0]);
-            formData.append("Name", $('#ProductName').val());
-            formData.append("Price", $('#ProductPrice').val());
-            formData.append("Description", $('#ProductDescription').val());
-            formData.append("Characteristics", $('#ProductCharacteristics').val());
-            formData.append("Tags", $('#ProductTags').val());
-            formData.append("DateAdd", $('#ProductDateAdd').val());
-            formData.append("CategoryId", $('#ProductCategory').val());
-            formData.append("ManufacturerId", $('#ProductManufacturer').val());
-
-            $.ajax({
-                type: "POST",
-                url: '/Products/AddProduct',
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (result) {
-                    console.log(result);
-                    //updateProducts();
-                },
-                error: function (xhr) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-
-        //Подтверждение удаления
-        $('[data-toggle=confirmation]').click(function () {
-            var id = $(this).val();
-            bootbox.confirm("Вы действительно хотите удалить товар?", function (e) {
-                if (e) {
-                    deleteProduct(id);
-                }
-            });
-            return false;
-        });
-
-        //Удаление товара
-        function deleteProduct (id) {
-            var formaData = new FormData();
-
-            formaData.append("productId", id);
-
-            $.ajax({
-                url: '/Products/DeleteProducts',
-                type: 'post',
-                contentType: false,
-                processData: false,
-                data: formaData,
-                beforeSend: function () { console.log(id); },
-                success: function (data) {
-                    console.log(data);
-                    updateProducts();
-                }
-            });
-
-        };
-        //Обноновление таблицы товаров
-        function updateProducts() {
-            $('#Products').load("http://localhost:58081/Admin/Products/AjaxProducts");
-        }
-        //Редактирование товара
-        $('button.EditProductId').click(function () {
-            var EddProductId = $(this).val();
-
-            $('#EditModalContent').load("http://localhost:58081/Admin/Products/EditProduct/" + EddProductId);
-            
-        });
-
-
-    });
+    
 </script>

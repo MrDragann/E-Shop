@@ -40,6 +40,8 @@ namespace DataModel
 
         public DbSet<Feedback> Feedbacks { get; set; }
 
+        public DbSet<Slider> Sliders { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<UserProfile>().HasKey(_ => _.UserId);
@@ -59,6 +61,10 @@ namespace DataModel
                 .HasColumnType("datetime2")
                 .HasPrecision(0)
                 .IsRequired();
+            modelBuilder.Entity<Slider>()
+                .HasKey(s => s.ProductId)
+                .HasRequired(s => s.Product)
+                .WithOptional(p => p.Slider);
             //modelBuilder.Entity<UserProfile>()
             //    .HasRequired(e => e.UserId)
             //    .HasKey(t => t.UserId)

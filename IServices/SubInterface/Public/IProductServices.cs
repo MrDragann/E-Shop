@@ -46,6 +46,6 @@ namespace IServices.SubInterface
         /// Вывод товаров для слайдера
         /// </summary>
         /// <returns>List&lt;ModelProduct&gt;.</returns>
-        List<ModelProduct> Slider();
+        List<ModelSlider> Slider();
     }
 }

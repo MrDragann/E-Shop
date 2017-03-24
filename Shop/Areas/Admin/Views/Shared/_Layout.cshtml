@@ -27,6 +27,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="~/Content/themes/base/all.css" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/Metronic/global/plugins/select2/select2.css" />
+
     <link href="/Areas/Admin/Metronic/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/Areas/Admin/Metronic/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -44,6 +46,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="~/Areas/Admin/Metronic/admin/layout/css/custom.css" rel="stylesheet" type="text/css" />
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
+    
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -160,7 +163,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                     Сообщения
                                 </a>
                             </li>
-
+                            <li>
+                                <a href="@Url.Action("Slider", "Products", new { area = "Admin" })">
+                                    <i class="icon-envelope"></i>
+                                    Слайдер
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

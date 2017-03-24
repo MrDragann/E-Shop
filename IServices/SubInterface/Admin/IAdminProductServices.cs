@@ -1,4 +1,5 @@
 ﻿using IServices.Models;
+using System.Collections.Generic;
 
 /// <summary>
 /// Содержит интерфейсы публичной и административной части приложения
@@ -62,6 +63,19 @@ namespace IServices.SubInterface
         /// </summary>
         /// <param name="childId">Идентификатор дочерней категории</param>
         void DeleteChildCategory(int childId);
+        #endregion
+
+        #region Слайдер
+        /// <summary>
+        /// Вывод товаров слайдера
+        /// </summary>
+        /// <returns>Модель слайдера</returns>
+        List<ModelSlider> GetSliderProducts();
+        /// <summary>
+        /// Добавление товара в слайдер
+        /// </summary>
+        /// <param name="ProductId">Идентификатор товара</param>
+        void NewSliderProduct(int ProductId);
         #endregion
     }
 }

@@ -25,7 +25,7 @@
             <label class="col-md-2 control-label" for="EdProductCategory">Категоря</label>
             <div class="col-md-10">
                 <select class="form-control edited" id="EdProductCategory">
-                    @Html.Action("CategoriesList", "Categories")
+                    @Html.Action("CategoriesList", "Products")
                 </select>
 
                 <div class="form-control-focus">
@@ -83,11 +83,9 @@
             </div>
         </div>
         <div class="form-group form-md-line-input">
-            <label class="col-md-2 control-label" for="EdProductTags">Теги</label>
+            <label class="control-label col-md-2" for="ProductTags">Теги</label>
             <div class="col-md-5">
-                <textarea class="form-control" rows="3" placeholder="Enter more text" id="EdProductTags">@Model.Tags</textarea>
-                <div class="form-control-focus">
-                </div>
+                <input id="ProductTags" type="hidden" class="form-control select2_sample3" value="red, blue">
             </div>
             <label class="control-label col-md-2" for="EdProductDateAdd">Дата добавления</label>
             <div class="col-md-3">
@@ -108,55 +106,6 @@
     <button type="button" class="btn blue" id="EditProduct" data-dismiss="modal">Сохранить</button>
 </div>
 
-@*<div class="portlet box grey-cascade">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="icon-users">&nbsp;</i>Редактировать товар
-        </div>
-        <div class="tools">
-            <a href="javascript:;" class="collapse" data-original-title="" title="">
-            </a>
-            <a href="javascript:;" id="reloadUsers" class="reload" data-original-title="" title="">
-            </a>
-        </div>
-    </div>
-    <div class="portlet-body">
-        <div class="dataTables_wrapper no-footer">
-            
-        </div>
-    </div>
-</div>*@
-<!-- END EXAMPLE TABLE PORTLET-->
 
-<script>
-    $('#EditProduct').click(function () {
-        var files = document.getElementById('EdProductImage').files;
-        var formData = new FormData();
-        
-        formData.append("file", files[0]);
-        formData.append("Id", $('#ProductId').val());
-        formData.append("Name", $('#EdProductName').val());
-        formData.append("Price", $('#EdProductPrice').val());
-        formData.append("Description", $('#EdProductDescription').val());
-        formData.append("Characteristics", $('#EdProductCharacteristics').val());
-        formData.append("Tags", $('#EdProductTags').val());
-        formData.append("DateAdd", $('#EdProductDateAdd').val());
-        formData.append("CategoryId", $('#EdProductCategory').val());
-        formData.append("ManufacturerId", $('#EdProductManufacturer').val());
 
-        $.ajax({
-            type: "POST",
-            url: '/Products/EditProduct',
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function (result) {
-                console.log(result);
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-            }
-        });
-        
-    });
-</script>
+

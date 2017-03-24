@@ -739,7 +739,7 @@ namespace Services.Public
             }
         }
         /// <summary>
-        /// Конмертирование в Feedback
+        /// Конвертирование в Feedback
         /// </summary>
         /// <param name="model">Объект ModelFeedback</param>
         /// <returns>Feedback.</returns>

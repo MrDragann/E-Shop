@@ -4,6 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using DataModel.Models;
 using IServices.SubInterface;
+using System.Linq.Expressions;
+using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Содержит классы для работы с административной частью приложения
@@ -159,6 +162,65 @@ namespace Services.Admin
             {
                 var category = db.Categories.FirstOrDefault(x => x.Id == childId);
                 db.Categories.Remove(category);
+                db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Слайдер
+        /// <summary>
+        /// Вывод товаров слайдера
+        /// </summary>
+        /// <returns>Модель слайдера</returns>
+        public List<ModelSlider> GetSliderProducts()
+        {
+            using(var db = new DataContext())
+            {
+                var sliders = db.Sliders.Include(x=>x.Product).ToList();
+                var ModelSlider = new List<ModelSlider>();
+                foreach(var item in sliders)
+                {
+                    var slider = new ModelSlider()
+                    {
+                        ProductId = item.ProductId,
+                        Product = SliderProduct(item.Product),
+                        CreateDate = item.CreateDate
+                    };
+                    ModelSlider.Add(slider);
+                }
+                return ModelSlider;
+            }
+        }
+        public static Expression<Func<Slider,ModelSlider>> ShowSlider()
+        {
+            return slider => new ModelSlider()
+            {
+                ProductId = slider.ProductId,
+                CreateDate = slider.CreateDate
+            };
+        }
+        public static ModelProduct SliderProduct(Product model)
+        {
+            return new ModelProduct()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Characteristics = model.Characteristics,
+                FileName = model.Image
+            };
+        }
+        public void NewSliderProduct(int ProductId)
+        {
+            using(var db = new DataContext())
+            {
+                var slider = new Slider()
+                {
+                    ProductId = ProductId,
+                    CreateDate = DateTime.Now
+                };
+                db.Sliders.Add(slider);
                 db.SaveChanges();
             }
         }

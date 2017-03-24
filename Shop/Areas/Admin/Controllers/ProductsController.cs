@@ -205,5 +205,22 @@ namespace Shop.Areas.Admin.Controllers
             return View(categories);
         }
         #endregion
+        #region Слайдер
+        public ActionResult Slider()
+        {
+            return View();
+        }
+        public ActionResult AjaxSlider()
+        {
+            var slider = AdminServices.Products.GetSliderProducts();
+            return View(slider);
+        }
+        [HttpPost]
+        public ActionResult NewSliderProduct(int ProductId)
+        {
+            AdminServices.Products.NewSliderProduct(ProductId);
+            return Json("Запрос успешно выполнен");
+        }
+        #endregion
     }
 }

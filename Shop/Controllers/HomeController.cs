@@ -111,6 +111,10 @@ namespace Shop.Controllers
             var slider = Services.Product.Slider();
             return View(slider);
         }
+        /// <summary>
+        /// Прием введенных данных из формы обратной связи
+        /// </summary>
+        /// <param name="model">Объект ModelFeedback</param>
         [HttpPost]
         public ActionResult Feedback(ModelFeedback model)
         {

@@ -1,0 +1,88 @@
+﻿
+<div class="row" id="SliderProducts">
+    @Html.Action("AjaxSlider", "Products", new { area = "Admin" })
+</div>
+
+<div id="AddSliderProductModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Добавить товар в слайдер</h4>
+            </div>
+            <div class="modal-body" id="AddSliderProductModalBody">
+                <div class="form-group">
+                    <label for="Category" class="col-sm-3 control-label">Категория</label>
+                    <div class="col-sm-9">
+                        <select id="Category" class="select2_category form-control" data-placeholder="Choose a Category"  style="margin-bottom:15px;" tabindex="1">
+                            @Html.Action("CategoriesList", "Products", new { area = "Admin" })
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Category" class="col-sm-3 control-label">Товар</label>
+                    <div class="col-sm-9">
+                        <select id="Category" class="select2_category form-control" data-placeholder="Choose a Category" style="margin-bottom:15px;" tabindex="1">
+                            @Html.Action("CategoriesList", "Products", new { area = "Admin" })
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="AddSliderProduct" class="btn btn-success" data-dismiss="modal">
+                    Добавить
+                </button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-3">Tags Support List</label>
+    <div class="col-md-9">
+        <input type="hidden" class="form-control select2_sample3" value="red, blue">
+    </div>
+</div>
+<div class="form-group">
+    <label for="Category" class="col-sm-3 control-label">Категория</label>
+    <div class="col-sm-9">
+        <select id="Category" class="select2_category form-control" data-placeholder="Choose a Category" tabindex="1">
+            @Html.Action("CategoriesList", "Products", new { area = "Admin" })
+        </select>
+    </div>
+</div>
+
+
+@section scripts{
+    
+<!-- Подключение плагина Select2 -->
+<script type="text/javascript" src="~/Areas/Admin/Metronic/global/plugins/select2/select2.min.js"></script>
+<script src="~/Areas/Admin/Metronic/global/plugins/select2/select2_locale_ru.js"></script>
+<script src="~/Areas/Admin/Metronic/admin/pages/scripts/form-samples.js"></script>
+
+<script>
+    $(document).ready(function () {
+        FormSamples.init();
+
+            var ProductId = 5;
+
+            $('#AddSliderProduct').click(function () {
+                var data = {
+                    ProductId: ProductId//$('#userName').val(),
+                }
+            $.ajax({
+                type: "POST",
+                url: '/Products/NewSliderProduct',
+                data: data,
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+        });
+
+</script>    
+}
