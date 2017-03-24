@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    FormSamples.init();
-    ComponentsPickers.init();
+    
 });
 
 /* Товары */
@@ -42,16 +41,7 @@ $('#AddProduct').click(function () {
 
         
     });
-    //Подтверждение удаления
-    $('[data-toggle=confirmation]').click(function () {
-        var id = $(this).val();
-        bootbox.confirm("Вы действительно хотите удалить товар?", function (e) {
-            if (e) {
-                deleteProduct(id);
-            }
-        });
-        return false;
-    });
+
 
     //Удаление товара
     function deleteProduct(id) {
@@ -75,7 +65,7 @@ $('#AddProduct').click(function () {
     }
     //Обноновление таблицы товаров
     function updateProducts() {
-        $('#Products').load('@Url.Action("AjaxProducts", "Products", new { area = "Admin" })');
+        $('#Products').load("/Admin/Products/AjaxProducts");
     }
     //Редактирование товара
     $('button.EditProductId').click(function () {

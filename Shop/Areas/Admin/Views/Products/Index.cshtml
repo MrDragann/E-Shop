@@ -5,17 +5,17 @@
 
 @section scripts{
     <!-- Подключение плагина Select2 -->
-<script type="text/javascript" src="~/Areas/Admin/Metronic/global/plugins/select2/select2.min.js"></script>
-<script src="~/Areas/Admin/Metronic/global/plugins/select2/select2_locale_ru.js"></script>
-<script src="~/Areas/Admin/Metronic/admin/pages/scripts/form-samples.js"></script>
-<script src="~/Scripts/bootbox.min.js"></script>
 
-<script type="text/javascript" src="/Areas/Admin/Metronic/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="/Areas/Admin/Metronic/admin/pages/scripts/components-pickers.js"></script>
-@*<script>
-    $(document).ready(function () {
-        FormSamples.init();
-
+<script>
+    //Подтверждение удаления товара
+    $('[data-toggle=confirmation]').click(function () {
+        var id = $(this).val();
+        bootbox.confirm("Вы действительно хотите удалить товар?", function (e) {
+            if (e) {
+                deleteProduct(id);
+            }
+        });
+        return false;
     });
-</script>*@    
+</script>   
 }
